@@ -345,7 +345,7 @@ nav.scrolled{background:rgba(7,0,17,0.95);box-shadow:0 4px 40px rgba(0,0,0,0.4)}
 
 /* ─── FOOTER ─── */
 footer{position:relative;z-index:1;padding:60px 24px 32px;border-top:1px solid var(--border)}
-.footer-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1.5fr;gap:48px}
+.footer-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px}
 footer h4{font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-dim);margin-bottom:16px;font-family:'JetBrains Mono',monospace}
 footer a,footer p{font-size:0.82rem;color:var(--text-muted);text-decoration:none;display:block;line-height:2}
 footer a:hover{color:var(--mp-300)}
@@ -978,23 +978,6 @@ footer a:hover{color:var(--mp-300)}
       <a href="#">Durban, South Africa</a>
       <p style="margin-top:10px;font-size:0.7rem;color:var(--text-dim);">&#x1F1FF;&#x1F1E6; Proudly South African</p>
     </div>
-    <div>
-      <h4>Server</h4>
-      <div id="serverWidget" style="display:flex;flex-direction:column;gap:8px;">
-        <div id="serverDot" style="display:flex;align-items:center;gap:8px;">
-          <span id="serverIndicator" style="width:10px;height:10px;border-radius:50%;background:#555;display:inline-block;"></span>
-          <span id="serverStatus" style="font-size:0.78rem;color:var(--text-dim);">Checking...</span>
-        </div>
-        <div id="serverActions" style="display:none;flex-direction:column;gap:6px;margin-top:2px;">
-          <button id="serverStartBtn" onclick="window.open('start-server.bat')" style="padding:6px 14px;border-radius:6px;border:1px solid var(--border);background:rgba(52,211,153,0.08);color:#34d399;font-size:0.75rem;cursor:pointer;text-align:center;transition:all 0.2s;" onmouseover="this.style.borderColor='#34d399'" onmouseout="this.style.borderColor=''">&#9654; Start Server</button>
-          <button id="serverRestartBtn" onclick="restartServer()" style="display:none;padding:6px 14px;border-radius:6px;border:1px solid var(--border);background:rgba(251,191,36,0.08);color:var(--gold);font-size:0.75rem;cursor:pointer;text-align:center;transition:all 0.2s;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor=''">&#x21bb; Restart Server</button>
-        </div>
-        <div style="font-size:0.65rem;color:var(--text-dim);line-height:1.5;margin-top:4px;">
-          <span id="serverUrl" style="display:block;">http://localhost:3000</span>
-          <span id="serverLicense" style="display:block;"></span>
-        </div>
-      </div>
-    </div>
     <div class="footer-bottom">
       <p>&copy; 2025 Skyline IT. All rights reserved. Founded at Rosebank College, Durban.</p>
       <p style="font-size:0.68rem;color:var(--text-dim);">IT in Business Systems &bull; Building South Africa's Digital Future</p>
@@ -1025,80 +1008,9 @@ const observer=new IntersectionObserver((entries)=>{
 document.querySelectorAll('.fade-up').forEach(el=>{el.style.animationPlayState='paused';observer.observe(el)});
 window.addEventListener('load',()=>{
   document.querySelectorAll('.fade-up').forEach(el=>{el.style.animationPlayState='paused';observer.observe(el)});
-  setTimeout(checkServer, 500);
 });
 
-/* ─── Server Status Widget ─── */
-let serverOnline = false;
-let serverCheckInterval = null;
 
-async function checkServer() {
-  const dot = document.getElementById('serverIndicator');
-  const status = document.getElementById('serverStatus');
-  const actions = document.getElementById('serverActions');
-  const startBtn = document.getElementById('serverStartBtn');
-  const restartBtn = document.getElementById('serverRestartBtn');
-  const licenseEl = document.getElementById('serverLicense');
-
-  if (!dot) return;
-
-  try {
-    const res = await fetch('/api/health', { method: 'GET', signal: AbortSignal.timeout(3000) });
-    const data = await res.json();
-
-    if (res.ok) {
-      serverOnline = true;
-      dot.style.background = '#34d399';
-      dot.style.boxShadow = '0 0 8px rgba(52,211,153,0.6)';
-      status.textContent = 'Running';
-      status.style.color = '#34d399';
-      actions.style.display = 'flex';
-      startBtn.style.display = 'none';
-      restartBtn.style.display = 'block';
-      licenseEl.textContent = 'License: ' + (data.license || 'MIT');
-      clearInterval(serverCheckInterval);
-      serverCheckInterval = setInterval(checkServer, 30000);
-    }
-  } catch {
-    serverOnline = false;
-    dot.style.background = '#f87171';
-    dot.style.boxShadow = '0 0 8px rgba(248,113,113,0.4)';
-    status.textContent = 'Offline';
-    status.style.color = '#f87171';
-    actions.style.display = 'flex';
-    startBtn.style.display = 'block';
-    restartBtn.style.display = 'none';
-    licenseEl.textContent = '';
-    clearInterval(serverCheckInterval);
-    serverCheckInterval = setInterval(checkServer, 10000);
-  }
-}
-
-async function restartServer() {
-  const status = document.getElementById('serverStatus');
-  const restartBtn = document.getElementById('serverRestartBtn');
-
-  if (!serverOnline) return;
-  restartBtn.disabled = true;
-  restartBtn.textContent = 'Restarting...';
-
-  try {
-    const res = await fetch('/api/admin/restart', {
-      method: 'POST',
-      headers: { 'X-Api-Key': 'sk_your_secret_key_here' },
-      signal: AbortSignal.timeout(5000),
-    });
-    if (res.ok) {
-      status.textContent = 'Restarting...';
-      setTimeout(checkServer, 3000);
-    }
-  } catch {}
-
-  setTimeout(() => {
-    restartBtn.disabled = false;
-    restartBtn.textContent = '\u21bb Restart Server';
-  }, 3000);
-}
 </script>
 </body>
 </html>
