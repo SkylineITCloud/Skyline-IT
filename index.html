@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SKYLINE IT — South African Holding Company</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="images/Logo.png">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --mp-950:#070011;
+  --mp-900:#0f0220;
+  --mp-850:#15032e;
+  --mp-800:#1e0540;
+  --mp-700:#2d0a5e;
+  --mp-600:#4c1d95;
+  --mp-500:#6d28d9;
+  --mp-400:#8b5cf6;
+  --mp-300:#a78bfa;
+  --mp-200:#c4b5fd;
+  --gold:#f59e0b;
+  --gold-light:#fbbf24;
+  --gold-dark:#d97706;
+  --text:#f8fafc;
+  --text-muted:#94a3b8;
+  --text-dim:#64748b;
+  --surface:rgba(30,5,64,0.55);
+  --surface-hover:rgba(30,5,64,0.8);
+  --border:rgba(139,92,246,0.12);
+  --border-hover:rgba(139,92,246,0.25);
+  --glow:rgba(139,92,246,0.15);
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Space Grotesk',sans-serif;
+  background:var(--mp-950);
+  color:var(--text);
+  line-height:1.6;
+  overflow-x:hidden;
+}
+body::before{
+  content:'';position:fixed;inset:0;
+  background:
+    radial-gradient(ellipse 70% 50% at 20% 30%,rgba(109,40,217,0.08),transparent 60%),
+    radial-gradient(ellipse 50% 40% at 80% 70%,rgba(245,158,11,0.04),transparent 50%),
+    radial-gradient(ellipse 60% 40% at 50% 0%,rgba(139,92,246,0.04),transparent 50%);
+  pointer-events:none;z-index:0;
+}
+::selection{background:var(--mp-500);color:#fff}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--mp-950)}
+::-webkit-scrollbar-thumb{background:var(--mp-700);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--mp-600)}
+
+/* ─── ANIMATIONS ─── */
+.fade-up{opacity:1;transform:translateY(0)}
+
+/* ─── SCANLINE OVERLAY ─── */
+.scanlines{
+  position:fixed;inset:0;pointer-events:none;z-index:999;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px);
+}
+.scanlines::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 0%,rgba(139,92,246,0.015) 50%,transparent 100%);
+  animation:scanline 8s linear infinite;
+  opacity:0.3;
+}
+.screen-glow{
+  position:fixed;inset:0;pointer-events:none;z-index:998;
+  box-shadow:inset 0 0 150px rgba(109,40,217,0.03),inset 0 0 300px rgba(10,1,24,0.3);
+}
+
+/* ─── NAV ─── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(7,0,17,0.7);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  padding:12px 0;
+  transition:0.3s;
+}
+nav.scrolled{background:rgba(7,0,17,0.95);box-shadow:0 4px 40px rgba(0,0,0,0.4)}
+.nav-inner{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text)}
+.nav-logo svg{flex-shrink:0}
+.nav-logo-text{font-weight:700;font-size:1rem;line-height:1.2;letter-spacing:0.5px}
+.nav-logo-text small{display:block;font-size:0.5rem;font-weight:500;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.2em}
+.nav-links{display:flex;align-items:center;gap:2px;list-style:none}
+.nav-links a{
+  text-decoration:none;font-size:0.78rem;font-weight:500;padding:7px 14px;
+  border-radius:6px;color:var(--text-muted);transition:all 0.2s;
+  letter-spacing:0.3px;position:relative;
+}
+.nav-links a:hover{color:var(--text);background:rgba(139,92,246,0.08)}
+.nav-links a.active{color:var(--mp-300);background:rgba(139,92,246,0.1)}
+.nav-cta{background:var(--mp-600) !important;color:var(--text) !important;padding:7px 18px !important;border-radius:6px !important}
+.nav-cta:hover{background:var(--mp-500) !important;color:#fff !important;box-shadow:0 4px 20px rgba(109,40,217,0.3)!important}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:6px}
+.hamburger span{display:block;width:24px;height:2px;background:var(--text);border-radius:2px;transition:0.3s}
+
+/* ─── HERO ─── */
+.hero{
+  position:relative;z-index:1;min-height:100vh;
+  display:flex;align-items:center;padding:100px 24px 60px;
+  overflow:hidden;
+}
+.hero-grid-bg{
+  position:absolute;inset:0;z-index:0;opacity:0.4;
+  background-image:
+    linear-gradient(rgba(139,92,246,0.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(139,92,246,0.04) 1px,transparent 1px);
+  background-size:60px 60px;
+  animation:gridMove 30s linear infinite;
+}
+.hero-vignette{
+  position:absolute;inset:0;z-index:0;
+  background:radial-gradient(ellipse 60% 50% at 50% 40%,transparent 30%,var(--mp-950) 100%);
+}
+.hero-flare{
+  position:absolute;top:-30%;right:-10%;width:600px;height:600px;z-index:0;
+  background:radial-gradient(circle,rgba(109,40,217,0.08),transparent 60%);
+  pointer-events:none;
+}
+.hero-logo-left{
+  position:absolute;left:-60px;top:50%;transform:translateY(-50%);z-index:1;pointer-events:none;
+  width:400px;height:400px;opacity:0.08;
+}
+.hero-logo-left img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 0 60px rgba(139,92,246,0.1));}
+.hero-inner{max-width:1200px;margin:0 auto;width:100%;position:relative;z-index:2}
+
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(139,92,246,0.08);border:1px solid rgba(139,92,246,0.15);
+  padding:7px 16px;border-radius:20px;font-size:0.72rem;
+  color:var(--mp-300);margin-bottom:24px;font-weight:500;text-transform:uppercase;letter-spacing:0.08em;
+}
+.hero-badge-dot{width:6px;height:6px;background:var(--mp-400);border-radius:50%;animation:pulse-glow 2s infinite}
+
+.big-name{
+  margin-bottom:8px;position:relative;
+}
+.big-name-line{
+  display:flex;align-items:baseline;flex-wrap:wrap;gap:8px;
+}
+.big-name .sky{
+  font-size:clamp(4rem,14vw,10rem);font-weight:900;line-height:0.85;
+  letter-spacing:-0.06em;
+  background:linear-gradient(135deg,#a78bfa,#8b5cf6,#c4b5fd,#8b5cf6);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  background-size:200% auto;
+  animation:shimmer 6s linear infinite;
+  filter:drop-shadow(0 0 40px rgba(139,92,246,0.15));
+}
+.big-name .it{
+  font-size:clamp(3rem,10vw,7rem);font-weight:900;line-height:0.85;
+  letter-spacing:-0.04em;color:var(--text);
+  filter:drop-shadow(0 0 20px rgba(255,255,255,0.05));
+}
+.big-name .sub{
+  display:block;margin-top:6px;
+  font-size:clamp(0.7rem,1.5vw,1rem);font-weight:600;
+  text-transform:uppercase;letter-spacing:0.25em;
+  background:linear-gradient(90deg,var(--text-dim),var(--mp-400),var(--text-dim));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  background-size:200% auto;animation:shimmer 8s linear infinite;
+}
+.glitch-row{
+  position:relative;display:inline-block;
+}
+.glitch-row::before{
+  content:attr(data-text);position:absolute;top:2px;left:2px;
+  color:rgba(245,158,11,0.3);animation:glitch1 3s infinite;
+  pointer-events:none;width:100%;
+}
+.glitch-row::after{
+  content:attr(data-text);position:absolute;top:-1px;left:-1px;
+  color:rgba(139,92,246,0.2);animation:glitch2 2.4s infinite;
+  pointer-events:none;width:100%;
+}
+
+.hero-sub{
+  font-size:clamp(1rem,1.8vw,1.2rem);color:var(--text-muted);max-width:580px;
+  line-height:1.8;margin:20px 0 32px;
+}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:36px}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:14px 30px;border-radius:8px;font-weight:600;font-size:0.9rem;
+  text-decoration:none;border:none;cursor:pointer;transition:all 0.25s;
+  font-family:'Space Grotesk',sans-serif;letter-spacing:0.3px;
+}
+.btn-primary{background:var(--mp-600);color:#fff;box-shadow:0 4px 15px rgba(109,40,217,0.2)}
+.btn-primary:hover{background:var(--mp-500);transform:translateY(-2px);box-shadow:0 8px 30px rgba(109,40,217,0.35)}
+.btn-outline{background:transparent;color:var(--text);border:1px solid var(--border)}
+.btn-outline:hover{border-color:var(--mp-400);background:rgba(139,92,246,0.06);transform:translateY(-2px);box-shadow:0 0 20px var(--glow)}
+.btn-gold{background:var(--gold);color:var(--mp-950);font-weight:700}
+.btn-gold:hover{background:var(--gold-light);transform:translateY(-2px);box-shadow:0 8px 25px rgba(245,158,11,0.3)}
+
+.hero-stats{display:flex;flex-wrap:wrap;gap:32px;margin-top:8px}
+.hero-stat{display:flex;flex-direction:column;gap:2px}
+.hero-stat .val{font-size:1.8rem;font-weight:900;color:var(--mp-300);line-height:1;font-family:'JetBrains Mono',monospace}
+.hero-stat .lbl{font-size:0.72rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.1em}
+
+/* ─── ORBIT ─── */
+.orbit-container{position:absolute;right:-8%;top:50%;transform:translateY(-50%);width:520px;height:520px;pointer-events:none;z-index:0}
+.orbit-ring{position:absolute;inset:0;border-radius:50%;border:1px solid rgba(139,92,246,0.07)}
+.orbit-ring:nth-child(1){inset:8%}
+.orbit-ring:nth-child(2){inset:24%;border-style:dashed;border-color:rgba(139,92,246,0.05)}
+.orbit-ring:nth-child(3){inset:40%;border-color:rgba(139,92,246,0.03);border-width:0.5px}
+.orbit-ring:nth-child(4){inset:55%;border-style:dotted;border-color:rgba(245,158,11,0.04)}
+.orbit-dot{position:absolute;width:6px;height:6px;border-radius:50%;background:var(--mp-400);box-shadow:0 0 15px var(--mp-400),0 0 30px rgba(139,92,246,0.1)}
+.orbit-dot:nth-child(5){animation:orbit 10s linear infinite;top:calc(50% - 3px);left:calc(50% - 3px)}
+.orbit-dot:nth-child(6){animation:orbit2 14s linear infinite;top:calc(50% - 2px);left:calc(50% - 2px);width:4px;height:4px;background:var(--gold);box-shadow:0 0 15px var(--gold)}
+.orbit-dot:nth-child(7){animation:orbit3 18s linear infinite;top:calc(50% - 2px);left:calc(50% - 2px);width:3px;height:3px;background:var(--mp-200);box-shadow:0 0 10px var(--mp-200)}
+
+/* ─── SECTIONS ─── */
+.section{position:relative;z-index:1;padding:90px 24px}
+.section-inner{max-width:1200px;margin:0 auto;width:100%}
+.section-tag{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:0.7rem;font-weight:600;text-transform:uppercase;letter-spacing:0.15em;
+  color:var(--mp-400);margin-bottom:14px;font-family:'JetBrains Mono',monospace;
+}
+.section-tag .line{width:36px;height:1px;background:var(--mp-600)}
+.section-title{
+  font-size:clamp(1.8rem,4.5vw,3rem);font-weight:800;
+  letter-spacing:-0.02em;margin-bottom:14px;
+}
+.section-title .hl{color:var(--mp-300)}
+.section-title .gd{color:var(--gold)}
+.section-desc{
+  font-size:1rem;color:var(--text-muted);max-width:640px;line-height:1.7;
+  margin-bottom:44px;
+}
+
+/* ─── DIVIDER ─── */
+.divider{
+  display:flex;align-items:center;gap:16px;max-width:1200px;margin:0 auto;padding:0 24px;
+  position:relative;z-index:1;
+}
+.divider-line{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent)}
+.divider-sym{font-size:0.6rem;color:var(--text-dim);letter-spacing:0.3em;font-family:'JetBrains Mono',monospace}
+
+/* ─── FOUNDER SECTION ─── */
+.founder-section{position:relative;z-index:1;padding:90px 24px;background:linear-gradient(180deg,transparent,rgba(109,40,217,0.03),transparent)}
+.founder-inner{max-width:900px;margin:0 auto}
+.founder-card{
+  background:rgba(30,5,64,0.3);
+  border:1px solid rgba(139,92,246,0.15);
+  border-radius:12px;
+  padding:36px;
+}
+.founder-quote{font-size:1rem;line-height:1.9;color:var(--text-muted);padding:16px 0 16px 32px;position:relative;border-left:2px solid var(--border)}
+.founder-quote p{margin-bottom:14px}
+.founder-quote strong{color:var(--text)}
+.founder-meta{display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding-top:20px;border-top:1px solid var(--border);margin-top:8px}
+.founder-avatar{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--mp-600),var(--mp-400));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.1rem;color:#fff;box-shadow:0 0 20px rgba(109,40,217,0.2)}
+.founder-info .name{font-weight:700;font-size:1rem;color:var(--text)}
+.founder-info .title{font-size:0.78rem;color:var(--text-dim)}
+.founder-tag{margin-left:auto;padding:5px 14px;border-radius:20px;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.15);font-size:0.65rem;color:var(--gold);text-transform:uppercase;letter-spacing:0.1em;font-weight:600}
+
+/* ─── SUBSIDIARIES ─── */
+.subs-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.subs-card{
+  background:rgba(30,5,64,0.3);
+  border:1px solid rgba(139,92,246,0.15);
+  border-radius:12px;
+  padding:28px 24px;
+  transition:border-color 0.2s ease;
+}
+.subs-card:hover{
+  border-color:rgba(139,92,246,0.3);
+}
+
+.subs-card .icon-wrap{
+  width:40px;
+  height:40px;
+  border-radius:8px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:14px;
+  font-size:1.1rem;
+  color:var(--mp-300);
+  background:rgba(139,92,246,0.08);
+}
+
+.subs-card h3{font-size:1.35rem;font-weight:700;margin-bottom:4px}
+.subs-card .sub{font-size:0.82rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.09em;margin-bottom:10px;font-weight:500}
+.subs-card .desc{font-size:1rem;color:var(--text-muted);line-height:1.75;margin-bottom:14px}
+.subs-card .features{display:flex;flex-direction:column;gap:5px;margin-bottom:14px}
+.subs-card .features span{font-size:0.95rem;color:var(--text-dim);padding-left:20px;position:relative}
+.subs-card .features span::before{content:'▸';position:absolute;left:0;color:inherit}
+.subs-card .tags{display:flex;flex-wrap:wrap;gap:6px}
+.subs-card .tags span{font-size:0.78rem;padding:5px 11px;border-radius:5px;background:rgba(139,92,246,0.06);border:1px solid var(--border);color:var(--text-dim);font-weight:500;letter-spacing:0.3px}
+
+/* ─── EACH SUBSIDIARY HIGHLIGHT BOX ─── */
+.sub-highlight{margin-top:20px;padding:16px;border-radius:8px;border:1px solid var(--border);background:rgba(0,0,0,0.15)}
+.sub-highlight .hl-title{font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-dim);margin-bottom:8px}
+.sub-highlight .hl-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.sub-highlight .hl-item{font-size:0.75rem;color:var(--text-muted);display:flex;align-items:center;gap:6px}
+.sub-highlight .hl-item::before{content:'✦';font-size:0.5rem;color:var(--mp-400)}
+
+/* ─── FOUNDER NOTE ─── */
+.founders-note{
+  background:rgba(30,5,64,0.3);
+  border:1px solid rgba(139,92,246,0.15);
+  border-radius:12px;
+  padding:36px;
+}
+.founders-note h3{font-size:1.4rem;font-weight:800;margin-bottom:14px}
+.founders-note p{color:var(--text-muted);line-height:1.8;font-size:0.95rem;max-width:750px}
+
+/* ─── VALUES ─── */
+.values-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:44px}
+.val-card{
+  background:rgba(30,5,64,0.3);
+  border:1px solid rgba(139,92,246,0.15);
+  border-radius:8px;
+  padding:20px 14px;
+  text-align:center;
+  transition:border-color 0.2s ease;
+}
+.val-card:hover{
+  border-color:rgba(139,92,246,0.3);
+}
+.val-card .vn{font-family:'JetBrains Mono',monospace;font-size:0.55rem;color:var(--mp-400);letter-spacing:0.15em;margin-bottom:8px}
+.val-card h4{font-size:0.85rem;font-weight:600;margin-bottom:6px}
+.val-card p{font-size:0.72rem;color:var(--text-dim);line-height:1.5}
+
+/* ─── CTA ─── */
+.cta-section{
+  position:relative;z-index:1;padding:90px 24px;text-align:center;
+  background:linear-gradient(180deg,var(--mp-950),rgba(109,40,217,0.04),var(--mp-950));
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+}
+.cta-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 40% at 50% 50%,rgba(139,92,246,0.04),transparent);pointer-events:none}
+.cta-inner{max-width:620px;margin:0 auto;position:relative;z-index:1}
+.cta-inner h2{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;margin-bottom:10px}
+.cta-inner .gold{color:var(--gold)}
+.cta-inner p{color:var(--text-muted);margin-bottom:28px;line-height:1.7}
+.cta-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+/* ─── FOOTER ─── */
+footer{position:relative;z-index:1;padding:60px 24px 32px;border-top:1px solid var(--border)}
+.footer-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1.5fr;gap:48px}
+footer h4{font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-dim);margin-bottom:16px;font-family:'JetBrains Mono',monospace}
+footer a,footer p{font-size:0.82rem;color:var(--text-muted);text-decoration:none;display:block;line-height:2}
+footer a:hover{color:var(--mp-300)}
+.footer-brand{font-weight:700;font-size:1.1rem;color:var(--text);margin-bottom:2px;letter-spacing:0.5px}
+.footer-hl{font-size:0.65rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:14px}
+.footer-bottom{grid-column:1/-1;border-top:1px solid var(--border);padding-top:20px;margin-top:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-bottom p{font-size:0.7rem}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:1024px){.values-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:900px){.subs-grid{grid-template-columns:1fr}.footer-inner{grid-template-columns:1fr 1fr}.orbit-container{display:none}}
+@media(max-width:600px){.footer-inner{grid-template-columns:1fr}}
+@media(max-width:640px){
+  .hamburger{display:flex}
+  .nav-links{display:none;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(7,0,17,0.98);border-bottom:1px solid var(--border);padding:16px 24px}
+  .nav-links.open{display:flex}
+  .nav-links a{padding:10px 0}
+  .subs-grid{grid-template-columns:1fr}
+  .values-grid{grid-template-columns:repeat(2,1fr)}
+  .footer-inner{grid-template-columns:1fr;gap:32px}
+  .founder-card{padding:24px}
+  .founders-note{padding:24px}
+  .section{padding:56px 16px}
+  .sub-highlight .hl-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="scanlines" aria-hidden="true"></div>
+<div class="screen-glow" aria-hidden="true"></div>
+
+<!-- ─── NAV ─── -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <img src="images/Logo.png" alt="Skyline IT" style="width:34px;height:34px;object-fit:contain;flex-shrink:0;">
+      <div class="nav-logo-text">SKYLINE IT<small>Holding Company</small></div>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#companies">Companies</a></li>
+      <li><a href="#values">Values</a></li>
+      <li><a href="#story">Our Story</a></li>
+      <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section class="hero" id="home">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-vignette"></div>
+  <div class="hero-flare"></div>
+
+  <div class="orbit-container" aria-hidden="true">
+    <div class="orbit-ring"></div><div class="orbit-ring"></div><div class="orbit-ring"></div><div class="orbit-ring"></div>
+    <div class="orbit-dot"></div><div class="orbit-dot"></div><div class="orbit-dot"></div>
+  </div>
+
+  <!-- Logo on left side -->
+  <div class="hero-logo-left" aria-hidden="true">
+    <img src="images/Logo.png" alt="">
+  </div>
+
+  <div class="hero-inner">
+    <div class="hero-badge fade-up">
+      <span class="hero-badge-dot"></span>
+      Founded 2025 &nbsp;·&nbsp; Rosebank College, Durban
+    </div>
+
+    <div class="big-name fade-up fd1">
+      <div class="big-name-line">
+        <span class="sky">SKYLINE</span>
+        <span class="it glitch-row" data-text="IT">IT</span>
+      </div>
+      <span class="sub">South African Holding Company</span>
+    </div>
+
+    <p class="hero-sub fade-up fd2">
+      A holding company building ambitious South African brands across <strong style="color:var(--text);">technology</strong>, 
+      <strong style="color:var(--mp-300);">IoT</strong>, <strong style="color:var(--gold);">fashion</strong>, 
+      and <strong style="color:#22d3ee;">education</strong> — founded by a Rosebank College student 
+      who believed he could build a better digital Africa.
+    </p>
+
+    <div class="hero-actions fade-up fd3">
+      <a href="#companies" class="btn btn-primary">Explore Our Companies</a>
+      <a href="#story" class="btn btn-outline">The Story</a>
+      <a href="mailto:projectpstg@gmail.com" class="btn btn-gold">Contact Us</a>
+    </div>
+
+    <div class="hero-stats fade-up fd4">
+      <div class="hero-stat"><span class="val">2025</span><span class="lbl">Founded</span></div>
+      <div class="hero-stat"><span class="val">5</span><span class="lbl">Subsidiaries</span></div>
+      <div class="hero-stat"><span class="val">6</span><span class="lbl">Industries</span></div>
+      <div class="hero-stat"><span class="val">SA</span><span class="lbl">Proudly South African</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── DIVIDER ─── -->
+<div class="divider" aria-hidden="true"><span class="divider-line"></span><span class="divider-sym">&#x25C6;</span><span class="divider-line"></span></div>
+
+<!-- ─── FOUNDING STORY ─── -->
+<section class="founder-section" id="about">
+  <div class="founder-inner">
+    <div class="section-tag fade-up"><span class="line"></span> The Beginning</div>
+
+    <div class="founder-card fade-up fd1">
+      <div style="font-size:0.7rem;font-weight:600;text-transform:uppercase;letter-spacing:0.15em;color:var(--mp-400);margin-bottom:6px;font-family:'JetBrains Mono',monospace;">_origin.exe</div>
+      <div class="founder-quote">
+        <p>
+          Skyline IT was born in a lecture hall at <strong>Rosebank College, Durban — 2025</strong>. 
+          As an <strong>IT in Business Systems</strong> student, I watched local businesses struggle 
+          with technology that was either too expensive, too complicated, or simply not built for 
+          the South African market.
+        </p>
+        <p>
+          So I started building. First a website for a local spaza shop. Then an e-commerce store 
+          for a township tailor. Then an entire digital agency helping Durban businesses get online. 
+          But I realised one company couldn't do everything well — so I built a holding company 
+          instead, with specialised subsidiaries tackling different problems.
+        </p>
+        <p>
+          <strong>Skyline IT & Cloud</strong> handles digital services. <strong>Mzansi Connect</strong> 
+          builds IoT hardware. <strong>Circuit Forge</strong> engineers electronics. <strong>VALOW.</strong> 
+          tells stories through streetwear. <strong>StudySync</strong> helps students learn together. 
+          Each brand serves a different need — but all share one DNA: South African built, 
+          quality driven, and made for the people who need it most.
+        </p>
+        <p style="margin-bottom:0;">
+          Every brand under Skyline IT shares one mission: <strong style="color:var(--text);">build quality 
+          solutions that South Africans can actually afford and be proud of</strong>.
+        </p>
+      </div>
+
+      <!-- Timeline -->
+      <div style="margin-top:28px;padding-top:24px;border-top:1px solid var(--border);">
+        <div style="font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-dim);margin-bottom:16px;font-family:'JetBrains Mono',monospace;">// build_timeline.log</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;">
+          <div style="background:rgba(139,92,246,0.04);border:1px solid var(--border);border-radius:8px;padding:14px;">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:0.55rem;color:var(--mp-400);letter-spacing:0.1em;">Q1 2025</div>
+            <div style="font-weight:600;font-size:0.82rem;margin:4px 0 2px;">Skyline IT Founded</div>
+            <div style="font-size:0.68rem;color:var(--text-dim);">Rosebank College, Durban</div>
+          </div>
+          <div style="background:rgba(6,182,212,0.04);border:1px solid var(--border);border-radius:8px;padding:14px;">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:0.55rem;color:#22d3ee;letter-spacing:0.1em;">Q2 2025</div>
+            <div style="font-weight:600;font-size:0.82rem;margin:4px 0 2px;">Mzansi Connect</div>
+            <div style="font-size:0.68rem;color:var(--text-dim);">IoT subsidiary launched</div>
+          </div>
+          <div style="background:rgba(249,115,22,0.04);border:1px solid var(--border);border-radius:8px;padding:14px;">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:0.55rem;color:#fb923c;letter-spacing:0.1em;">Q3 2025</div>
+            <div style="font-weight:600;font-size:0.82rem;margin:4px 0 2px;">Circuit Forge</div>
+            <div style="font-size:0.68rem;color:var(--text-dim);">Hardware engineering arm</div>
+          </div>
+          <div style="background:rgba(245,158,11,0.04);border:1px solid var(--border);border-radius:8px;padding:14px;">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:0.55rem;color:var(--gold);letter-spacing:0.1em;">Q4 2025</div>
+            <div style="font-weight:600;font-size:0.82rem;margin:4px 0 2px;">VALOW. + StudySync</div>
+            <div style="font-size:0.68rem;color:var(--text-dim);">Fashion & education brands</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="founder-meta">
+        <div class="founder-avatar">P</div>
+        <div class="founder-info">
+          <div class="name">S'nqobile Langa Hlatshwayo</div>
+          <div class="title">Founder · IT in Business Systems · Rosebank College, Durban · Est. 2025</div>
+        </div>
+        <div class="founder-tag">&#x1F1FF;&#x1F1E6; Built in South Africa</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── DIVIDER ─── -->
+<div class="divider" aria-hidden="true"><span class="divider-line"></span><span class="divider-sym">&#x25C6;</span><span class="divider-line"></span></div>
+
+<!-- ─── SKYLINE BY THE NUMBERS ─── -->
+<section class="section" style="padding:60px 24px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="section-inner">
+    <div class="section-tag fade-up"><span class="line"></span> Scale & Impact</div>
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:24px;">
+      <div class="val-card" style="text-align:center;padding:28px 12px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:2rem;font-weight:800;color:var(--mp-300);line-height:1;">2025</div>
+        <div style="font-size:0.72rem;color:var(--text-dim);margin-top:6px;text-transform:uppercase;letter-spacing:0.08em;">Year Founded</div>
+      </div>
+      <div class="val-card" style="text-align:center;padding:28px 12px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:2rem;font-weight:800;color:#22d3ee;line-height:1;">5</div>
+        <div style="font-size:0.72rem;color:var(--text-dim);margin-top:6px;text-transform:uppercase;letter-spacing:0.08em;">Active Subsidiaries</div>
+      </div>
+      <div class="val-card" style="text-align:center;padding:28px 12px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:2rem;font-weight:800;color:var(--gold);line-height:1;">6</div>
+        <div style="font-size:0.72rem;color:var(--text-dim);margin-top:6px;text-transform:uppercase;letter-spacing:0.08em;">Industry Sectors</div>
+      </div>
+      <div class="val-card" style="text-align:center;padding:28px 12px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:2rem;font-weight:800;color:#fb923c;line-height:1;">20+</div>
+        <div style="font-size:0.72rem;color:var(--text-dim);margin-top:6px;text-transform:uppercase;letter-spacing:0.08em;">Products & Solutions</div>
+      </div>
+      <div class="val-card" style="text-align:center;padding:28px 12px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:2rem;font-weight:800;color:#f87171;line-height:1;">10+</div>
+        <div style="font-size:0.72rem;color:var(--text-dim);margin-top:6px;text-transform:uppercase;letter-spacing:0.08em;">Business Docs Completed</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── DIVIDER ─── -->
+<div class="divider" aria-hidden="true"><span class="divider-line"></span><span class="divider-sym">&#x25C6;</span><span class="divider-line"></span></div>
+
+<!-- ─── SUBSIDIARIES ─── -->
+<section class="section" id="companies">
+  <div class="section-inner">
+    <div class="section-tag fade-up"><span class="line"></span> Our Companies</div>
+    <h2 class="section-title fade-up fd1">Brands Built With <span class="hl">Purpose</span></h2>
+    <p class="section-desc fade-up fd2">
+      Skyline IT is the holding company for a group of specialised technology brands — each with its own 
+      identity, product line, and mission — united by quality, affordability, and South African innovation.
+    </p>
+
+    <div class="subs-grid">
+      <!-- 1. Skyline IT & Cloud -->
+      <div class="subs-card purple fade-up fd2">
+        <a href="https://www.skylineit.site" target="_blank" rel="noopener" class="icon-wrap" style="display:inline-flex;text-decoration:none;cursor:pointer;" title="Visit skylineit.site">
+          <img src="images/Logo.png" alt="Skyline IT" style="width:100%;height:100%;object-fit:contain;">
+        </a>
+        <h3>Skyline IT & Cloud</h3>
+        <div class="sub">Digital Services Division</div>
+        <p class="desc">Full-service digital agency offering websites, e-commerce stores, mobile apps, SEO, cloud hosting, and social media management for South African businesses.</p>
+        <div class="features">
+          <span>Custom website design & development</span>
+          <span>Full-featured e-commerce stores</span>
+          <span>iOS & Android mobile app development</span>
+          <span>SEO, brand promotion & digital strategy</span>
+          <span>Cloud hosting setup & managed infrastructure</span>
+          <span>Social media management & content creation</span>
+        </div>
+        <div class="sub-highlight" style="margin-top:12px;">
+          <div class="hl-title">Portfolio Highlight: VALOW.</div>
+          <div style="font-size:0.88rem;color:var(--text-dim);line-height:1.7;">
+            Built and launched by Skyline IT — a full e-commerce <br>
+            <strong style="color:#c084fc;">community voting system</strong> (Express API + localStorage fallback),<br>
+            <strong style="color:#c084fc;">admin dashboard</strong> for demand analytics, and content-first marketing (TikTok, Instagram).
+          </div>
+        </div>
+        <div class="tags"><span>Web</span><span>Apps</span><span>E-Commerce</span><span>SEO</span><span>Cloud</span><span>Social</span><span>VALOW.</span></div>
+      </div>
+
+      <!-- 2. Mzansi Connect -->
+      <div class="subs-card teal fade-up fd3">
+        <div class="icon-wrap">&#x1F4E1;</div>
+        <h3>Mzansi Connect</h3>
+        <div class="sub">A Skyline IT Company</div>
+        <p class="desc">Affordable IoT solutions designed for South African realities — smart security, water monitoring, electricity tracking, fleet management, and livestock tracking. Backed by formal market analysis, financial projections, and a full operational plan.</p>
+        <div class="features">
+          <span>Smart Spaza Shop Security — motion, door alerts, SMS, panic button</span>
+          <span>Smart Water Tank Monitor — level, leak detection, overflow alerts</span>
+          <span>Kasi Smart Electricity Monitor — usage, prepaid, appliance tracking</span>
+          <span>Smart Rental Room Manager — occupancy, water, electricity per tenant</span>
+          <span>Taxi Fleet Tracker — GPS, driver behavior, fuel monitoring</span>
+        </div>
+        <div class="sub-highlight" style="margin-top:12px;">
+          <div class="hl-title">SWOT & Business Strategy</div>
+          <div style="font-size:0.88rem;color:var(--text-dim);line-height:1.7;">
+            <strong style="color:#22d3ee;">Strength:</strong> Low-cost ESP32-powered devices built for SA<br>
+            <strong style="color:#fb923c;">Opportunity:</strong> Township & rural markets underserved by tech<br>
+            <strong style="color:#f87171;">Risk:</strong> Load shedding — mitigated by solar-powered systems<br>
+            <strong style="color:#34d399;">Model:</strong> B2C device sales + B2B fleet/security contracts
+          </div>
+        </div>
+        <div class="tags"><span>IoT</span><span>ESP32</span><span>LoRa</span><span>GSM</span><span>Smart Home</span><span>Cloud</span></div>
+      </div>
+
+      <!-- 3. Circuit Forge Technologies -->
+      <div class="subs-card orange fade-up fd4">
+        <div class="icon-wrap">&#9889;</div>
+        <h3>Circuit Forge Technologies</h3>
+        <div class="sub">A Skyline IT Company</div>
+        <p class="desc">Custom electronics engineering — PCB design, embedded systems, firmware, and hardware prototyping from concept to production. Full capability statement, SLA, and formal project proposals for every engagement.</p>
+        <div class="features">
+          <span>PCB Design — schematic, layout, Gerber, BOM, DFM</span>
+          <span>Embedded Systems — ESP32, STM32, Arduino, RPi, PIC, ARM</span>
+          <span>IoT Solutions — smart home, environmental, asset tracking</span>
+          <span>Livestock GPS Tracker — ESP32 collar, Supabase API, Android app</span>
+          <span>Hardware Prototyping — breadboard to production-ready</span>
+          <span>Full product development lifecycle & hardware consulting</span>
+        </div>
+        <div class="sub-highlight" style="margin-top:12px;">
+          <div class="hl-title">Capability Snapshot</div>
+          <div style="font-size:0.88rem;color:var(--text-dim);line-height:1.7;">
+            <strong style="color:#fb923c;">Business Model:</strong> B2B engineering + B2C product sales<br>
+            <strong style="color:#fb923c;">SLA:</strong> Defined response times, revision limits, delivery milestones<br>
+            <strong style="color:#fb923c;">Risk Managed:</strong> Supply chain, component shortages, timeline buffers<br>
+            <strong style="color:#fb923c;">Sectors:</strong> Education, agriculture, security, manufacturing, energy
+          </div>
+        </div>
+        <div class="tags"><span>PCB</span><span>Embedded</span><span>ESP32</span><span>STM32</span><span>Firmware</span><span>Livestock</span><span>SLA</span></div>
+      </div>
+
+      <!-- 4. Portfolio Showcase -->
+      <div class="subs-card gold fade-up fd5">
+        <div class="icon-wrap">&#x1F3A8;</div>
+        <h3>Portfolio &amp; Client Work</h3>
+        <div class="sub">Built by Skyline IT</div>
+        <p class="desc">Every brand, product, and system in our portfolio exists to demonstrate what we can deliver — from full-stack web platforms and IoT hardware to e-commerce streetwear and EdTech.</p>
+        <div class="features">
+          <span>VALOW. — Full e-commerce streetwear brand with community voting & admin dashboard</span>
+          <span>StudySync — Real-time study platform with chat, Pomodoro, streaks & leaderboards</span>
+          <span>Mzansi Connect — End-to-end IoT product line with cloud dashboards & mobile apps</span>
+          <span>Livestock GPS Tracker — ESP32 collar, Supabase API, Android companion app</span>
+          <span>Smart security, water, electricity & fleet — hardware + software + cloud</span>
+        </div>
+        <div class="sub-highlight" style="margin-top:12px;">
+          <div class="hl-title">What This Says About Us</div>
+          <div style="font-size:0.88rem;color:var(--text-dim);line-height:1.7;">
+            <strong style="color:var(--gold);">Full-Stack Capability:</strong> Hardware &#x2192; firmware &#x2192; backend &#x2192; frontend &#x2192; mobile<br>
+            <strong style="color:var(--gold);">Industry Range:</strong> EdTech, IoT, fashion, agritech, security, logistics<br>
+            <strong style="color:var(--gold);">Ready to Ship:</strong> We don't just talk — we build, launch, and support
+          </div>
+        </div>
+        <div class="tags"><span>Showcase</span><span>Full-Stack</span><span>IoT</span><span>Web</span><span>Mobile</span><span>VALOW.</span><span>Livestock</span></div>
+      </div>
+
+      <!-- 5. StudySync -->
+      <div class="subs-card red fade-up fd6">
+        <div class="icon-wrap">&#x1F4DA;</div>
+        <h3>StudySync</h3>
+        <div class="sub">A Skyline IT Product</div>
+        <p class="desc">Full-stack study group management platform with real-time collaboration tools — helping university students connect, study, and grow together. Backed by a formal PRD, technical architecture, and investor pitch deck.</p>
+        <div class="features">
+          <span>Group chat with shout-outs, @mentions & emoji reactions</span>
+          <span>Pomodoro timer with configurable focus/break intervals</span>
+          <span>Weekly calendar for scheduling & joining study sessions</span>
+          <span>Task tracker with drag-and-drop & emoji reactions</span>
+          <span>Study streaks, leaderboards, badges & progress tracking</span>
+          <span>Admin panel for user management & online status</span>
+        </div>
+        <div class="sub-highlight" style="margin-top:12px;">
+          <div class="hl-title">Revenue Model & Investor Readiness</div>
+          <div style="font-size:0.88rem;color:var(--text-dim);line-height:1.7;">
+            <strong style="color:#f87171;">Freemium:</strong> Free tier + premium features via subscription<br>
+            <strong style="color:#f87171;">Institutional:</strong> University-wide licenses for campus deployment<br>
+            <strong style="color:#f87171;">Pitch Ready:</strong> Full feasibility study, risk assessment & business plan<br>
+            <strong style="color:#f87171;">Tech Stack:</strong> Node.js, Express, SQLite, JWT, vanilla JS frontend
+          </div>
+        </div>
+        <div class="tags"><span>EdTech</span><span>Freemium</span><span>Real-Time</span><span>Pomodoro</span><span>Node.js</span><span>Investor Ready</span></div>
+      </div>
+
+      <!-- 6. Ecosystem Highlight -->
+      <div class="subs-card mint fade-up fd7">
+        <div class="icon-wrap">&#x1F30D;</div>
+        <h3>The Skyline Ecosystem</h3>
+        <div class="sub">How It All Connects</div>
+        <p class="desc">Our brands don't just coexist — they amplify each other. Circuit Forge builds hardware for Mzansi Connect. Skyline IT & Cloud hosts all platforms. Every product, portfolio piece, and subsidiary feeds into the next.</p>
+        <div class="sub-highlight">
+          <div class="hl-title">Cross-Brand Synergy</div>
+          <div class="hl-grid">
+            <span class="hl-item">Circuit Forge &#x2192; Mzansi Connect hardware</span>
+            <span class="hl-item">Skyline IT & Cloud &#x2192; Hosts all platforms, builds portfolios</span>
+            <span class="hl-item">Mzansi Connect &#x2192; IoT data via Skyline Cloud</span>
+            <span class="hl-item">Circuit Forge &#x2192; Livestock Tracker hardware & firmware</span>
+            <span class="hl-item">StudySync &#x2192; Built by Skyline IT & Cloud devs</span>
+            <span class="hl-item">All brands &#x2192; Shared infrastructure & talent</span>
+          </div>
+        </div>
+        <div style="margin-top:14px;padding:12px;border-radius:6px;background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.12);">
+          <div style="font-size:0.65rem;font-weight:600;color:#34d399;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;">&#x221E; Infinite Loop Model</div>
+          <div style="font-size:0.75rem;color:var(--text-dim);line-height:1.6;">
+            Design &#x2192; Develop &#x2192; Deploy &#x2192; Market &#x2192; Support &#x2192; Repeat.<br>
+            One company's output is another's input.
+          </div>
+        </div>
+        <div class="tags"><span>Synergy</span><span>Integration</span><span>Ecosystem</span><span>End-to-End</span><span>Scalable</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── DIVIDER ─── -->
+<div class="divider" aria-hidden="true"><span class="divider-line"></span><span class="divider-sym">&#x25C6;</span><span class="divider-line"></span></div>
+
+<!-- ─── VALUES ─── -->
+<section class="section" id="values">
+  <div class="section-inner">
+    <div class="section-tag fade-up"><span class="line"></span> What We Stand For</div>
+    <h2 class="section-title fade-up fd1">Our <span class="hl">Core Values</span></h2>
+
+    <div class="values-grid">
+      <div class="val-card fade-up fd2">
+        <div class="vn">01</div>
+        <h4>Innovation First</h4>
+        <p>We build solutions that solve real South African problems — not imported ideas.</p>
+      </div>
+      <div class="val-card fade-up fd3">
+        <div class="vn">02</div>
+        <h4>Quality Obsession</h4>
+        <p>Every product across every subsidiary meets the same high standard.</p>
+      </div>
+      <div class="val-card fade-up fd4">
+        <div class="vn">03</div>
+        <h4>Affordable Access</h4>
+        <p>Technology should empower everyone, not just those who can afford premium prices.</p>
+      </div>
+      <div class="val-card fade-up fd5">
+        <div class="vn">04</div>
+        <h4>Local First</h4>
+        <p>South African talent, South African manufacturing, South African pride.</p>
+      </div>
+      <div class="val-card fade-up fd6">
+        <div class="vn">05</div>
+        <h4>Community Growth</h4>
+        <p>Every brand gives back — training technicians, creating jobs, building skills.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── DIVIDER ─── -->
+<div class="divider" aria-hidden="true"><span class="divider-line"></span><span class="divider-sym">&#x25C6;</span><span class="divider-line"></span></div>
+
+<!-- ─── INDUSTRIES WE SERVE ─── -->
+<section class="section" style="padding:64px 24px;border-bottom:1px solid var(--border);">
+  <div class="section-inner">
+    <div class="section-tag fade-up"><span class="line"></span> Industries We Serve</div>
+    <h2 class="section-title fade-up fd1">Across Every <span class="hl">Sector</span></h2>
+
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:32px;">
+      <div class="val-card" style="text-align:center;padding:20px 12px;">
+        <div style="font-size:1.8rem;margin-bottom:8px;">&#x1F3EB;</div>
+        <h4 style="font-size:0.85rem;">Education</h4>
+        <p style="font-size:0.7rem;">StudySync for students & schools</p>
+      </div>
+      <div class="val-card" style="text-align:center;padding:20px 12px;">
+        <div style="font-size:1.8rem;margin-bottom:8px;">&#x1F3E0;</div>
+        <h4 style="font-size:0.85rem;">Smart Home</h4>
+        <p style="font-size:0.7rem;">Mzansi Connect IoT for households</p>
+      </div>
+      <div class="val-card" style="text-align:center;padding:20px 12px;">
+        <div style="font-size:1.8rem;margin-bottom:8px;">&#x1F3ED;</div>
+        <h4 style="font-size:0.85rem;">Small Business</h4>
+        <p style="font-size:0.7rem;">Web, apps & security for SMEs</p>
+      </div>
+      <div class="val-card" style="text-align:center;padding:20px 12px;">
+        <div style="font-size:1.8rem;margin-bottom:8px;">&#x1F4F1;</div>
+        <h4 style="font-size:0.85rem;">Digital Products</h4>
+        <p style="font-size:0.7rem;">VALOW., StudySync & brand launches</p>
+      </div>
+      <div class="val-card" style="text-align:center;padding:20px 12px;">
+        <div style="font-size:1.8rem;margin-bottom:8px;">&#x1F4BB;</div>
+        <h4 style="font-size:0.85rem;">Tech & IT</h4>
+        <p style="font-size:0.7rem;">Digital services & cloud hosting</p>
+      </div>
+      <div class="val-card" style="text-align:center;padding:20px 12px;">
+        <div style="font-size:1.8rem;margin-bottom:8px;">&#x1F3E2;</div>
+        <h4 style="font-size:0.85rem;">Manufacturing</h4>
+        <p style="font-size:0.7rem;">Circuit Forge hardware & PCBs</p>
+      </div>
+      <div class="val-card" style="text-align:center;padding:20px 12px;">
+        <div style="font-size:1.8rem;margin-bottom:8px;">&#x1F69A;</div>
+        <h4 style="font-size:0.85rem;">Logistics</h4>
+        <p style="font-size:0.7rem;">Fleet tracking & asset monitoring</p>
+      </div>
+      <div class="val-card" style="text-align:center;padding:20px 12px;">
+        <div style="font-size:1.8rem;margin-bottom:8px;">&#x1F33E;</div>
+        <h4 style="font-size:0.85rem;">Agriculture</h4>
+        <p style="font-size:0.7rem;">IoT sensors & livestock tracking</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── DIVIDER ─── -->
+<div class="divider" aria-hidden="true"><span class="divider-line"></span><span class="divider-sym">&#x25C6;</span><span class="divider-line"></span></div>
+
+<!-- ─── FOUNDER'S NOTE ─── -->
+<section class="section" id="story" style="padding-top:20px;">
+  <div class="section-inner">
+    <div class="section-tag fade-up"><span class="line"></span> The Vision</div>
+
+    <div class="founders-note fade-up fd1">
+      <h3>A Note From The <span style="color:var(--mp-300);">Founder</span></h3>
+      <p>
+        Every brand under Skyline IT started the same way — someone had a problem, and I 
+        believed I could solve it. From building websites for local businesses at Rosebank 
+        College, to launching IoT devices for township spaza shops, to designing streetwear 
+        that speaks to a generation's struggles and ambitions.
+      </p>
+      <p style="margin-top:14px;">
+        None of this would be possible without the belief that <strong style="color:var(--text);">South African 
+        talent can compete on any stage</strong>. We don't need to copy Silicon Valley — 
+        we need to build for Soweto, for Durban, for Mzansi. That's what Skyline IT is about.
+      </p>
+      <p style="margin-top:14px;">
+        We're just getting started. Watch this space.
+      </p>
+      <div style="margin-top:24px;display:flex;align-items:center;gap:14px;">
+        <div style="width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--mp-600),var(--mp-400));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.9rem;box-shadow:0 0 20px rgba(109,40,217,0.2);">P</div>
+        <div>
+          <div style="font-weight:700;font-size:0.95rem;">S'nqobile Langa Hlatshwayo</div>
+          <div style="font-size:0.72rem;color:var(--text-dim);">Founder &bull; IT in Business Systems &bull; Rosebank College, Durban</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CTA ─── -->
+<section class="cta-section" id="contact">
+  <div class="cta-inner">
+    <h2 class="fade-up">Let's <span class="hl">Build</span> Together</h2>
+    <p class="fade-up fd1">
+      Whether you need a website, an IoT device, a mobile app, custom electronics, or 
+      premium streetwear — one of our subsidiaries has you covered.
+    </p>
+    <div class="cta-actions fade-up fd2">
+      <a href="mailto:projectpstg@gmail.com" class="btn btn-gold">Get in Touch</a>
+      <a href="#companies" class="btn btn-outline">Explore Companies</a>
+    </div>
+
+    <!-- Contact form -->
+    <div class="contact-form-wrap fade-up fd3">
+      <form id="contactForm" class="contact-form" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:560px;margin:32px auto 0;text-align:left;">
+        <input type="text" name="name" placeholder="Your Name" required
+          style="grid-column:1;padding:12px 16px;border-radius:8px;border:1px solid var(--border);background:rgba(0,0,0,0.3);color:#fff;font-size:0.9rem;outline:none;transition:border-color 0.2s;">
+        <input type="email" name="email" placeholder="Your Email" required
+          style="grid-column:2;padding:12px 16px;border-radius:8px;border:1px solid var(--border);background:rgba(0,0,0,0.3);color:#fff;font-size:0.9rem;outline:none;transition:border-color 0.2s;">
+        <input type="text" name="company" placeholder="Company (optional)"
+          style="grid-column:1/-1;padding:12px 16px;border-radius:8px;border:1px solid var(--border);background:rgba(0,0,0,0.3);color:#fff;font-size:0.9rem;outline:none;transition:border-color 0.2s;">
+        <textarea name="message" placeholder="Tell us about your project..." rows="3" required
+          style="grid-column:1/-1;padding:12px 16px;border-radius:8px;border:1px solid var(--border);background:rgba(0,0,0,0.3);color:#fff;font-size:0.9rem;outline:none;resize:vertical;transition:border-color 0.2s;"></textarea>
+        <button type="submit" id="contactSubmit" class="btn btn-gold" style="grid-column:1/-1;justify-self:center;">
+          Send Message
+        </button>
+        <div id="contactStatus" style="grid-column:1/-1;text-align:center;font-size:0.85rem;min-height:24px;"></div>
+      </form>
+    </div>
+
+    <script>
+    document.getElementById('contactForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('contactSubmit');
+      const status = document.getElementById('contactStatus');
+      const form = e.target;
+      const data = Object.fromEntries(new FormData(form));
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
+      status.style.color = 'var(--text-dim)';
+      status.textContent = '';
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+        const json = await res.json();
+        if (res.ok) {
+          status.style.color = '#34d399';
+          status.textContent = json.message || 'Message sent!';
+          form.reset();
+        } else {
+          status.style.color = '#f87171';
+          status.textContent = json.error || 'Something went wrong.';
+        }
+      } catch {
+        status.style.color = '#f87171';
+        status.textContent = 'Could not reach server. Email us directly at projectpstg@gmail.com';
+      }
+      btn.disabled = false;
+      btn.textContent = 'Send Message';
+    });
+    </script>
+
+    <!-- Contact detail strip -->
+    <div style="margin-top:44px;padding-top:32px;border-top:1px solid var(--border);">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;text-align:left;">
+        <div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:0.55rem;color:var(--mp-400);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:8px;">Email</div>
+          <a href="mailto:projectpstg@gmail.com" style="color:var(--text-muted);text-decoration:none;font-size:0.85rem;transition:color 0.2s;" onmouseover="this.style.color='#a78bfa'" onmouseout="this.style.color=''">projectpstg@gmail.com</a>
+          <div style="font-size:0.7rem;color:var(--text-dim);margin-top:4px;">General inquiries & partnerships</div>
+        </div>
+        <div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:0.55rem;color:var(--mp-400);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:8px;">Location</div>
+          <div style="font-size:0.85rem;color:var(--text-muted);">Durban, South Africa</div>
+          <div style="font-size:0.7rem;color:var(--text-dim);margin-top:4px;">&#x1F1FF;&#x1F1E6; Proudly South African</div>
+        </div>
+        <div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:0.55rem;color:var(--mp-400);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:8px;">Quick Links</div>
+          <div style="display:flex;flex-direction:column;gap:2px;">
+            <a href="#companies" style="color:var(--text-muted);text-decoration:none;font-size:0.82rem;" onmouseover="this.style.color='#a78bfa'" onmouseout="this.style.color=''">&#x2192; All Subsidiaries</a>
+            <a href="#story" style="color:var(--text-muted);text-decoration:none;font-size:0.82rem;" onmouseover="this.style.color='#a78bfa'" onmouseout="this.style.color=''">&#x2192; The Founding Story</a>
+            <a href="#" style="color:var(--text-muted);text-decoration:none;font-size:0.82rem;" onmouseover="this.style.color='#a78bfa'" onmouseout="this.style.color=''">&#x2192; Back to Top</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+        <img src="images/Logo.png" alt="Skyline IT" style="width:26px;height:26px;object-fit:contain;flex-shrink:0;">
+        <div class="footer-brand">SKYLINE IT</div>
+      </div>
+      <div class="footer-hl">Holding Company</div>
+      <p style="max-width:320px;line-height:1.7;">Building ambitious South African brands across technology, IoT, fashion, and education. Founded at Rosebank College, Durban — 2025.</p>
+    </div>
+    <div>
+      <h4>Companies</h4>
+      <a href="#companies">Skyline IT & Cloud</a>
+      <a href="#companies">Mzansi Connect</a>
+      <a href="#companies">Circuit Forge Technologies</a>
+      <a href="#companies">VALOW.</a>
+      <a href="#companies">StudySync</a>
+    </div>
+    <div>
+      <h4>Founder</h4>
+      <p>S'nqobile Langa Hlatshwayo</p>
+      <p>IT in Business Systems</p>
+      <p>Rosebank College, Durban</p>
+      <p style="margin-top:10px;font-size:0.7rem;color:var(--text-dim);">Est. 2025 &bull; Built in SA</p>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <a href="mailto:projectpstg@gmail.com">projectpstg@gmail.com</a>
+      <a href="#">Durban, South Africa</a>
+      <p style="margin-top:10px;font-size:0.7rem;color:var(--text-dim);">&#x1F1FF;&#x1F1E6; Proudly South African</p>
+    </div>
+    <div>
+      <h4>Server</h4>
+      <div id="serverWidget" style="display:flex;flex-direction:column;gap:8px;">
+        <div id="serverDot" style="display:flex;align-items:center;gap:8px;">
+          <span id="serverIndicator" style="width:10px;height:10px;border-radius:50%;background:#555;display:inline-block;"></span>
+          <span id="serverStatus" style="font-size:0.78rem;color:var(--text-dim);">Checking...</span>
+        </div>
+        <div id="serverActions" style="display:none;flex-direction:column;gap:6px;margin-top:2px;">
+          <button id="serverStartBtn" onclick="window.open('start-server.bat')" style="padding:6px 14px;border-radius:6px;border:1px solid var(--border);background:rgba(52,211,153,0.08);color:#34d399;font-size:0.75rem;cursor:pointer;text-align:center;transition:all 0.2s;" onmouseover="this.style.borderColor='#34d399'" onmouseout="this.style.borderColor=''">&#9654; Start Server</button>
+          <button id="serverRestartBtn" onclick="restartServer()" style="display:none;padding:6px 14px;border-radius:6px;border:1px solid var(--border);background:rgba(251,191,36,0.08);color:var(--gold);font-size:0.75rem;cursor:pointer;text-align:center;transition:all 0.2s;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor=''">&#x21bb; Restart Server</button>
+        </div>
+        <div style="font-size:0.65rem;color:var(--text-dim);line-height:1.5;margin-top:4px;">
+          <span id="serverUrl" style="display:block;">http://localhost:3000</span>
+          <span id="serverLicense" style="display:block;"></span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Skyline IT. All rights reserved. Founded at Rosebank College, Durban.</p>
+      <p style="font-size:0.68rem;color:var(--text-dim);">IT in Business Systems &bull; Building South Africa's Digital Future</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+const hamburger=document.getElementById('hamburger');
+const navLinks=document.getElementById('navLinks');
+hamburger.addEventListener('click',()=>navLinks.classList.toggle('open'));
+document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>navLinks.classList.remove('open')));
+
+const navbar=document.getElementById('navbar');
+window.addEventListener('scroll',()=>navbar.classList.toggle('scrolled',window.scrollY>60));
+
+const sections=document.querySelectorAll('section[id]');
+const navAnchors=document.querySelectorAll('.nav-links a:not(.nav-cta)');
+window.addEventListener('scroll',()=>{
+  let cur='';
+  sections.forEach(s=>{if(s.getBoundingClientRect().top<250)cur=s.id});
+  navAnchors.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur));
+});
+
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.style.animationPlayState='running';observer.unobserve(e.target)}});
+},{threshold:0.01, rootMargin: '100px'});
+document.querySelectorAll('.fade-up').forEach(el=>{el.style.animationPlayState='paused';observer.observe(el)});
+window.addEventListener('load',()=>{
+  document.querySelectorAll('.fade-up').forEach(el=>{el.style.animationPlayState='paused';observer.observe(el)});
+  setTimeout(checkServer, 500);
+});
+
+/* ─── Server Status Widget ─── */
+let serverOnline = false;
+let serverCheckInterval = null;
+
+async function checkServer() {
+  const dot = document.getElementById('serverIndicator');
+  const status = document.getElementById('serverStatus');
+  const actions = document.getElementById('serverActions');
+  const startBtn = document.getElementById('serverStartBtn');
+  const restartBtn = document.getElementById('serverRestartBtn');
+  const licenseEl = document.getElementById('serverLicense');
+
+  if (!dot) return;
+
+  try {
+    const res = await fetch('/api/health', { method: 'GET', signal: AbortSignal.timeout(3000) });
+    const data = await res.json();
+
+    if (res.ok) {
+      serverOnline = true;
+      dot.style.background = '#34d399';
+      dot.style.boxShadow = '0 0 8px rgba(52,211,153,0.6)';
+      status.textContent = 'Running';
+      status.style.color = '#34d399';
+      actions.style.display = 'flex';
+      startBtn.style.display = 'none';
+      restartBtn.style.display = 'block';
+      licenseEl.textContent = 'License: ' + (data.license || 'MIT');
+      clearInterval(serverCheckInterval);
+      serverCheckInterval = setInterval(checkServer, 30000);
+    }
+  } catch {
+    serverOnline = false;
+    dot.style.background = '#f87171';
+    dot.style.boxShadow = '0 0 8px rgba(248,113,113,0.4)';
+    status.textContent = 'Offline';
+    status.style.color = '#f87171';
+    actions.style.display = 'flex';
+    startBtn.style.display = 'block';
+    restartBtn.style.display = 'none';
+    licenseEl.textContent = '';
+    clearInterval(serverCheckInterval);
+    serverCheckInterval = setInterval(checkServer, 10000);
+  }
+}
+
+async function restartServer() {
+  const status = document.getElementById('serverStatus');
+  const restartBtn = document.getElementById('serverRestartBtn');
+
+  if (!serverOnline) return;
+  restartBtn.disabled = true;
+  restartBtn.textContent = 'Restarting...';
+
+  try {
+    const res = await fetch('/api/admin/restart', {
+      method: 'POST',
+      headers: { 'X-Api-Key': 'sk_your_secret_key_here' },
+      signal: AbortSignal.timeout(5000),
+    });
+    if (res.ok) {
+      status.textContent = 'Restarting...';
+      setTimeout(checkServer, 3000);
+    }
+  } catch {}
+
+  setTimeout(() => {
+    restartBtn.disabled = false;
+    restartBtn.textContent = '\u21bb Restart Server';
+  }, 3000);
+}
+</script>
+</body>
+</html>
