@@ -355,21 +355,60 @@ footer a:hover{color:var(--mp-300)}
 .footer-bottom p{font-size:0.7rem}
 
 /* ─── RESPONSIVE ─── */
-@media(max-width:1024px){.values-grid{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:900px){.subs-grid{grid-template-columns:1fr}.footer-inner{grid-template-columns:1fr 1fr}.orbit-container{display:none}}
-@media(max-width:600px){.footer-inner{grid-template-columns:1fr}}
+@media(max-width:1100px){
+  .hero-logo-left{width:250px;height:250px;left:-40px}
+}
+@media(max-width:1024px){
+  .values-grid{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:900px){
+  .subs-grid{grid-template-columns:1fr}
+  .footer-inner{grid-template-columns:1fr 1fr}
+  .orbit-container{display:none}
+  .hero-logo-left{display:none}
+  .vals-grid{grid-template-columns:repeat(3,1fr)!important}
+  .inds-grid{grid-template-columns:repeat(3,1fr)!important}
+  .cta-detail{grid-template-columns:1fr 1fr!important}
+}
 @media(max-width:640px){
   .hamburger{display:flex}
   .nav-links{display:none;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(7,0,17,0.98);border-bottom:1px solid var(--border);padding:16px 24px}
   .nav-links.open{display:flex}
   .nav-links a{padding:10px 0}
   .subs-grid{grid-template-columns:1fr}
-  .values-grid{grid-template-columns:repeat(2,1fr)}
+  .values-grid{grid-template-columns:1fr}
   .footer-inner{grid-template-columns:1fr;gap:32px}
   .founder-card{padding:24px}
   .founders-note{padding:24px}
-  .section{padding:56px 16px}
+  .section{padding:48px 16px}
   .sub-highlight .hl-grid{grid-template-columns:1fr}
+  .hero{padding:100px 16px 50px}
+  .hero-actions{flex-direction:column}
+  .hero-actions .btn{width:100%;justify-content:center}
+  .hero-stats{gap:16px;justify-content:space-between}
+  .big-name .sky{font-size:clamp(2.5rem,12vw,4rem)}
+  .big-name .it{font-size:clamp(2rem,9vw,3rem)}
+  .btn{padding:12px 20px;font-size:0.85rem}
+  .vals-grid{grid-template-columns:repeat(2,1fr)!important;gap:10px}
+  .inds-grid{grid-template-columns:repeat(2,1fr)!important;gap:10px}
+  .cta-detail{grid-template-columns:1fr!important;gap:16px}
+  .contact-form{grid-template-columns:1fr!important}
+  .contact-form input[name="name"],.contact-form input[name="email"]{grid-column:1/-1!important}
+  .founder-section{padding:48px 16px}
+  .footer-bottom{flex-direction:column;text-align:center}
+  .section{padding:40px 12px}
+  .hero-stat .val{font-size:1.4rem}
+  .hero-stat .lbl{font-size:0.65rem}
+}
+@media(max-width:400px){
+  .hero{padding:80px 12px 40px}
+  .hero-inner{text-align:center}
+  .hero-stats{gap:10px}
+  .hero-stat .val{font-size:1.2rem}
+  .vals-grid{grid-template-columns:1fr!important}
+  .inds-grid{grid-template-columns:1fr!important}
+  .subs-card{padding:24px 18px}
+  .val-card{padding:16px 10px!important}
 }
 </style>
 </head>
@@ -511,7 +550,7 @@ footer a:hover{color:var(--mp-300)}
       </div>
 
       <div class="founder-meta">
-        <div class="founder-avatar">P</div>
+        <div class="founder-avatar">S</div>
         <div class="founder-info">
           <div class="name">S'nqobile Langa Hlatshwayo</div>
           <div class="title">Founder · IT in Business Systems · Rosebank College, Durban · Est. 2025</div>
@@ -529,7 +568,7 @@ footer a:hover{color:var(--mp-300)}
 <section class="section" style="padding:60px 24px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
   <div class="section-inner">
     <div class="section-tag fade-up"><span class="line"></span> Scale & Impact</div>
-    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:24px;">
+    <div class="vals-grid" style="display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:24px;">
       <div class="val-card" style="text-align:center;padding:28px 12px;">
         <div style="font-family:'JetBrains Mono',monospace;font-size:2rem;font-weight:800;color:var(--mp-300);line-height:1;">2025</div>
         <div style="font-size:0.72rem;color:var(--text-dim);margin-top:6px;text-transform:uppercase;letter-spacing:0.08em;">Year Founded</div>
@@ -774,7 +813,7 @@ footer a:hover{color:var(--mp-300)}
     <div class="section-tag fade-up"><span class="line"></span> Industries We Serve</div>
     <h2 class="section-title fade-up fd1">Across Every <span class="hl">Sector</span></h2>
 
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:32px;">
+    <div class="inds-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:32px;">
       <div class="val-card" style="text-align:center;padding:20px 12px;">
         <div style="font-size:1.8rem;margin-bottom:8px;">&#x1F3EB;</div>
         <h4 style="font-size:0.85rem;">Education</h4>
@@ -922,7 +961,7 @@ footer a:hover{color:var(--mp-300)}
 
     <!-- Contact detail strip -->
     <div style="margin-top:44px;padding-top:32px;border-top:1px solid var(--border);">
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;text-align:left;">
+      <div class="cta-detail" style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;text-align:left;">
         <div>
           <div style="font-family:'JetBrains Mono',monospace;font-size:0.55rem;color:var(--mp-400);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:8px;">Email</div>
           <a href="mailto:projectpstg@gmail.com" style="color:var(--text-muted);text-decoration:none;font-size:0.85rem;transition:color 0.2s;" onmouseover="this.style.color='#a78bfa'" onmouseout="this.style.color=''">projectpstg@gmail.com</a>
@@ -1009,8 +1048,6 @@ document.querySelectorAll('.fade-up').forEach(el=>{el.style.animationPlayState='
 window.addEventListener('load',()=>{
   document.querySelectorAll('.fade-up').forEach(el=>{el.style.animationPlayState='paused';observer.observe(el)});
 });
-
-
 </script>
 </body>
 </html>
