@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy - SKYLINE IT</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="images/Logo.png">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --mp-950:#070011;
+  --mp-900:#0f0220;
+  --mp-850:#15032e;
+  --mp-800:#1e0540;
+  --mp-700:#2d0a5e;
+  --mp-600:#4c1d95;
+  --mp-500:#6d28d9;
+  --mp-400:#8b5cf6;
+  --mp-300:#a78bfa;
+  --mp-200:#c4b5fd;
+  --accent:#a78bfa;
+  --text:#f8fafc;
+  --text-muted:#cbd5e1;
+  --text-dim:#94a3b8;
+  --border:rgba(167,139,250,0.16);
+}
+body{background:var(--mp-950);color:var(--text);font-family:'Inter',sans-serif;line-height:1.7;min-height:100vh}
+#navbar{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(7,0,17,0.85);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:14px 24px}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text)}
+.nav-logo-text{font-weight:700;font-size:0.95rem;letter-spacing:0.08em;display:flex;flex-direction:column;line-height:1.2}
+.nav-logo-text small{font-size:0.6rem;color:var(--text-dim);letter-spacing:0.14em;text-transform:uppercase}
+.nav-links{display:flex;align-items:center;gap:2px;list-style:none}
+.nav-links a{color:var(--text-muted);text-decoration:none;font-size:0.85rem;padding:8px 12px;border-radius:8px;transition:all 0.2s}
+.nav-links a:hover{color:var(--text);background:rgba(139,92,246,0.08)}
+.hamburger{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:5px;padding:6px}
+.hamburger span{width:22px;height:2px;background:var(--text);border-radius:2px}
+.legal-wrap{max-width:860px;margin:0 auto;padding:130px 24px 80px}
+.breadcrumb{font-size:0.75rem;color:var(--text-dim);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:14px}
+.breadcrumb a{color:var(--mp-300);text-decoration:none}
+.breadcrumb a:hover{text-decoration:underline}
+h1{font-size:2.2rem;font-weight:700;margin-bottom:8px;letter-spacing:-0.02em}
+.updated{font-size:0.8rem;color:var(--text-dim);margin-bottom:40px}
+.legal-card{background:rgba(30,5,64,0.45);border:1px solid var(--border);border-radius:16px;padding:36px 40px}
+.legal-card h2{font-size:1.15rem;color:var(--mp-300);margin:34px 0 12px;font-weight:700}
+.legal-card h2:first-child{margin-top:0}
+.legal-card p{color:var(--text-muted);margin-bottom:14px;font-size:0.95rem}
+.legal-card ul{margin:0 0 16px 22px;color:var(--text-muted);font-size:0.95rem}
+.legal-card li{margin-bottom:8px}
+.legal-card li::marker{color:var(--mp-300)}
+.legal-card strong{color:var(--text)}
+.footer-note{margin-top:24px;font-size:0.8rem;color:var(--text-dim);text-align:center}
+footer{border-top:1px solid var(--border);padding:28px 24px;text-align:center;font-size:0.8rem;color:var(--text-dim)}
+footer a{color:var(--mp-300);text-decoration:none}
+footer a:hover{text-decoration:underline}
+@media(max-width:760px){
+  .nav-links{display:none;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(7,0,17,0.98);border-bottom:1px solid var(--border);padding:20px 24px}
+  .nav-links.open{display:flex}
+  .nav-links a{padding:14px 0;font-size:0.95rem}
+  .hamburger{display:flex}
+  .legal-card{padding:26px 22px}
+  h1{font-size:1.7rem}
+}
+</style>
+</head>
+<body>
+
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="images/Logo.png" alt="Skyline IT" style="width:34px;height:34px;object-fit:contain;flex-shrink:0;">
+      <div class="nav-logo-text">SKYLINE IT<small>Holding Company</small></div>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="ecosystem.html">Ecosystem</a></li>
+      <li><a href="terms.html">Terms &amp; Conditions</a></li>
+      <li><a href="index.html#contact" class="nav-cta" style="color:var(--accent);">Get in Touch</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="legal-wrap">
+  <div class="breadcrumb"><a href="index.html">Home</a> / Privacy Policy</div>
+  <h1>Privacy Policy</h1>
+  <p class="updated">Effective date: 31 July 2026</p>
+
+  <div class="legal-card">
+    <h2>1. Who We Are</h2>
+    <p>Skyline IT &amp; Cloud ("Skyline IT", "we", "us", "our") is a South African holding company operating across digital services, IoT products, electronics engineering, and education technology. Our subsidiaries and divisions include <strong>Skyline IT &amp; Cloud</strong> (digital services), <strong>Mzansi Connect</strong> (IoT products), <strong>Circuit Forge Technologies</strong> (electronics engineering), <strong>StudySync</strong> (EdTech), and <strong>VALOW.</strong> (client brand). We are based in Durban, South Africa.</p>
+
+    <h2>2. Information We Collect</h2>
+    <p>We only collect personal information that you voluntarily provide to us. When you contact us through our website, we may collect:</p>
+    <ul>
+      <li>Your name</li>
+      <li>Your email address</li>
+      <li>Your company name (optional)</li>
+      <li>The service you are interested in</li>
+      <li>Any message content you send us</li>
+    </ul>
+    <p>We do not collect sensitive personal information, and we do not require any information beyond what is needed to respond to your enquiry.</p>
+
+    <h2>3. How We Use Your Information</h2>
+    <p>Your information is used only to:</p>
+    <ul>
+      <li>Respond to your enquiries and quotations</li>
+      <li>Match your request to the correct division or subsidiary</li>
+      <li>Provide, manage, and support our services</li>
+      <li>Keep you informed about your project (with your consent)</li>
+    </ul>
+    <p>We will never sell, rent, or trade your personal information to third parties.</p>
+
+    <h2>4. Legal Basis for Processing</h2>
+    <p>We process your personal information in accordance with the <strong>Protection of Personal Information Act (POPIA)</strong> of South Africa. Our legal basis for processing is your consent, which you give when submitting your details, and the legitimate business interest of responding to your enquiry.</p>
+
+    <h2>5. Sharing of Information</h2>
+    <p>We only share your information within the Skyline IT group where necessary to fulfil your request (for example, passing an IoT enquiry to Mzansi Connect or an electronics enquiry to Circuit Forge Technologies). We do not share your information with any unrelated third parties, except where required by law.</p>
+
+    <h2>6. Data Security</h2>
+    <p>We take reasonable technical and organisational measures to protect your personal information against loss, theft, unauthorised access, or disclosure. Our websites are hosted on secure platforms (GitHub Pages and cloud infrastructure managed by Skyline IT &amp; Cloud).</p>
+
+    <h2>7. Cookies and Analytics</h2>
+    <p>Our website does not use intrusive tracking cookies. Any analytics we use are aggregated and do not identify individuals.</p>
+
+    <h2>8. Your Rights Under POPIA</h2>
+    <p>Under POPIA, you have the right to:</p>
+    <ul>
+      <li>Request access to the personal information we hold about you</li>
+      <li>Request correction of inaccurate information</li>
+      <li>Request deletion of your information</li>
+      <li>Withdraw your consent at any time</li>
+      <li>Lodge a complaint with the Information Regulator (South Africa)</li>
+    </ul>
+    <p>To exercise any of these rights, contact us at the email address below. We will respond within a reasonable time.</p>
+
+    <h2>9. Third-Party Services</h2>
+    <p>Some of our products use third-party platforms (such as Supabase for database services and hosted analytics). These providers process data according to their own privacy policies. Where we control the data, we ensure appropriate safeguards are in place.</p>
+
+    <h2>10. Retention</h2>
+    <p>We retain your personal information only for as long as necessary to fulfil the purpose for which it was collected, or as required by law.</p>
+
+    <h2>11. Children's Privacy</h2>
+    <p>Our services are directed at businesses and adult users. We do not knowingly collect personal information from children under 18.</p>
+
+    <h2>12. Changes to This Policy</h2>
+    <p>We may update this Privacy Policy from time to time. Any changes will be posted on this page with an updated effective date.</p>
+
+    <h2>13. Contact Us</h2>
+    <p>If you have any questions about this Privacy Policy or wish to exercise your rights, contact us at <strong>projectpstg@gmail.com</strong> or via post at Durban, South Africa.</p>
+  </div>
+
+  <p class="footer-note">Skyline IT &amp; Cloud &bull; POPIA compliant &bull; Built in South Africa</p>
+</div>
+
+<footer>
+  <p>&copy; 2025 Skyline IT. All rights reserved. | <a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms &amp; Conditions</a></p>
+</footer>
+
+<script>
+const hamburger=document.getElementById('hamburger');
+const navLinks=document.getElementById('navLinks');
+hamburger.addEventListener('click',()=>navLinks.classList.toggle('open'));
+document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>navLinks.classList.remove('open')));
+</script>
+</body>
+</html>
