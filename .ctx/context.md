@@ -47,8 +47,8 @@ Single-page holding company website showcasing all subsidiaries. Midnight purple
 Skyline IT (Holding Company)
 ├── Skyline IT & Cloud            — Digital Services Division (web, apps, e-commerce, SEO, cloud, social)
 │   └── VALOW. Website            — Client project: built a full e-commerce site for an independent brand
-├── Mzansi Connect                — IoT solutions (smart security, water, fleet, livestock tracking)
-│   └── Livestock GPS Tracker     — Flagship IoT prototype (ESP32, GPS, LoRa, Android app)
+├── Mzansi Connect                — Internet Of Things (IoT) solutions (smart security, water, fleet, livestock tracking)
+│   └── Livestock GPS Tracker     — Flagship Internet Of Things (IoT) prototype (ESP32, GPS, LoRa, Android app)
 ├── Circuit Forge Technologies    — Electronics engineering (PCB, embedded, firmware, prototyping)
 └── StudySync                     — EdTech platform (freemium + institutional licensing)
 ```

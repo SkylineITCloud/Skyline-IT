@@ -93,9 +93,68 @@ footer a:hover{color:var(--mp-300)}
 @media(max-width:1024px){.eco-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:900px){.flow-grid{grid-template-columns:1fr}.footer-inner{grid-template-columns:1fr 1fr}}
 @media(max-width:640px){.hamburger{display:flex;padding:10px}.hamburger span{width:28px;height:3px}.nav-links{display:none;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(7,0,17,0.98);border-bottom:1px solid var(--border);padding:20px 24px}.nav-links.open{display:flex}.nav-links a{padding:14px 0;font-size:0.95rem}.section{padding:48px 16px}.eco-grid{grid-template-columns:1fr}.footer-inner{grid-template-columns:1fr;gap:32px}.hero{padding:100px 16px 50px}.cta-actions{flex-direction:column}.cta-actions .btn{width:100%;justify-content:center}.eco-card{padding:24px 18px}}
+
+/* ─── SKELETON LOADER (subtle, matches original theme) ─── */
+.sk-overlay{
+  position:fixed;inset:0;z-index:2000;
+  background:var(--mp-950);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  transition:opacity .5s ease, visibility .5s ease;
+}
+.sk-overlay.sk-done{opacity:0;visibility:hidden;pointer-events:none}
+.sk-nav{
+  width:min(520px,80%);height:46px;border-radius:8px;
+  background:rgba(30,5,64,0.55);border:1px solid var(--border);
+  margin-bottom:36px;
+}
+.sk-center{display:flex;flex-direction:column;align-items:center;width:min(680px,90%)}
+.sk-line{
+  height:18px;border-radius:6px;
+  background:rgba(30,5,64,0.6);border:1px solid var(--border);
+}
+.sk-display{width:min(460px,80%);height:56px;border-radius:8px;background:rgba(30,5,64,0.6);border:1px solid var(--border);margin-bottom:14px}
+.sk-display-2{width:min(300px,55%);height:28px;border-radius:8px;background:rgba(30,5,64,0.5);border:1px solid var(--border);margin-bottom:32px}
+.sk-sub{width:min(420px,78%);height:14px;border-radius:6px;background:rgba(30,5,64,0.4);border:1px solid var(--border);margin-bottom:10px}
+.sk-btns{display:flex;gap:12px;margin-top:22px;flex-wrap:wrap;justify-content:center}
+.sk-btn{width:150px;height:46px;border-radius:8px;background:rgba(109,40,217,0.18);border:1px solid var(--border)}
+.sk-overlay .sk-nav,.sk-overlay .sk-line,.sk-overlay .sk-display,.sk-overlay .sk-display-2,
+.sk-overlay .sk-sub,.sk-overlay .sk-btn{
+  background-image:linear-gradient(100deg,
+    transparent 20%,rgba(139,92,246,0.08) 40%,rgba(167,139,250,0.14) 50%,rgba(139,92,246,0.08) 60%,transparent 80%);
+  background-size:220% 100%;
+  background-repeat:no-repeat;
+  animation:sk-shimmer 1.5s ease-in-out infinite;
+}
+@keyframes sk-shimmer{0%{background-position:130% 0}100%{background-position:-130% 0}}
+@media (prefers-reduced-motion: reduce){
+  .sk-overlay .sk-nav,.sk-overlay .sk-line,.sk-overlay .sk-display,.sk-overlay .sk-display-2,
+  .sk-overlay .sk-sub,.sk-overlay .sk-btn{animation:none}
+  html{scroll-behavior:auto}
+}
+html.js .site{opacity:0;visibility:hidden}
+html.js.page-ready .site{opacity:1;visibility:visible;transition:opacity .4s ease}
+html:not(.js) .site{opacity:1;visibility:visible}
 </style>
 </head>
 <body>
+<div class="sk-overlay" id="skOverlay" aria-hidden="true">
+  <div class="sk-nav"></div>
+  <div class="sk-center">
+    <div class="sk-display"></div>
+    <div class="sk-display-2"></div>
+    <div class="sk-sub" style="width:min(360px,66%);"></div>
+    <div class="sk-sub"></div>
+    <div class="sk-btns">
+      <div class="sk-btn"></div>
+      <div class="sk-btn"></div>
+      <div class="sk-btn"></div>
+    </div>
+  </div>
+</div>
+<script>document.documentElement.classList.add('js');</script>
+<noscript><style>.sk-overlay{display:none}</style></noscript>
+
+<div class="site">
 <div class="scanlines" aria-hidden="true"></div>
 <div class="screen-glow" aria-hidden="true"></div>
 
@@ -140,12 +199,13 @@ footer a:hover{color:var(--mp-300)}
       <div class="eco-card">
         <div class="icon"><img loading="lazy" decoding="async" src="images/mzansi-logo.png" alt="Mzansi Connect" style="width:60px;height:60px;object-fit:contain;"></div>
         <h3>Mzansi Connect</h3>
-        <p>IoT product company — smart security, water, electricity, fleet, and livestock solutions for South African realities.</p>
+        <p>Internet Of Things (IoT) product company — smart security, water, electricity, fleet, and livestock solutions for South African realities.</p>
       </div>
       <div class="eco-card">
         <div class="icon"><img loading="lazy" decoding="async" src="images/circuit-forge-logo.png" alt="Circuit Forge Technologies" style="width:60px;height:60px;object-fit:contain;"></div>
         <h3>Circuit Forge Technologies</h3>
         <p>Hardware engineering — PCB design, embedded systems, firmware, and hardware prototyping. The manufacturing backbone.</p>
+        <p style="margin-top:10px;"><a href="/store/" target="_blank" rel="noopener" style="color:#fbbf24;text-decoration:none;font-weight:600;font-size:0.88rem;">&#128722; Visit the Store &rarr;</a></p>
       </div>
       <div class="eco-card">
         <div class="icon"><img loading="lazy" decoding="async" src="images/studysync-logo.png" alt="StudySync" style="width:60px;height:60px;object-fit:contain;"></div>
@@ -160,7 +220,7 @@ footer a:hover{color:var(--mp-300)}
       <div class="eco-card">
         <div class="icon"><img loading="lazy" decoding="async" src="images/livestock-tracker-logo.png" alt="Livestock Tracker" style="width:60px;height:60px;object-fit:cover;border-radius:8px;"></div>
         <h3>Livestock Tracker</h3>
-        <p>GPS tracking collar for emerging farmers — Circuit Forge hardware �- Mzansi Connect distribution �- Skyline Cloud hosting.</p>
+        <p>GPS tracking collar for emerging farmers — Circuit Forge hardware — Mzansi Connect distribution — Skyline Cloud hosting.</p>
       </div>
     </div>
   </div>
@@ -178,7 +238,7 @@ footer a:hover{color:var(--mp-300)}
       <div class="flow-card">
         <div class="arrow"><img loading="lazy" decoding="async" src="images/circuit-forge-logo.png" alt="" style="width:28px;height:28px;object-fit:contain;"></div>
         <h3>Circuit Forge → Mzansi Connect</h3>
-        <p>Circuit Forge designs and manufactures the PCBs, embedded systems, and firmware that power Mzansi Connect's IoT product line — from smart security to livestock trackers.</p>
+        <p>Circuit Forge designs and manufactures the PCBs, embedded systems, and firmware that power Mzansi Connect's Internet Of Things (IoT) product line — from smart security to livestock trackers.</p>
       </div>
       <div class="flow-card">
         <div class="arrow"><img loading="lazy" decoding="async" src="images/Logo.png" alt="" style="width:28px;height:28px;object-fit:contain;"></div>
@@ -249,7 +309,7 @@ footer a:hover{color:var(--mp-300)}
         <div class="footer-brand">SKYLINE IT</div>
       </div>
       <div class="footer-hl" style="font-size:0.65rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:14px">Holding Company</div>
-      <p style="max-width:320px;line-height:1.7;">Building ambitious South African brands across technology, IoT, fashion, and education. Founded in Durban, South Africa — 2025.</p>
+      <p style="max-width:320px;line-height:1.7;">Building ambitious South African brands across technology, Internet Of Things (IoT), fashion, and education. Founded in Durban, South Africa — 2025.</p>
     </div>
     <div>
       <h4>Pages</h4>
@@ -271,17 +331,36 @@ footer a:hover{color:var(--mp-300)}
       <p style="margin-top:10px;font-size:0.7rem;color:var(--text-dim);">&#x1F1FF;&#x1F1E6; Proudly South African</p>
     </div>
     <div class="footer-bottom">
-      <p>&copy; 2025 Skyline IT. All rights reserved. Built in South Africa.</p>
+      <p>&copy; 2026 Skyline IT. All rights reserved. Built in South Africa.</p>
       <p style="font-size:0.68rem;color:var(--text-dim);">IT in Business Systems &bull; Building South Africa's Digital Future</p>
+      <p style="font-size:0.68rem;margin-top:6px;"><a href="privacy.html" style="color:var(--text-dim);text-decoration:none;">Privacy Policy</a> &nbsp;&bull;&nbsp; <a href="terms.html" style="color:var(--text-dim);text-decoration:none;">Terms &amp; Conditions</a></p>
     </div>
   </div>
 </footer>
 
+</div><!-- /.site -->
+
 <script>
+(function(){
+  function hideSkeleton(){
+    var o=document.getElementById('skOverlay');
+    if(!o) return;
+    o.classList.add('sk-done');
+    document.documentElement.classList.add('page-ready');
+    setTimeout(function(){ if(o.parentNode) o.parentNode.removeChild(o); }, 560);
+  }
+  var started=Date.now();
+  var minWait=650;
+  window.addEventListener('load', function(){ var due=(minWait-(Date.now()-started)); setTimeout(hideSkeleton, due>0?due:0); });
+  document.fonts && document.fonts.ready && document.fonts.ready.then(function(){ setTimeout(hideSkeleton, minWait); });
+  setTimeout(hideSkeleton, 2500);
+})();
+
 const hamburger=document.getElementById('hamburger');
 const navLinks=document.getElementById('navLinks');
 hamburger.addEventListener('click',()=>navLinks.classList.toggle('open'));
 document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>navLinks.classList.remove('open')));
+
 const navbar=document.getElementById('navbar');
 window.addEventListener('scroll',()=>navbar.classList.toggle('scrolled',window.scrollY>60));
 </script>

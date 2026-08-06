@@ -155,7 +155,7 @@ nav.scrolled{background:rgba(7,0,17,0.95);box-shadow:0 4px 40px rgba(0,0,0,0.4)}
   letter-spacing:-0.04em;color:var(--text);
   filter:drop-shadow(0 0 20px rgba(255,255,255,0.05));
 }
-.cursor-glow{position:fixed;width:250px;height:250px;border-radius:50%;background:radial-gradient(circle,rgba(139,92,246,0.25),rgba(139,92,246,0.08) 40%,transparent 65%);pointer-events:none;transform:translate(-50%,-50%);transition:left 0.6s cubic-bezier(0.22,1,0.36,1),top 0.6s cubic-bezier(0.22,1,0.36,1);z-index:0;will-change:left,top}
+.cursor-glow{position:fixed;width:250px;height:250px;border-radius:50%;background:radial-gradient(circle,rgba(109,40,217,0.25),rgba(109,40,217,0.08) 40%,transparent 65%);pointer-events:none;transform:translate(-50%,-50%);transition:left 0.6s cubic-bezier(0.22,1,0.36,1),top 0.6s cubic-bezier(0.22,1,0.36,1);z-index:0;will-change:left,top}
 .big-name .sub{
   display:block;margin-top:6px;
   font-size:clamp(0.7rem,1.5vw,1rem);font-weight:600;
@@ -195,6 +195,9 @@ nav.scrolled{background:rgba(7,0,17,0.95);box-shadow:0 4px 40px rgba(0,0,0,0.4)}
 .btn-outline:hover{border-color:var(--mp-400);background:rgba(139,92,246,0.06);transform:translateY(-2px);box-shadow:0 0 20px var(--glow)}
 .btn-accent{background:var(--accent);color:var(--mp-950);font-weight:700;box-shadow:0 4px 25px rgba(167,139,250,0.25)}
 .btn-accent:hover{background:var(--accent-light);transform:translateY(-2px);box-shadow:0 8px 35px rgba(167,139,250,0.4)}
+.btn-amber{background:#d97706;color:#fff;box-shadow:0 4px 15px rgba(217,119,6,0.25)}
+.btn-amber:hover{background:#f59e0b;transform:translateY(-2px);box-shadow:0 8px 30px rgba(245,158,11,0.35)}
+.btn-sm{padding:10px 18px;font-size:0.82rem}
 
 .hero-stats{display:flex;flex-wrap:wrap;gap:32px;margin-top:8px}
 .hero-stat{display:flex;flex-direction:column;gap:2px}
@@ -253,11 +256,6 @@ nav.scrolled{background:rgba(7,0,17,0.95);box-shadow:0 4px 40px rgba(0,0,0,0.4)}
 .founder-quote{font-size:1.05rem;line-height:1.9;color:var(--text-muted);padding:16px 0 16px 32px;position:relative;border-left:2px solid var(--border)}
 .founder-quote p{margin-bottom:14px}
 .founder-quote strong{color:var(--text)}
-.founder-meta{display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding-top:20px;border-top:1px solid var(--border);margin-top:8px}
-.founder-avatar{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--mp-600),var(--mp-400));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.1rem;color:#fff;box-shadow:0 0 20px rgba(109,40,217,0.2)}
-.founder-info .name{font-weight:700;font-size:1.05rem;color:var(--text)}
-.founder-info .title{font-size:0.78rem;color:var(--text-dim)}
-.founder-tag{margin-left:auto;padding:5px 14px;border-radius:20px;background:rgba(167,139,250,0.08);border:1px solid rgba(167,139,250,0.15);font-size:0.65rem;color:var(--accent);text-transform:uppercase;letter-spacing:0.1em;font-weight:600}
 
 /* ─── SUBSIDIARIES ─── */
 .subs-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
@@ -293,6 +291,33 @@ nav.scrolled{background:rgba(7,0,17,0.95);box-shadow:0 4px 40px rgba(0,0,0,0.4)}
 .subs-card .features span::before{content:'› ';position:absolute;left:0;color:inherit}
 .subs-card .tags{display:flex;flex-wrap:wrap;gap:6px}
 .subs-card .tags span{font-size:0.82rem;padding:5px 11px;border-radius:5px;background:rgba(139,92,246,0.06);border:1px solid var(--border);color:var(--text-dim);font-weight:500;letter-spacing:0.3px}
+
+/* ─── PRODUCTS & APPS ─── */
+.prod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:32px}
+.prod-card{
+  position:relative;
+  background:rgba(30,5,64,0.3);
+  border:1px solid rgba(139,92,246,0.15);
+  border-radius:12px;
+  padding:22px 20px;
+  transition:border-color 0.25s ease,transform 0.25s ease;
+  display:flex;flex-direction:column;
+}
+.prod-card:hover{border-color:rgba(139,92,246,0.35);transform:translateY(-3px)}
+.prod-head{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.prod-badge{
+  width:52px;height:52px;border-radius:10px;
+  background:rgba(139,92,246,0.1);border:1px solid var(--border);
+  flex-shrink:0;display:flex;align-items:center;justify-content:center;overflow:hidden;
+}
+.prod-badge img{width:100%;height:100%;object-fit:contain;border-radius:8px}
+.prod-name{font-size:1.05rem;font-weight:700;margin-bottom:2px}
+.prod-company{font-size:0.68rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.1em;font-weight:600}
+.prod-desc{font-size:0.85rem;color:var(--text-muted);line-height:1.65;margin-bottom:14px;flex:1}
+.prod-meta{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.prod-meta span{font-size:0.72rem;padding:4px 9px;border-radius:5px;background:rgba(139,92,246,0.06);border:1px solid var(--border);color:var(--text-dim);font-weight:500}
+.prod-actions{display:flex;gap:8px;flex-wrap:wrap}
+.prod-actions .btn{padding:10px 16px;font-size:0.8rem}
 
 /* ─── EACH SUBSIDIARY HIGHLIGHT BOX ─── */
 .sub-highlight{margin-top:20px;padding:16px;border-radius:8px;border:1px solid var(--border);background:rgba(0,0,0,0.15)}
@@ -358,6 +383,7 @@ footer a:hover{color:var(--mp-300)}
 }
 @media(max-width:1024px){
   .values-grid{grid-template-columns:repeat(3,1fr)}
+  .prod-grid{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:900px){
   .subs-grid{grid-template-columns:1fr}
@@ -376,6 +402,7 @@ footer a:hover{color:var(--mp-300)}
   .nav-links a{padding:14px 0;font-size:0.95rem}
   .nav-cta{text-align:center!important}
   .subs-grid{grid-template-columns:1fr}
+  .prod-grid{grid-template-columns:1fr}
   .values-grid{grid-template-columns:1fr}
   .footer-inner{grid-template-columns:1fr;gap:32px}
   .founder-card{padding:24px}
@@ -383,9 +410,14 @@ footer a:hover{color:var(--mp-300)}
   .section{padding:48px 16px}
   .sub-highlight .hl-grid{grid-template-columns:1fr}
   .hero{padding:100px 16px 50px}
+  .hero-inner{text-align:center}
+  .hero-sub{margin-left:auto;margin-right:auto}
+  .big-name-line{justify-content:center}
   .hero-actions{flex-direction:column}
   .hero-actions .btn{width:100%;justify-content:center;padding:16px 20px}
-  .hero-stats{gap:16px;justify-content:space-between}
+  .hero-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:24px 16px;justify-items:center;max-width:380px;margin:8px auto 0}
+  .hero-stat{width:100%;align-items:center;text-align:center}
+  .hero-stat:last-child{grid-column:1/-1}
   .big-name .sky{font-size:clamp(2.5rem,12vw,4rem)}
   .big-name .it{font-size:clamp(2rem,9vw,3rem)}
   .btn{padding:14px 24px;font-size:0.9rem}
@@ -402,8 +434,7 @@ footer a:hover{color:var(--mp-300)}
 }
 @media(max-width:400px){
   .hero{padding:80px 12px 40px}
-  .hero-inner{text-align:center}
-  .hero-stats{gap:10px}
+  .hero-stats{gap:18px 10px}
   .hero-stat .val{font-size:1.2rem}
   .vals-grid{grid-template-columns:1fr!important}
   .inds-grid{grid-template-columns:1fr!important}
@@ -412,10 +443,69 @@ footer a:hover{color:var(--mp-300)}
 }
 .contact-form select option{color:#111!important;background:#fff!important}
 .founder-section,.section,.cta-section{content-visibility:auto;contain-intrinsic-size:auto 900px}
-.subs-grid,.inds-grid,.vals-grid{content-visibility:auto;contain-intrinsic-size:auto 600px}
+.subs-grid,.inds-grid,.vals-grid,.prod-grid{content-visibility:auto;contain-intrinsic-size:auto 600px}
+
+/* ─── SKELETON LOADER (subtle, matches original theme) ─── */
+.sk-overlay{
+  position:fixed;inset:0;z-index:2000;
+  background:var(--mp-950);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  transition:opacity .5s ease, visibility .5s ease;
+}
+.sk-overlay.sk-done{opacity:0;visibility:hidden;pointer-events:none}
+.sk-nav{
+  width:min(520px,80%);height:46px;border-radius:8px;
+  background:rgba(30,5,64,0.55);border:1px solid var(--border);
+  margin-bottom:36px;
+}
+.sk-center{display:flex;flex-direction:column;align-items:center;width:min(680px,90%)}
+.sk-line{
+  height:18px;border-radius:6px;
+  background:rgba(30,5,64,0.6);border:1px solid var(--border);
+}
+.sk-display{width:min(460px,80%);height:56px;border-radius:8px;background:rgba(30,5,64,0.6);border:1px solid var(--border);margin-bottom:14px}
+.sk-display-2{width:min(300px,55%);height:28px;border-radius:8px;background:rgba(30,5,64,0.5);border:1px solid var(--border);margin-bottom:32px}
+.sk-sub{width:min(420px,78%);height:14px;border-radius:6px;background:rgba(30,5,64,0.4);border:1px solid var(--border);margin-bottom:10px}
+.sk-btns{display:flex;gap:12px;margin-top:22px;flex-wrap:wrap;justify-content:center}
+.sk-btn{width:150px;height:46px;border-radius:8px;background:rgba(109,40,217,0.18);border:1px solid var(--border)}
+.sk-overlay .sk-nav,.sk-overlay .sk-line,.sk-overlay .sk-display,.sk-overlay .sk-display-2,
+.sk-overlay .sk-sub,.sk-overlay .sk-btn{
+  background-image:linear-gradient(100deg,
+    transparent 20%,rgba(139,92,246,0.08) 40%,rgba(167,139,250,0.14) 50%,rgba(139,92,246,0.08) 60%,transparent 80%);
+  background-size:220% 100%;
+  background-repeat:no-repeat;
+  animation:sk-shimmer 1.5s ease-in-out infinite;
+}
+@keyframes sk-shimmer{0%{background-position:130% 0}100%{background-position:-130% 0}}
+@media (prefers-reduced-motion: reduce){
+  .sk-overlay .sk-nav,.sk-overlay .sk-line,.sk-overlay .sk-display,.sk-overlay .sk-display-2,
+  .sk-overlay .sk-sub,.sk-overlay .sk-btn{animation:none}
+  html{scroll-behavior:auto}
+}
+html.js .site{opacity:0;visibility:hidden}
+html.js.page-ready .site{opacity:1;visibility:visible;transition:opacity .4s ease}
+html:not(.js) .site{opacity:1;visibility:visible}
 </style>
 </head>
 <body>
+<div class="sk-overlay" id="skOverlay" aria-hidden="true">
+  <div class="sk-nav"></div>
+  <div class="sk-center">
+    <div class="sk-display"></div>
+    <div class="sk-display-2"></div>
+    <div class="sk-sub" style="width:min(360px,66%);"></div>
+    <div class="sk-sub"></div>
+    <div class="sk-btns">
+      <div class="sk-btn"></div>
+      <div class="sk-btn"></div>
+      <div class="sk-btn"></div>
+    </div>
+  </div>
+</div>
+<script>document.documentElement.classList.add('js');</script>
+<noscript><style>.sk-overlay{display:none}</style></noscript>
+
+<div class="site">
 <div class="cursor-glow" id="cursorGlow"></div>
 <div class="scanlines" aria-hidden="true"></div>
 <div class="screen-glow" aria-hidden="true"></div>
@@ -430,8 +520,11 @@ footer a:hover{color:var(--mp-300)}
     <ul class="nav-links" id="navLinks">
       <li><a href="#about">About</a></li>
       <li><a href="#companies">Companies</a></li>
+      <li><a href="#products">Products</a></li>
       <li><a href="#values">Values</a></li>
-      <li><a href="portfolio.html">Portfolio</a></li>
+      <li>
+        <a href="portfolio.html">Portfolio</a>
+      </li>
       <li><a href="ecosystem.html">Ecosystem</a></li>
       <li><a href="#story">Our Story</a></li>
       <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
@@ -471,7 +564,7 @@ footer a:hover{color:var(--mp-300)}
 
     <p class="hero-sub fade-up fd2">
       A holding company building ambitious South African brands across <strong style="color:var(--text);">technology</strong>, 
-      <strong style="color:var(--mp-300);">IoT</strong>, <strong style="color:var(--accent);">fashion</strong>, 
+      <strong style="color:var(--mp-300);">Internet Of Things (IoT)</strong>, <strong style="color:var(--accent);">fashion</strong>, 
       and <strong style="color:var(--accent);">education</strong> - founded by a student 
       who believed he could build a better digital Africa.
     </p>
@@ -502,7 +595,7 @@ footer a:hover{color:var(--mp-300)}
     <div class="founder-card fade-up fd1">
       <div class="founder-quote">
         <p>
-          Skyline IT was born in a lecture hall at <strong>Rosebank College, Durban - 2025</strong>. 
+          Skyline IT was born in a lecture hall in <strong>Durban - 2025</strong>. 
           As an <strong>IT in Business Systems</strong> student, I watched local businesses struggle 
           with technology that was either too expensive, too complicated, or simply not built for 
           the South African market.
@@ -514,8 +607,8 @@ footer a:hover{color:var(--mp-300)}
           instead, with specialised subsidiaries tackling different problems.
         </p>
         <p>
-          <strong>Skyline IT & Cloud</strong> handles digital services. <strong>Mzansi Connect</strong> 
-          builds IoT hardware. <strong>Circuit Forge</strong> engineers electronics. We've also built 
+          <strong>Skyline IT &amp; Cloud</strong> handles digital services. <strong>Mzansi Connect</strong> 
+          builds Internet Of Things (IoT) hardware. <strong>Circuit Forge</strong> engineers electronics. We've also built 
           websites for clients - like <strong>VALOW.</strong>, a streetwear brand. <strong>StudySync</strong> 
           helps students learn together. Each brand and client project serves a different need - but 
           all share one DNA: South African built, quality driven, and made for the people who need it most.
@@ -533,12 +626,12 @@ footer a:hover{color:var(--mp-300)}
           <div style="background:rgba(139,92,246,0.04);border:1px solid var(--border);border-radius:8px;padding:14px;">
             <div style="font-family:Arial,Helvetica,sans-serif;font-size:0.55rem;color:var(--mp-400);letter-spacing:0.1em;">Q1 2025</div>
             <div style="font-weight:600;font-size:0.82rem;margin:4px 0 2px;">Skyline IT Founded</div>
-            <div style="font-size:0.68rem;color:var(--text-dim);">Rosebank College, Durban</div>
+            <div style="font-size:0.68rem;color:var(--text-dim);">Durban, South Africa</div>
           </div>
           <div style="background:rgba(139,92,246,0.04);border:1px solid var(--border);border-radius:8px;padding:14px;">
             <div style="font-family:Arial,Helvetica,sans-serif;font-size:0.55rem;color:var(--mp-400);letter-spacing:0.1em;">Q2 2025</div>
             <div style="font-weight:600;font-size:0.82rem;margin:4px 0 2px;">Mzansi Connect</div>
-            <div style="font-size:0.68rem;color:var(--text-dim);">IoT subsidiary launched</div>
+            <div style="font-size:0.68rem;color:var(--text-dim);">Internet Of Things (IoT) subsidiary launched</div>
           </div>
           <div style="background:rgba(167,139,250,0.04);border:1px solid var(--border);border-radius:8px;padding:14px;">
             <div style="font-family:Arial,Helvetica,sans-serif;font-size:0.55rem;color:var(--accent);letter-spacing:0.1em;">Q3 2025</div>
@@ -551,15 +644,6 @@ footer a:hover{color:var(--mp-300)}
             <div style="font-size:0.68rem;color:var(--text-dim);">EdTech platform & client website project</div>
           </div>
         </div>
-      </div>
-
-      <div class="founder-meta">
-        <div class="founder-avatar">S</div>
-        <div class="founder-info">
-          <div class="name">S'nqobile Langa Hlatshwayo</div>
-          <div class="title">Founder · IT in Business Systems · Rosebank College, Durban · Est. 2025</div>
-        </div>
-        <div class="founder-tag">&#x1F1FF;&#x1F1E6; Built in South Africa</div>
       </div>
     </div>
   </div>
@@ -646,7 +730,7 @@ footer a:hover{color:var(--mp-300)}
         </a>
         <h3>Mzansi Connect</h3>
         <div class="sub">A Skyline IT Company</div>
-        <p class="desc">Affordable IoT solutions designed for South African realities - smart security, water monitoring, electricity tracking, fleet management, and livestock tracking. Backed by formal market analysis, financial projections, and a full operational plan.</p>
+        <p class="desc">Affordable Internet Of Things (IoT) solutions designed for South African realities - smart security, water monitoring, electricity tracking, fleet management, and livestock tracking. Backed by formal market analysis, financial projections, and a full operational plan.</p>
         <div class="features">
           <span>Smart Spaza Shop Security - motion, door alerts, SMS, panic button</span>
           <span>Smart Water Tank Monitor - level, leak detection, overflow alerts</span>
@@ -663,19 +747,21 @@ footer a:hover{color:var(--mp-300)}
             <strong style="color:var(--mp-300);">Model:</strong> B2C device sales + B2B fleet/security contracts
           </div>
         </div>
-        <div class="tags"><span>IoT</span><span>ESP32</span><span>LoRa</span><span>GSM</span><span>Smart Home</span><span>Cloud</span></div>
+        <div class="tags"><span>Internet Of Things (IoT)</span><span>ESP32</span><span>LoRa</span><span>GSM</span><span>Smart Home</span><span>Cloud</span></div>
       </div>
 
       <!-- 3. Circuit Forge Technologies -->
       <div class="subs-card fade-up fd4">
-        <div class="icon-wrap"><img loading="lazy" decoding="async" src="images/circuit-forge-logo.png" alt="Circuit Forge Technologies" style="width:100%;height:100%;object-fit:contain;"></div>
+        <a href="Subsidies/Circuit Forge Technologies/" target="_blank" rel="noopener" class="icon-wrap" title="Visit Circuit Forge Technologies" style="text-decoration:none;background:rgba(251,133,0,0.10);">
+          <img loading="lazy" decoding="async" src="images/circuit-forge-logo.png" alt="Circuit Forge Technologies" style="width:100%;height:100%;object-fit:contain;">
+        </a>
         <h3>Circuit Forge Technologies</h3>
         <div class="sub">A Skyline IT Company</div>
         <p class="desc">Custom electronics engineering - PCB design, embedded systems, firmware, and hardware prototyping from concept to production. Full capability statement, SLA, and formal project proposals for every engagement.</p>
         <div class="features">
           <span>PCB Design - schematic, layout, Gerber, BOM, DFM</span>
           <span>Embedded Systems - ESP32, STM32, Arduino, RPi, PIC, ARM</span>
-          <span>IoT Solutions - smart home, environmental, asset tracking</span>
+          <span>Internet Of Things (IoT) Solutions - smart home, environmental, asset tracking</span>
           <span>Hardware Prototyping - breadboard to production-ready</span>
           <span>Full product development lifecycle & hardware consulting</span>
           <span>Firmware development & over-the-air updates</span>
@@ -690,51 +776,11 @@ footer a:hover{color:var(--mp-300)}
           </div>
         </div>
         <div class="tags"><span>PCB</span><span>Embedded</span><span>ESP32</span><span>STM32</span><span>Firmware</span><span>Livestock</span><span>SLA</span></div>
+        <a href="/store/" target="_blank" rel="noopener" class="btn-amber btn-sm" style="margin-top:14px;display:inline-block;">&#128722; Visit Store</a>
       </div>
 
-      <!-- 4. VALOW. Streetwear -->
-      <a href="Subsidies/Valow" class="subs-card fade-up fd5" style="text-decoration:none;color:inherit;display:block;">
-        <div class="icon-wrap"><img loading="lazy" decoding="async" src="images/valow-logo.jpeg" alt="VALOW." style="width:100%;height:100%;object-fit:cover;"></div>
-        <h3>VALOW.</h3>
-        <div class="sub">Independent Streetwear Brand — Client of Skyline IT & Cloud</div>
-        <p class="desc">VALOW. is a South African streetwear brand est. 2026. Premium-quality apparel with community-driven design, limited drops, and full e-commerce platform built by Skyline IT & Cloud.</p>
-        <div class="features">
-          <span>Full e-commerce website with community voting system</span>
-          <span>Limited drops to reduce risk, build demand</span>
-          <span>Admin dashboard for demand analytics & inventory</span>
-          <span>Content marketing via TikTok & Instagram</span>
-        </div>
-        <div class="tags"><span>Streetwear</span><span>E-Commerce</span><span>Community Voting</span><span>Client Work</span><span>2026</span></div>
-      </a>
-
-      <!-- 5. Portfolio Showcase -->
-      <a href="portfolio.html" style="text-decoration:none;color:inherit;display:contents;">
-      <div class="subs-card accent fade-up fd6">
-        <div class="icon-wrap"><img loading="lazy" decoding="async" src="images/Logo.png" alt="Skyline IT" style="width:100%;height:100%;object-fit:contain;"></div>
-        <h3>Portfolio &amp; Client Work</h3>
-        <div class="sub">Built by Skyline IT</div>
-        <p class="desc">Every brand, product, and system in our portfolio exists to demonstrate what we can deliver - from full-stack web platforms and IoT hardware to e-commerce streetwear and EdTech.</p>
-        <div class="features">
-          <span>VALOW. - Client website: full e-commerce streetwear store with community voting</span>
-          <span>StudySync - Real-time study platform with chat, Pomodoro, streaks & leaderboards</span>
-          <span>Mzansi Connect - End-to-end IoT product line with cloud dashboards & mobile apps</span>
-          <span>Livestock GPS Tracker - ESP32 collar, Supabase API, Android companion app</span>
-          <span>Smart security, water, electricity & fleet - hardware + software + cloud</span>
-        </div>
-        <div class="sub-highlight" style="margin-top:12px;">
-          <div class="hl-title">What This Says About Us</div>
-          <div style="font-size:0.88rem;color:var(--text-dim);line-height:1.7;">
-            <strong style="color:var(--accent);">Full-Stack Capability:</strong> Hardware &#x2192; firmware &#x2192; backend &#x2192; frontend &#x2192; mobile<br>
-            <strong style="color:var(--accent);">Industry Range:</strong> EdTech, IoT, agritech, security, logistics<br>
-            <strong style="color:var(--accent);">Ready to Ship:</strong> We don't just talk - we build, launch, and support
-          </div>
-        </div>
-        <div class="tags"><span>Showcase</span><span>Full-Stack</span><span>IoT</span><span>Web</span><span>Mobile</span><span>Client Work</span><span>Livestock</span></div>
-      </div>
-      </a>
-
-      <!-- 6. StudySync -->
-      <div class="subs-card red fade-up fd7">
+      <!-- 4. StudySync -->
+      <div class="subs-card red fade-up fd5">
         <div class="icon-wrap"><img loading="lazy" decoding="async" src="images/studysync-logo.png" alt="StudySync" style="width:100%;height:100%;object-fit:contain;"></div>
         <h3>StudySync</h3>
         <div class="sub">A Skyline IT Product</div>
@@ -758,35 +804,121 @@ footer a:hover{color:var(--mp-300)}
         </div>
         <div class="tags"><span>EdTech</span><span>Freemium</span><span>Real-Time</span><span>Pomodoro</span><span>Node.js</span><span>Investor Ready</span></div>
       </div>
+    </div>
+  </div>
+</section>
 
-      <!-- 7. Ecosystem Highlight -->
-      <a href="ecosystem.html" style="text-decoration:none;color:inherit;display:contents;">
-      <div class="subs-card mint fade-up fd8">
-        <div class="icon-wrap"><img loading="lazy" decoding="async" src="images/Logo.png" alt="Skyline IT" style="width:100%;height:100%;object-fit:contain;"></div>
-        <h3>The Skyline Ecosystem</h3>
-        <div class="sub">How It All Connects</div>
-        <p class="desc">Our brands don't just coexist - they amplify each other. Circuit Forge builds hardware for Mzansi Connect. Skyline IT & Cloud hosts all platforms. Every product, portfolio piece, and subsidiary feeds into the next.</p>
-        <div class="sub-highlight">
-          <div class="hl-title">Cross-Brand Synergy</div>
-          <div class="hl-grid">
-            <span class="hl-item">Circuit Forge &#x2192; Mzansi Connect hardware</span>
-            <span class="hl-item">Skyline IT & Cloud &#x2192; Hosts all platforms, builds portfolios</span>
-            <span class="hl-item">Mzansi Connect &#x2192; IoT data via Skyline Cloud</span>
-            <span class="hl-item">Circuit Forge &#x2192; Livestock Tracker hardware & firmware</span>
-            <span class="hl-item">StudySync &#x2192; Built by Skyline IT & Cloud devs</span>
-            <span class="hl-item">All brands &#x2192; Shared infrastructure & talent</span>
+<!-- ─── DIVIDER ─── -->
+<div class="divider" aria-hidden="true"><span class="divider-line"></span><span class="divider-sym">&#x25C6;</span><span class="divider-line"></span></div>
+
+<!-- ─── PRODUCTS & APPS ─── -->
+<section class="section" id="products">
+  <div class="section-inner">
+    <div class="section-tag fade-up"><span class="line"></span> Our Products & Apps</div>
+    <h2 class="section-title fade-up fd1">Built By Our <span class="hl">Subsidiaries</span></h2>
+    <p class="section-desc fade-up fd2">
+      Every subsidiary ships real, usable products - live web apps and installable Android APKs,
+      all built, hosted, and supported by Skyline IT & Cloud.
+    </p>
+
+    <div class="prod-grid">
+
+      <div class="prod-card fade-up fd2">
+        <div class="prod-head">
+          <div class="prod-badge"><img loading="lazy" decoding="async" src="images/logo-square.png" alt="Mzansi Connect App"></div>
+          <div>
+            <div class="prod-name">Mzansi Connect App</div>
+            <div class="prod-company">Mzansi Connect</div>
           </div>
         </div>
-        <div style="margin-top:14px;padding:12px;border-radius:6px;background:rgba(139,92,246,0.06);border:1px solid rgba(139,92,246,0.12);">
-          <div style="font-size:0.65rem;font-weight:600;color:var(--mp-400);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;">&#x221E; Infinite Loop Model</div>
-          <div style="font-size:0.75rem;color:var(--text-dim);line-height:1.6;">
-            Design &#x2192; Develop &#x2192; Deploy &#x2192; Market &#x2192; Support &#x2192; Repeat.<br>
-            One company's output is another's input.
-          </div>
+        <p class="prod-desc">Kotlin Android companion app - live device status, real-time alerts, energy tracking, security monitoring, and subscription management for the Mzansi Connect ecosystem.</p>
+        <div class="prod-meta"><span>Android</span><span>Kotlin</span><span>Real-Time</span></div>
+        <div class="prod-actions">
+          <a href="https://www.mzansiconnect.store" target="_blank" rel="noopener" class="btn btn-amber btn-sm">Download the App</a>
+          <a href="portfolio.html" class="btn btn-outline btn-sm">View in Portfolio</a>
         </div>
-        <div class="tags"><span>Synergy</span><span>Integration</span><span>Ecosystem</span><span>End-to-End</span><span>Scalable</span></div>
       </div>
-      </a>
+
+      <div class="prod-card fade-up fd3">
+        <div class="prod-head">
+          <div class="prod-badge"><img loading="lazy" decoding="async" src="images/logo-square.png" alt="Mzansi Cloud"></div>
+          <div>
+            <div class="prod-name">Mzansi Cloud</div>
+            <div class="prod-company">Mzansi Connect</div>
+          </div>
+        </div>
+        <p class="prod-desc">Secure analytics platform - fleet health, real-time alert feeds, daily summaries, and customer management across web dashboard and Android app.</p>
+        <div class="prod-meta"><span>Web App</span><span>Android</span><span>Analytics</span></div>
+        <div class="prod-actions">
+          <a href="https://www.mzansiconnect.store" target="_blank" rel="noopener" class="btn btn-amber btn-sm">Open the Dashboard</a>
+          <a href="portfolio.html" class="btn btn-outline btn-sm">View in Portfolio</a>
+        </div>
+      </div>
+
+      <div class="prod-card fade-up fd4">
+        <div class="prod-head">
+          <div class="prod-badge"><img loading="lazy" decoding="async" src="images/logo-square.png" alt="Mzansi Marketplace"></div>
+          <div>
+            <div class="prod-name">Mzansi Marketplace</div>
+            <div class="prod-company">Mzansi Connect</div>
+          </div>
+        </div>
+        <p class="prod-desc">Local gig-economy marketplace connecting township technicians with installation and support work - jobs, applications, assignments, and earnings tracking.</p>
+        <div class="prod-meta"><span>Web App</span><span>Android</span><span>Gig-Economy</span></div>
+        <div class="prod-actions">
+          <a href="https://www.mzansiconnect.store" target="_blank" rel="noopener" class="btn btn-amber btn-sm">Open the Marketplace</a>
+          <a href="portfolio.html" class="btn btn-outline btn-sm">View in Portfolio</a>
+        </div>
+      </div>
+
+      <div class="prod-card fade-up fd5">
+        <div class="prod-head">
+          <div class="prod-badge"><img loading="lazy" decoding="async" src="images/studysync-logo.png" alt="StudySync"></div>
+          <div>
+            <div class="prod-name">StudySync</div>
+            <div class="prod-company">Skyline IT & Cloud</div>
+          </div>
+        </div>
+        <p class="prod-desc">Real-time study group platform - chat, Pomodoro timer, streaks, leaderboards, weekly calendar, and progress tracking for university students.</p>
+        <div class="prod-meta"><span>Web App</span><span>EdTech</span><span>Real-Time</span></div>
+        <div class="prod-actions">
+          <a href="portfolio.html" class="btn btn-primary btn-sm">Explore StudySync</a>
+          <a href="ecosystem.html" class="btn btn-outline btn-sm">Ecosystem</a>
+        </div>
+      </div>
+
+      <div class="prod-card fade-up fd6">
+        <div class="prod-head">
+          <div class="prod-badge"><img loading="lazy" decoding="async" src="images/livestock-tracker-logo.png" alt="Livestock GPS Tracker"></div>
+          <div>
+            <div class="prod-name">Livestock GPS Tracker</div>
+            <div class="prod-company">Circuit Forge - Mzansi Connect</div>
+          </div>
+        </div>
+        <p class="prod-desc">ESP32-powered GPS collar for livestock - real-time location, geofencing, panic detection, and a solar-recharged battery, tracked from web or Android.</p>
+        <div class="prod-meta"><span>Internet Of Things (IoT)</span><span>ESP32</span><span>GPS</span><span>Android</span></div>
+        <div class="prod-actions">
+          <a href="portfolio.html" class="btn btn-primary btn-sm">View Product</a>
+          <a href="ecosystem.html" class="btn btn-outline btn-sm">Ecosystem</a>
+        </div>
+      </div>
+
+      <div class="prod-card fade-up fd7">
+        <div class="prod-head">
+          <div class="prod-badge"><img loading="lazy" decoding="async" src="images/valow-logo.jpeg" alt="VALOW." style="object-fit:cover;"></div>
+          <div>
+            <div class="prod-name">VALOW. Website</div>
+            <div class="prod-company">Client Project - Skyline IT & Cloud</div>
+          </div>
+        </div>
+        <p class="prod-desc">Full custom e-commerce streetwear store with community voting, admin dashboard for demand analytics, and content-first marketing across TikTok and Instagram.</p>
+        <div class="prod-meta"><span>E-Commerce</span><span>Community Voting</span><span>Client Work</span></div>
+        <div class="prod-actions">
+          <a href="Subsidies/Valow" class="btn btn-primary btn-sm">Visit VALOW.</a>
+          <a href="portfolio.html" class="btn btn-outline btn-sm">View in Portfolio</a>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -848,7 +980,7 @@ footer a:hover{color:var(--mp-300)}
       <div class="val-card" style="text-align:center;padding:20px 12px;">
         <div style="margin-bottom:8px;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--mp-300)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg></div>
         <h4 style="font-size:0.85rem;">Smart Home</h4>
-        <p style="font-size:0.7rem;">Mzansi Connect IoT for households</p>
+        <p style="font-size:0.7rem;">Mzansi Connect Internet Of Things (IoT) for households</p>
       </div>
       <div class="val-card" style="text-align:center;padding:20px 12px;">
         <div style="margin-bottom:8px;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--mp-300)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
@@ -878,7 +1010,7 @@ footer a:hover{color:var(--mp-300)}
       <div class="val-card" style="text-align:center;padding:20px 12px;">
         <div style="margin-bottom:8px;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--mp-300)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/><path d="M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M18.4 5.6l-2.8 2.8M8.4 15.6l-2.8 2.8"/></svg></div>
         <h4 style="font-size:0.85rem;">Agriculture</h4>
-        <p style="font-size:0.7rem;">IoT sensors & livestock tracking</p>
+        <p style="font-size:0.7rem;">Internet Of Things (IoT) sensors & livestock tracking</p>
       </div>
     </div>
   </div>
@@ -896,8 +1028,8 @@ footer a:hover{color:var(--mp-300)}
       <h3>A Note From The <span style="color:var(--mp-300);">Founder</span></h3>
       <p>
         Every brand under Skyline IT started the same way - someone had a problem, and I 
-        believed I could solve it. From building websites for local businesses at Rosebank 
-        College, to launching IoT devices for township spaza shops, to designing streetwear 
+        believed I could solve it. From building websites for local businesses while at 
+        college, to launching Internet Of Things (IoT) devices for township spaza shops, to designing streetwear 
         that speaks to a generation's struggles and ambitions.
       </p>
       <p style="margin-top:14px;">
@@ -908,13 +1040,6 @@ footer a:hover{color:var(--mp-300)}
       <p style="margin-top:14px;">
         We're just getting started. Watch this space.
       </p>
-      <div style="margin-top:24px;display:flex;align-items:center;gap:14px;">
-        <div style="width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--mp-600),var(--mp-400));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.9rem;box-shadow:0 0 20px rgba(109,40,217,0.2);">P</div>
-        <div>
-          <div style="font-weight:700;font-size:0.95rem;">S'nqobile Langa Hlatshwayo</div>
-          <div style="font-size:0.72rem;color:var(--text-dim);">Founder &bull; IT in Business Systems &bull; Rosebank College, Durban</div>
-        </div>
-      </div>
     </div>
   </div>
 </section>
@@ -924,7 +1049,7 @@ footer a:hover{color:var(--mp-300)}
   <div class="cta-inner">
     <h2 class="fade-up">Let's <span class="hl">Build</span> Together</h2>
     <p class="fade-up fd1">
-      Whether you need a website, an IoT device, a mobile app, custom electronics, or 
+      Whether you need a website, an Internet Of Things (IoT) device, a mobile app, custom electronics, or 
       premium streetwear - one of our subsidiaries has you covered.
     </p>
     <div class="cta-actions fade-up fd2">
@@ -950,7 +1075,7 @@ footer a:hover{color:var(--mp-300)}
           <option value="Mobile App" data-co="Skyline IT & Cloud">Mobile App</option>
           <option value="SEO / Digital Marketing" data-co="Skyline IT & Cloud">SEO / Digital Marketing</option>
           <option value="Cloud Hosting" data-co="Skyline IT & Cloud">Cloud Hosting</option>
-          <option value="IoT Device / Smart Home" data-co="Mzansi Connect">IoT Device / Smart Home</option>
+          <option value="Internet Of Things (IoT) Device / Smart Home" data-co="Mzansi Connect">Internet Of Things (IoT) Device / Smart Home</option>
           <option value="Smart Security System" data-co="Mzansi Connect">Smart Security System</option>
           <option value="Fleet / Asset Tracking" data-co="Mzansi Connect">Fleet / Asset Tracking</option>
           <option value="Livestock Tracking" data-co="Mzansi Connect">Livestock Tracking</option>
@@ -1034,7 +1159,7 @@ footer a:hover{color:var(--mp-300)}
         <div class="footer-brand">SKYLINE IT</div>
       </div>
       <div class="footer-hl">Holding Company</div>
-      <p style="max-width:320px;line-height:1.7;">Building ambitious South African brands across technology, IoT, fashion, and education. Founded in Durban, South Africa — 2025.</p>
+      <p style="max-width:320px;line-height:1.7;">Building ambitious South African brands across technology, Internet Of Things (IoT), fashion, and education. Founded in Durban, South Africa — 2025.</p>
     </div>
     <div>
       <h4>Pages</h4>
@@ -1059,14 +1184,31 @@ footer a:hover{color:var(--mp-300)}
       <p style="margin-top:10px;font-size:0.7rem;color:var(--text-dim);">&#x1F1FF;&#x1F1E6; Proudly South African</p>
     </div>
     <div class="footer-bottom">
-      <p>&copy; 2025 Skyline IT. All rights reserved. Built in South Africa.</p>
+      <p>&copy; 2026 Skyline IT. All rights reserved. Built in South Africa.</p>
       <p style="font-size:0.68rem;color:var(--text-dim);">IT in Business Systems &bull; Building South Africa's Digital Future</p>
       <p style="font-size:0.68rem;margin-top:6px;"><a href="privacy.html" style="color:var(--text-dim);text-decoration:none;">Privacy Policy</a> &nbsp;&bull;&nbsp; <a href="terms.html" style="color:var(--text-dim);text-decoration:none;">Terms &amp; Conditions</a></p>
     </div>
   </div>
 </footer>
 
+</div><!-- /.site -->
+
 <script>
+(function(){
+  function hideSkeleton(){
+    var o=document.getElementById('skOverlay');
+    if(!o) return;
+    o.classList.add('sk-done');
+    document.documentElement.classList.add('page-ready');
+    setTimeout(function(){ if(o.parentNode) o.parentNode.removeChild(o); }, 560);
+  }
+  var started=Date.now();
+  var minWait=650;
+  window.addEventListener('load', function(){ var due=(minWait-(Date.now()-started)); setTimeout(hideSkeleton, due>0?due:0); });
+  document.fonts && document.fonts.ready && document.fonts.ready.then(function(){ setTimeout(hideSkeleton, minWait); });
+  setTimeout(hideSkeleton, 2500);
+})();
+
 const hamburger=document.getElementById('hamburger');
 const navLinks=document.getElementById('navLinks');
 hamburger.addEventListener('click',()=>navLinks.classList.toggle('open'));

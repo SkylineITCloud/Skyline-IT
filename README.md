@@ -1,6 +1,6 @@
 # Skyline IT
 
-The official single-page website for **Skyline IT**, a South African holding company building brands across technology, IoT, electronics, fashion, and education.
+The official single-page website for **Skyline IT**, a South African holding company building brands across technology, Internet Of Things (IoT), electronics, fashion, and education.
 
 The site presents the Skyline IT story, its portfolio companies, core values, industry focus, and contact information.
 
@@ -17,7 +17,7 @@ Skyline IT/
 ## Portfolio companies
 
 - **Skyline IT & Cloud** — Digital services, web and mobile development, e-commerce, SEO, cloud hosting, and social media support.
-- **Mzansi Connect** — Affordable IoT products for South African homes, small businesses, utilities, and fleets.
+- **Mzansi Connect** — Affordable Internet Of Things (IoT) products for South African homes, small businesses, utilities, and fleets.
 - **Circuit Forge Technologies** — Electronics engineering, PCB design, embedded systems, firmware, and hardware prototyping.
 - **VALOW.** — South African streetwear and community-led apparel.
 - **StudySync** — A study-group management and real-time collaboration platform for students.
