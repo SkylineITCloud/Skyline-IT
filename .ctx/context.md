@@ -23,7 +23,7 @@ After making a change in `Skyline IT/`, immediately make the identical change in
 ## USER PROFILE
 
 - **Name**: S'nqobile Langa Hlatshwayo (NOT Percy — corrected previously)
-- **Role**: Founder, IT in Business Systems at Rosebank College, Durban
+- **Role**: Founder, Information Technology in Business Systems at Rosebank College, Durban
 - **Email**: projectpstg@gmail.com
 - **Domain**: www.skylineit.site
 - **Established**: 2025
