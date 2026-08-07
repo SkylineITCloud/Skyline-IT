@@ -68,6 +68,33 @@ app.use('/api/holding', require('./routes/holding'));
 app.use('/api/mzansi', require('./routes/mzansiConnect'));
 app.use('/api/circuit-forge', require('./routes/circuitForge'));
 app.use('/api/studysync', require('./routes/studySync'));
+app.use('/api/store', require('./routes/store'));
+app.use('/api/valow', require('./routes/valow'));
+app.use('/api/mzansi/compare/auth', require('./routes/mzansiCompareAuth'));
+app.use('/api/mzansi/compare/products', require('./routes/mzansiCompareProducts'));
+app.use('/api/mzansi/compare/search', require('./routes/mzansiCompareSearch'));
+app.use('/api/mzansi/app', require('./routes/mzansiApp'));
+app.use('/api/mzansi/cloud', require('./routes/mzansiCloud'));
+app.use('/api/mzansi/marketplace', require('./routes/mzansiMarketplace'));
+app.use('/api/mzansi/livestock', require('./routes/mzansiLivestock'));
+
+// ─── SUBSIDIARY SITES (served by the unified server) ───
+app.use('/store', express.static(path.join(ROOT, 'store'), {
+  setHeaders: (res, filePath) => {
+    if (filePath.endsWith('.html')) res.setHeader('Cache-Control', 'no-cache');
+  },
+}));
+app.use('/valow', express.static(path.join(ROOT, 'Subsidies', 'Valow', 'server', 'public')));
+app.use('/site', express.static(path.join(ROOT, 'site')));
+
+const noCache = (res, filePath) => {
+  if (filePath.endsWith('.html')) res.setHeader('Cache-Control', 'no-cache');
+};
+
+app.use('/app', express.static(path.join(ROOT, 'app'), { setHeaders: noCache }));
+app.use('/cloud', express.static(path.join(ROOT, 'cloud'), { setHeaders: noCache }));
+app.use('/marketplace', express.static(path.join(ROOT, 'marketplace'), { setHeaders: noCache }));
+app.use('/livestock', express.static(path.join(ROOT, 'livestock'), { setHeaders: noCache }));
 
 app.use(express.static(ROOT, {
   maxAge: isProd ? '7d' : 0,
@@ -111,6 +138,22 @@ async function main() {
     console.log('    /api/mzansi/*        Mzansi Connect');
     console.log('    /api/circuit-forge/* Circuit Forge Technologies');
     console.log('    /api/studysync/*     StudySync');
+    console.log('    /api/store/*         Circuit Forge Store (products + orders)');
+    console.log('    /api/valow/*         Valow votes');
+    console.log('    /api/mzansi/compare/* Mzansi Price Compare (auth/products/search)');
+    console.log('    /api/mzansi/app/*     Mzansi Connect App (devices/alerts/energy/plans)');
+    console.log('    /api/mzansi/cloud/*   Mzansi Cloud (analytics/devices/customers)');
+    console.log('    /api/mzansi/marketplace/* Mzansi Marketplace (jobs/technicians/earnings)');
+    console.log('    /api/mzansi/livestock/* LiveStock GPS Tracker (locations/panic/animals)');
+    console.log('  Sites:');
+    console.log('    /                    Skyline IT');
+    console.log('    /store/              Circuit Forge Storefront (/store/admin.html)');
+    console.log('    /valow/              Valow vote dashboard');
+    console.log('    /site/               Circuit Forge Technologies');
+    console.log('    /app/                Mzansi Connect App companion dashboard');
+    console.log('    /cloud/              Mzansi Cloud analytics dashboard');
+    console.log('    /marketplace/        Mzansi Marketplace jobs & technicians');
+    console.log('    /livestock/          LiveStock GPS Tracker map dashboard');
     console.log('');
   });
 }

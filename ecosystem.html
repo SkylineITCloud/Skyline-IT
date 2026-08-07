@@ -9,7 +9,7 @@
 <link rel="icon" type="image/png" href="images/Logo.png">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--mp-950:#070011;--mp-900:#0f0220;--mp-850:#15032e;--mp-800:#1e0540;--mp-700:#2d0a5e;--mp-600:#4c1d95;--mp-500:#6d28d9;--mp-400:#8b5cf6;--mp-300:#a78bfa;--mp-200:#c4b5fd;--accent:#a78bfa;--accent-light:#c4b5fd;--accent-dark:#7c3aed;--text:#f8fafc;--text-muted:#cbd5e1;--text-dim:#94a3b8;--surface:rgba(30,5,64,0.55);--surface-hover:rgba(30,5,64,0.8);--border:rgba(139,92,246,0.12);--border-hover:rgba(139,92,246,0.25);--glow:rgba(139,92,246,0.15)}
+:root{--mp-950:#000000;--mp-900:#0f0220;--mp-850:#15032e;--mp-800:#1e0540;--mp-700:#2d0a5e;--mp-600:#4c1d95;--mp-500:#6d28d9;--mp-400:#8b5cf6;--mp-300:#a78bfa;--mp-200:#c4b5fd;--accent:#a78bfa;--accent-light:#c4b5fd;--accent-dark:#7c3aed;--text:#f8fafc;--text-muted:#cbd5e1;--text-dim:#94a3b8;--surface:rgba(30,5,64,0.55);--surface-hover:rgba(30,5,64,0.8);--border:rgba(139,92,246,0.12);--border-hover:rgba(139,92,246,0.25);--glow:rgba(139,92,246,0.15)}
 html{scroll-behavior:smooth}
 body{font-family:Arial,Helvetica,sans-serif;background:var(--mp-950);color:var(--text);line-height:1.6;overflow-x:hidden}
 body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 70% 50% at 20% 30%,rgba(109,40,217,0.08),transparent 60%),radial-gradient(ellipse 50% 40% at 80% 70%,rgba(167,139,250,0.04),transparent 50%),radial-gradient(ellipse 60% 40% at 50% 0%,rgba(139,92,246,0.04),transparent 50%);pointer-events:none;z-index:0}
@@ -21,8 +21,8 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .scanlines{position:fixed;inset:0;pointer-events:none;z-index:999;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px)}
 .scanlines::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 0%,rgba(139,92,246,0.015) 50%,transparent 100%);animation:scanline 8s linear infinite;opacity:0.3}
 .screen-glow{position:fixed;inset:0;pointer-events:none;z-index:998;box-shadow:inset 0 0 150px rgba(109,40,217,0.03),inset 0 0 300px rgba(10,1,24,0.3)}
-nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(7,0,17,0.7);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:12px 0;transition:0.3s}
-nav.scrolled{background:rgba(7,0,17,0.95);box-shadow:0 4px 40px rgba(0,0,0,0.4)}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(0,0,0,0.7);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:12px 0;transition:0.3s}
+nav.scrolled{background:rgba(0,0,0,0.95);box-shadow:0 4px 40px rgba(0,0,0,0.4)}
 .nav-inner{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
 .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text)}
 .nav-logo-text{font-weight:700;font-size:1rem;line-height:1.2;letter-spacing:0.5px}
@@ -69,10 +69,10 @@ nav.scrolled{background:rgba(7,0,17,0.95);box-shadow:0 4px 40px rgba(0,0,0,0.4)}
 .infinite-box h3{font-size:1.1rem;font-weight:700;margin-bottom:8px;color:var(--mp-400);text-transform:uppercase;letter-spacing:0.08em}
 .infinite-box p{font-size:1rem;color:var(--text-dim);line-height:1.7}
 .btn{display:inline-flex;align-items:center;gap:8px;padding:14px 30px;border-radius:8px;font-weight:600;font-size:0.9rem;text-decoration:none;border:none;cursor:pointer;transition:all 0.25s;font-family:Arial,Helvetica,sans-serif;letter-spacing:0.3px}
-.btn-primary{background:var(--mp-600);color:#fff;box-shadow:0 4px 15px rgba(109,40,217,0.2)}
-.btn-primary:hover{background:var(--mp-500);transform:translateY(-2px);box-shadow:0 8px 30px rgba(109,40,217,0.35)}
-.btn-outline{background:transparent;color:var(--text);border:1px solid var(--border)}
-.btn-outline:hover{border-color:var(--mp-400);background:rgba(139,92,246,0.06);transform:translateY(-2px);box-shadow:0 0 20px var(--glow)}
+.btn-primary{background:var(--accent);color:var(--mp-950);box-shadow:0 4px 15px rgba(167,139,250,0.25)}
+.btn-primary:hover{background:var(--accent-light);transform:translateY(-2px);box-shadow:0 8px 30px rgba(167,139,250,0.4)}
+.btn-outline{background:var(--accent);color:var(--mp-950);border:1px solid var(--accent-light)}
+.btn-outline:hover{border-color:var(--accent-light);background:var(--accent-light);transform:translateY(-2px);box-shadow:0 0 20px rgba(167,139,250,0.3)}
 .divider{display:flex;align-items:center;gap:16px;max-width:1200px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
 .divider-line{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent)}
 .divider-sym{font-size:0.6rem;color:var(--text-dim);letter-spacing:0.3em}
@@ -92,7 +92,7 @@ footer a:hover{color:var(--mp-300)}
 .footer-bottom p{font-size:0.78rem}
 @media(max-width:1024px){.eco-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:900px){.flow-grid{grid-template-columns:1fr}.footer-inner{grid-template-columns:1fr 1fr}}
-@media(max-width:640px){.hamburger{display:flex;padding:10px}.hamburger span{width:28px;height:3px}.nav-links{display:none;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(7,0,17,0.98);border-bottom:1px solid var(--border);padding:20px 24px}.nav-links.open{display:flex}.nav-links a{padding:14px 0;font-size:0.95rem}.section{padding:48px 16px}.eco-grid{grid-template-columns:1fr}.footer-inner{grid-template-columns:1fr;gap:32px}.hero{padding:100px 16px 50px}.cta-actions{flex-direction:column}.cta-actions .btn{width:100%;justify-content:center}.eco-card{padding:24px 18px}}
+@media(max-width:640px){.hamburger{display:flex;padding:10px}.hamburger span{width:28px;height:3px}.nav-links{display:none;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(0,0,0,0.98);border-bottom:1px solid var(--border);padding:20px 24px}.nav-links.open{display:flex}.nav-links a{padding:14px 0;font-size:0.95rem}.section{padding:48px 16px}.eco-grid{grid-template-columns:1fr}.footer-inner{grid-template-columns:1fr;gap:32px}.hero{padding:100px 16px 50px}.cta-actions{flex-direction:column}.cta-actions .btn{width:100%;justify-content:center}.eco-card{padding:24px 18px}}
 
 /* ─── SKELETON LOADER (subtle, matches original theme) ─── */
 .sk-overlay{
@@ -205,7 +205,7 @@ html:not(.js) .site{opacity:1;visibility:visible}
         <div class="icon"><img loading="lazy" decoding="async" src="images/circuit-forge-logo.png" alt="Circuit Forge Technologies" style="width:60px;height:60px;object-fit:contain;"></div>
         <h3>Circuit Forge Technologies</h3>
         <p>Hardware engineering — PCB design, embedded systems, firmware, and hardware prototyping. The manufacturing backbone.</p>
-        <p style="margin-top:10px;"><a href="/store/" target="_blank" rel="noopener" style="color:#fbbf24;text-decoration:none;font-weight:600;font-size:0.88rem;">&#128722; Visit the Store &rarr;</a></p>
+        <p style="margin-top:10px;"><a href="/store/" target="_blank" rel="noopener" style="color:#c4b5fd;text-decoration:none;font-weight:600;font-size:0.88rem;"> Visit the Store &rarr;</a></p>
       </div>
       <div class="eco-card">
         <div class="icon"><img loading="lazy" decoding="async" src="images/studysync-logo.png" alt="StudySync" style="width:60px;height:60px;object-fit:contain;"></div>
@@ -309,7 +309,7 @@ html:not(.js) .site{opacity:1;visibility:visible}
         <div class="footer-brand">SKYLINE IT</div>
       </div>
       <div class="footer-hl" style="font-size:0.65rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:14px">Holding Company</div>
-      <p style="max-width:320px;line-height:1.7;">Building ambitious South African brands across technology, Internet Of Things (IoT), fashion, and education. Founded in Durban, South Africa — 2025.</p>
+      <p style="max-width:320px;line-height:1.7;">Building ambitious South African brands across technology, Internet Of Things (IoT), fashion, and education. Founded in Durban, South Africa, 2025.</p>
     </div>
     <div>
       <h4>Pages</h4>
@@ -331,7 +331,7 @@ html:not(.js) .site{opacity:1;visibility:visible}
       <p style="margin-top:10px;font-size:0.7rem;color:var(--text-dim);">&#x1F1FF;&#x1F1E6; Proudly South African</p>
     </div>
     <div class="footer-bottom">
-      <p>&copy; 2026 Skyline IT. All rights reserved. Built in South Africa.</p>
+      <p>&copy; 2025 Skyline IT. All rights reserved. Built in South Africa.</p>
       <p style="font-size:0.68rem;color:var(--text-dim);">Information Technology in Business Systems &bull; Building South Africa's Digital Future</p>
       <p style="font-size:0.68rem;margin-top:6px;"><a href="privacy.html" style="color:var(--text-dim);text-decoration:none;">Privacy Policy</a> &nbsp;&bull;&nbsp; <a href="terms.html" style="color:var(--text-dim);text-decoration:none;">Terms &amp; Conditions</a></p>
     </div>

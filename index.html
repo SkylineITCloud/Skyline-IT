@@ -10,7 +10,7 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --mp-950:#070011;
+  --mp-950:#000000;
   --mp-900:#0f0220;
   --mp-850:#15032e;
   --mp-800:#1e0540;
@@ -76,12 +76,12 @@ body::before{
 /* ─── NAV ─── */
 nav{
   position:fixed;top:0;left:0;right:0;z-index:100;
-  background:rgba(7,0,17,0.7);backdrop-filter:blur(20px);
+  background:rgba(0,0,0,0.7);backdrop-filter:blur(20px);
   border-bottom:1px solid var(--border);
   padding:12px 0;
   transition:0.3s;
 }
-nav.scrolled{background:rgba(7,0,17,0.95);box-shadow:0 4px 40px rgba(0,0,0,0.4)}
+nav.scrolled{background:rgba(0,0,0,0.95);box-shadow:0 4px 40px rgba(0,0,0,0.4)}
 .nav-inner{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
 .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text)}
 .nav-logo svg{flex-shrink:0}
@@ -189,14 +189,14 @@ nav.scrolled{background:rgba(7,0,17,0.95);box-shadow:0 4px 40px rgba(0,0,0,0.4)}
   text-decoration:none;border:none;cursor:pointer;transition:all 0.25s;
   font-family:Arial,Helvetica,sans-serif;letter-spacing:0.3px;
 }
-.btn-primary{background:var(--mp-600);color:#fff;box-shadow:0 4px 15px rgba(109,40,217,0.2)}
-.btn-primary:hover{background:var(--mp-500);transform:translateY(-2px);box-shadow:0 8px 30px rgba(109,40,217,0.35)}
-.btn-outline{background:transparent;color:var(--text);border:1px solid var(--border)}
-.btn-outline:hover{border-color:var(--mp-400);background:rgba(139,92,246,0.06);transform:translateY(-2px);box-shadow:0 0 20px var(--glow)}
+.btn-primary{background:var(--accent);color:var(--mp-950);box-shadow:0 4px 15px rgba(167,139,250,0.25)}
+.btn-primary:hover{background:var(--accent-light);transform:translateY(-2px);box-shadow:0 8px 30px rgba(167,139,250,0.4)}
+.btn-outline{background:var(--accent);color:var(--mp-950);border:1px solid var(--accent-light)}
+.btn-outline:hover{border-color:var(--accent-light);background:var(--accent-light);transform:translateY(-2px);box-shadow:0 0 20px rgba(167,139,250,0.3)}
 .btn-accent{background:var(--accent);color:var(--mp-950);font-weight:700;box-shadow:0 4px 25px rgba(167,139,250,0.25)}
 .btn-accent:hover{background:var(--accent-light);transform:translateY(-2px);box-shadow:0 8px 35px rgba(167,139,250,0.4)}
-.btn-amber{background:#d97706;color:#fff;box-shadow:0 4px 15px rgba(217,119,6,0.25)}
-.btn-amber:hover{background:#f59e0b;transform:translateY(-2px);box-shadow:0 8px 30px rgba(245,158,11,0.35)}
+.btn-amber{background:var(--accent);color:var(--mp-950);box-shadow:0 4px 15px rgba(167,139,250,0.25)}
+.btn-amber:hover{background:var(--accent-light);transform:translateY(-2px);box-shadow:0 8px 30px rgba(167,139,250,0.4)}
 .btn-sm{padding:10px 18px;font-size:0.82rem}
 
 .hero-stats{display:flex;flex-wrap:wrap;gap:32px;margin-top:8px}
@@ -397,7 +397,7 @@ footer a:hover{color:var(--mp-300)}
 @media(max-width:640px){
   .hamburger{display:flex;padding:10px}
   .hamburger span{width:28px;height:3px}
-  .nav-links{display:none;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(7,0,17,0.98);border-bottom:1px solid var(--border);padding:20px 24px}
+  .nav-links{display:none;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(0,0,0,0.98);border-bottom:1px solid var(--border);padding:20px 24px}
   .nav-links.open{display:flex}
   .nav-links a{padding:14px 0;font-size:0.95rem}
   .nav-cta{text-align:center!important}
@@ -577,8 +577,8 @@ html:not(.js) .site{opacity:1;visibility:visible}
 
     <div class="hero-stats fade-up fd4">
       <div class="hero-stat"><span class="val">2025</span><span class="lbl">Founded</span></div>
-      <div class="hero-stat"><span class="val">6</span><span class="lbl">Subsidiaries</span></div>
-      <div class="hero-stat"><span class="val">6</span><span class="lbl">Industries</span></div>
+      <div class="hero-stat"><span class="val">4</span><span class="lbl">Subsidiaries</span></div>
+      <div class="hero-stat"><span class="val">8</span><span class="lbl">Industries</span></div>
       <div class="hero-stat"><span class="val">SA</span><span class="lbl">Proudly South African</span></div>
     </div>
   </div>
@@ -662,19 +662,19 @@ html:not(.js) .site{opacity:1;visibility:visible}
         <div style="font-size:0.72rem;color:var(--text-dim);margin-top:6px;text-transform:uppercase;letter-spacing:0.08em;">Year Founded</div>
       </div>
       <div class="val-card" style="text-align:center;padding:28px 12px;">
-        <div style="font-family:Arial,Helvetica,sans-serif;font-size:2rem;font-weight:800;color:var(--mp-300);line-height:1;">5</div>
+        <div style="font-family:Arial,Helvetica,sans-serif;font-size:2rem;font-weight:800;color:var(--mp-300);line-height:1;">4</div>
         <div style="font-size:0.72rem;color:var(--text-dim);margin-top:6px;text-transform:uppercase;letter-spacing:0.08em;">Active Subsidiaries</div>
       </div>
       <div class="val-card" style="text-align:center;padding:28px 12px;">
-        <div style="font-family:Arial,Helvetica,sans-serif;font-size:2rem;font-weight:800;color:var(--accent);line-height:1;">6</div>
+        <div style="font-family:Arial,Helvetica,sans-serif;font-size:2rem;font-weight:800;color:var(--accent);line-height:1;">8</div>
         <div style="font-size:0.72rem;color:var(--text-dim);margin-top:6px;text-transform:uppercase;letter-spacing:0.08em;">Industry Sectors</div>
       </div>
       <div class="val-card" style="text-align:center;padding:28px 12px;">
-        <div style="font-family:Arial,Helvetica,sans-serif;font-size:2rem;font-weight:800;color:var(--mp-400);line-height:1;">20+</div>
+        <div style="font-family:Arial,Helvetica,sans-serif;font-size:2rem;font-weight:800;color:var(--mp-400);line-height:1;">11</div>
         <div style="font-size:0.72rem;color:var(--text-dim);margin-top:6px;text-transform:uppercase;letter-spacing:0.08em;">Products & Solutions</div>
       </div>
       <div class="val-card" style="text-align:center;padding:28px 12px;">
-        <div style="font-family:Arial,Helvetica,sans-serif;font-size:2rem;font-weight:800;color:var(--accent);line-height:1;">10+</div>
+        <div style="font-family:Arial,Helvetica,sans-serif;font-size:2rem;font-weight:800;color:var(--accent);line-height:1;">13</div>
         <div style="font-size:0.72rem;color:var(--text-dim);margin-top:6px;text-transform:uppercase;letter-spacing:0.08em;">Business Docs Completed</div>
       </div>
     </div>
@@ -776,7 +776,7 @@ html:not(.js) .site{opacity:1;visibility:visible}
           </div>
         </div>
         <div class="tags"><span>PCB</span><span>Embedded</span><span>ESP32</span><span>STM32</span><span>Firmware</span><span>Livestock</span><span>SLA</span></div>
-        <a href="/store/" target="_blank" rel="noopener" class="btn-amber btn-sm" style="margin-top:14px;display:inline-block;">&#128722; Visit Store</a>
+        <a href="/store/" target="_blank" rel="noopener" class="btn-amber btn-sm" style="margin-top:14px;display:inline-block;"> Visit Store</a>
       </div>
 
       <!-- 4. StudySync -->
@@ -914,7 +914,7 @@ html:not(.js) .site{opacity:1;visibility:visible}
         <p class="prod-desc">Full custom e-commerce streetwear store with community voting, admin dashboard for demand analytics, and content-first marketing across TikTok and Instagram.</p>
         <div class="prod-meta"><span>E-Commerce</span><span>Community Voting</span><span>Client Work</span></div>
         <div class="prod-actions">
-          <a href="Subsidies/Valow" class="btn btn-primary btn-sm">Visit VALOW.</a>
+          <a href="Subsidies/Valow" class="btn btn-primary btn-sm">Coming Soon (Visit VALOW.)</a>
           <a href="portfolio.html" class="btn btn-outline btn-sm">View in Portfolio</a>
         </div>
       </div>
@@ -1159,7 +1159,7 @@ html:not(.js) .site{opacity:1;visibility:visible}
         <div class="footer-brand">SKYLINE IT</div>
       </div>
       <div class="footer-hl">Holding Company</div>
-      <p style="max-width:320px;line-height:1.7;">Building ambitious South African brands across technology, Internet Of Things (IoT), fashion, and education. Founded in Durban, South Africa — 2025.</p>
+      <p style="max-width:320px;line-height:1.7;">Building ambitious South African brands across technology, Internet Of Things (IoT), fashion, and education. Founded in Durban, South Africa, 2025.</p>
     </div>
     <div>
       <h4>Pages</h4>
@@ -1184,7 +1184,7 @@ html:not(.js) .site{opacity:1;visibility:visible}
       <p style="margin-top:10px;font-size:0.7rem;color:var(--text-dim);">&#x1F1FF;&#x1F1E6; Proudly South African</p>
     </div>
     <div class="footer-bottom">
-      <p>&copy; 2026 Skyline IT. All rights reserved. Built in South Africa.</p>
+      <p>&copy; 2025 Skyline IT. All rights reserved. Built in South Africa.</p>
       <p style="font-size:0.68rem;color:var(--text-dim);">Information Technology in Business Systems &bull; Building South Africa's Digital Future</p>
       <p style="font-size:0.68rem;margin-top:6px;"><a href="privacy.html" style="color:var(--text-dim);text-decoration:none;">Privacy Policy</a> &nbsp;&bull;&nbsp; <a href="terms.html" style="color:var(--text-dim);text-decoration:none;">Terms &amp; Conditions</a></p>
     </div>

@@ -10,7 +10,7 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --mp-950:#070011;
+  --mp-950:#000000;
   --mp-900:#0f0220;
   --mp-850:#15032e;
   --mp-800:#1e0540;
@@ -27,7 +27,7 @@
   --border:rgba(167,139,250,0.16);
 }
 body{background:var(--mp-950);color:var(--text);font-family:'Inter',sans-serif;line-height:1.7;min-height:100vh}
-#navbar{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(7,0,17,0.85);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+#navbar{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(0,0,0,0.85);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
 .nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:14px 24px}
 .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text)}
 .nav-logo-text{font-weight:700;font-size:0.95rem;letter-spacing:0.08em;display:flex;flex-direction:column;line-height:1.2}
@@ -56,7 +56,7 @@ footer{border-top:1px solid var(--border);padding:28px 24px;text-align:center;fo
 footer a{color:var(--mp-300);text-decoration:none}
 footer a:hover{text-decoration:underline}
 @media(max-width:760px){
-  .nav-links{display:none;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(7,0,17,0.98);border-bottom:1px solid var(--border);padding:20px 24px}
+  .nav-links{display:none;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(0,0,0,0.98);border-bottom:1px solid var(--border);padding:20px 24px}
   .nav-links.open{display:flex}
   .nav-links a{padding:14px 0;font-size:0.95rem}
   .hamburger{display:flex}

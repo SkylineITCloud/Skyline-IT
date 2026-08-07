@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--
+    Mzansi Cloud - Analytics Dashboard
+    SPDX-License-Identifier: Apache-2.0
+    POPIA: No PII processed client-side.
+    ECTA:  Transactions facilitated via server API.
+  -->
+  <meta name="description" content="Mzansi Cloud - secure cloud platform with real-time device analytics and historical reporting.">
+  <title>Mzansi Cloud - Analytics</title>
+  <link rel="icon" type="image/png" href="images/logo-square.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Archivo+Black&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="flag-strip"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+
+  <header>
+    <a href="/" class="brand" aria-label="Mzansi Connect home">
+      <img fetchpriority="high" src="images/logo-square.png" alt="Mzansi Connect logo" class="logo-img">
+      <div>
+        <h1>Mzansi Cloud</h1>
+        <p>A Skyline IT &amp; Cloud Company</p>
+      </div>
+    </a>
+    <div class="header-meta">
+      <a href="downloads/mzansi-cloud.apk" class="download-btn" download id="downloadBtn">⬇ Download App</a>
+      <span id="connStatus" class="conn-badge">Connecting...</span>
+      <button id="refreshBtn" class="refresh-btn">Refresh</button>
+    </div>
+  </header>
+
+  <div id="demoBanner" class="demo-banner" hidden>
+    Demo mode - sample data. Connect the API server for live data.
+  </div>
+
+  <main>
+    <!-- ─── STAT CARDS ─── -->
+    <section class="stat-grid" id="statGrid"></section>
+
+    <!-- ─── CHARTS ─── -->
+    <section class="chart-grid">
+      <div class="chart-card">
+        <h3>Telemetry - last 14 days</h3>
+        <div class="chart-toolbar">
+          <select id="metricSelect">
+            <option value="power_w">Power (W)</option>
+            <option value="voltage_v">Voltage (V)</option>
+            <option value="battery_pct">Battery (%)</option>
+            <option value="water_level_pct">Water level (%)</option>
+          </select>
+          <select id="rangeSelect">
+            <option value="7">7 days</option>
+            <option value="14" selected>14 days</option>
+            <option value="30">30 days</option>
+          </select>
+        </div>
+        <canvas id="lineChart" height="220" aria-label="Telemetry line chart"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>Devices by status</h3>
+        <canvas id="pieChart" height="220" aria-label="Device status pie chart"></canvas>
+      </div>
+    </section>
+
+    <!-- ─── TABLES ─── -->
+    <section class="tables">
+      <div class="card">
+        <h3>Recent alerts</h3>
+        <table id="alertTable">
+          <thead><tr><th>Severity</th><th>Title</th><th>Device</th><th>Time</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="card">
+        <h3>Devices</h3>
+        <table id="deviceTable">
+          <thead><tr><th>Name</th><th>Type</th><th>Status</th><th>Battery</th><th>Customer</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ─── CUSTOMERS (admin) ─── -->
+    <section class="card" id="customerCard">
+      <h3>Customers (admin)</h3>
+      <table id="customerTable">
+        <thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>Devices</th><th>Joined</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer>
+    <span>Mzansi Cloud v1.0</span>
+    <a href="/" class="footer-home">Back to Mzansi Connect</a>
+    <span id="footerStatus">Demo mode</span>
+  </footer>
+
+  <script src="app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--
+    LiveStock GPS Tracker - Web Dashboard
+    SPDX-License-Identifier: Apache-2.0
+    POPIA: No PII processed client-side.
+    ECTA:  Served via Express under ECTA Section 43 disclosure.
+  -->
+  <title>LiveStock Tracker - Mzansi Connect (Skyline IT &amp; Cloud)</title>
+  <link rel="icon" type="image/png" href="images/Logo.png">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="vendor/leaflet/leaflet.css" />
+  <script src="vendor/leaflet/leaflet.js" defer></script>
+</head>
+<body>
+  <header>
+    <a href="/" class="brand" aria-label="Mzansi Connect">
+      <img fetchpriority="high" src="images/Logo.png" alt="Mzansi Connect" class="brand-logo">
+      <span class="brand-tagline">A Skyline IT &amp; Cloud Company</span>
+    </a>
+    <h1>LiveStock Tracker</h1>
+    <div class="header-right">
+      <span id="animalCount">0 animals</span>
+      <span id="lastUpdate">-</span>
+    </div>
+  </header>
+
+  <div id="panicBar"></div>
+
+  <main>
+    <aside id="sidebar">
+      <h2>Animals</h2>
+      <div id="animalList"></div>
+    </aside>
+
+    <section id="mapContainer">
+      <div id="map"></div>
+    </section>
+  </main>
+
+  <footer>
+    <a href="/" class="footer-brand">Mzansi Connect · A Skyline IT &amp; Cloud Company</a>
+    <span>Battery (avg): <strong id="avgBattery">-</strong></span>
+    <span>Active today: <strong id="activeToday">-</strong></span>
+    <span id="connectionStatus">Connecting...</span>
+  </footer>
+
+  <script src="app.js" defer></script>
+</body>
+</html>

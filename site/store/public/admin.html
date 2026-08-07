@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Circuit Forge Store — Admin</title>
+<meta name="robots" content="noindex,nofollow">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a1420;--bg2:#0d1a2b;--panel:#101f33;--panel2:#14283f;
+  --line:#1e3a55;--teal:#00b4d8;--cyan:#48cae4;--gold:#ffb703;
+  --text:#e2e8f0;--muted:#94a3b8;--dim:#64748b;--ok:#22c55e;--err:#ef4444;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Space Grotesk',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:64px 20px;background:#ffffff}
+.login{width:100%;max-width:420px;border:1px solid #000;padding:40px 30px;background:#ffffff;box-shadow:8px 8px 0px #000;position:relative;border-radius:12px;font-family:'Courier New',monospace}
+.login::before{content:'';position:absolute;top:6px;left:6px;right:-6px;bottom:-6px;border:1px solid #000;z-index:-1;border-radius:12px}
+.login h1{color:#000;margin-bottom:30px;font-size:28px;font-weight:700;text-align:center;font-family:'Courier New',monospace;line-height:1.3}
+.login h1 small{display:block;font-size:11px;font-weight:700;letter-spacing:0.22em;color:#555;margin-bottom:10px}
+.login .input-group{margin-bottom:20px;position:relative}
+.login label{display:block;margin-bottom:8px;font-weight:bold;color:#000;font-family:'Courier New',monospace;font-size:14px}
+.login input{width:100%;padding:12px 15px;border:2px solid #000;background:#fff;font-size:16px;outline:none;transition:all .3s;font-family:'Courier New',monospace;border-radius:0;color:#000}
+.login input::placeholder{color:#888}
+.login input:focus{box-shadow:4px 4px 0px #000}
+.login button{width:100%;padding:12px;background:#ff5e5b;color:#fff;border:2px solid #000;font-size:16px;font-weight:bold;cursor:pointer;margin-top:10px;transition:all .3s;font-family:'Courier New',monospace;border-radius:0}
+.login button:hover{box-shadow:4px 4px 0px #000;transform:translate(-2px,-2px)}
+.login button:active{transform:translate(2px,2px);box-shadow:none}
+.login .divider{display:flex;align-items:center;margin:25px 0;color:#000;font-weight:bold;font-family:'Courier New',monospace}
+.login .divider::before,.login .divider::after{content:"";flex:1;border-bottom:2px solid #000;margin:0 10px}
+.login .footer{text-align:center;margin-top:20px;color:#000;font-family:'Courier New',monospace;font-size:13px}
+.login .footer a{color:#000;font-weight:bold;text-decoration:underline}
+.login .err{display:none;background:#fff;border:2px solid #ff5e5b;color:#000;padding:12px 15px;font-size:14px;margin-bottom:20px;font-family:'Courier New',monospace;font-weight:bold;box-shadow:4px 4px 0px #ff5e5b}
+.login .err.show{display:block}
+.app{display:none;max-width:1200px;margin:0 auto;padding:28px 24px 80px}
+.app.show{display:block}
+.top{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:24px;flex-wrap:wrap}
+.top h1{font-size:1.4rem}
+.top h1 span{color:var(--teal)}
+.top .logout{background:none;border:1px solid var(--line);color:var(--muted);padding:8px 14px;border-radius:8px;cursor:pointer;font-family:inherit;font-size:0.85rem}
+.top .logout:hover{color:var(--err);border-color:rgba(239,68,68,0.4)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:26px}
+.stat{background:linear-gradient(160deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:12px;padding:18px}
+.stat .v{font-size:1.6rem;font-weight:700;color:var(--gold);font-family:'JetBrains Mono',monospace}
+.stat .l{font-size:0.75rem;color:var(--dim);text-transform:uppercase;letter-spacing:0.08em;margin-top:4px}
+.section-head{display:flex;align-items:center;gap:14px;margin:30px 0 16px;font-family:'JetBrains Mono',monospace}
+.section-head .num{font-size:1.6rem;font-weight:800;color:var(--bg);background:linear-gradient(135deg,var(--teal),var(--cyan));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1}
+.section-head h2{font-size:1.1rem;letter-spacing:0.01em}
+.section-head h2 span{color:var(--teal)}
+.section-head .line{flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
+.order{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:14px}
+.order-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+.order-head .id{font-family:'JetBrains Mono',monospace;font-size:0.85rem;color:var(--teal);font-weight:600}
+.order-head .date{font-size:0.8rem;color:var(--dim)}
+.status{padding:4px 10px;border-radius:20px;font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;border:1px solid var(--line)}
+.status.pending{background:rgba(255,183,3,0.12);color:var(--gold);border-color:rgba(255,183,3,0.4)}
+.status.processing{background:rgba(0,180,216,0.12);color:var(--cyan);border-color:rgba(0,180,216,0.4)}
+.status.shipped{background:rgba(72,202,228,0.12);color:var(--cyan)}
+.status.completed{background:rgba(34,197,94,0.12);color:var(--ok);border-color:rgba(34,197,94,0.4)}
+.status.cancelled{background:rgba(239,68,68,0.12);color:var(--err);border-color:rgba(239,68,68,0.4)}
+.order .cust{font-size:0.88rem;color:var(--muted);margin-bottom:8px;line-height:1.7}
+.order .items{font-size:0.85rem;color:var(--muted);margin-bottom:8px}
+.order .items li{margin-left:18px}
+.order-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:10px}
+.order-foot .total{font-weight:700;color:var(--gold);font-family:'JetBrains Mono',monospace}
+.order-foot select{background:var(--panel);border:1px solid var(--line);color:var(--text);border-radius:8px;padding:8px 12px;font-family:inherit;font-size:0.85rem}
+.empty{color:var(--dim);text-align:center;padding:40px 0;font-family:'JetBrains Mono',monospace;font-size:0.85rem}
+.loading{color:var(--dim);text-align:center;padding:30px;font-family:'JetBrains Mono',monospace}
+</style>
+</head>
+<body>
+<div class="login-wrap">
+  <div class="login" id="loginBox">
+    <h1><small>CIRCUIT FORGE // STORE ADMIN</small>LOGIN</h1>
+    <div class="err" id="loginErr">ACCESS DENIED — INVALID CODE</div>
+    <div class="input-group">
+      <label for="code">ADMIN CODE</label>
+      <input type="password" id="code" autocomplete="off" placeholder="Enter admin code">
+    </div>
+    <button id="loginBtn">SIGN IN</button>
+    <div class="divider">OR</div>
+    <div class="footer">Restricted access · <a href="/">Back to store</a></div>
+  </div>
+</div>
+
+<div class="app" id="app">
+  <div class="top">
+    <h1>Circuit Forge <span>Store Admin</span></h1>
+    <button class="logout" id="logoutBtn">Log Out</button>
+  </div>
+
+  <div class="stats" id="stats"></div>
+
+  <div class="section-head"><span class="num">01</span><h2><span>Orders</span></h2><span class="line"></span></div>
+  <div id="ordersList"><div class="loading">Loading orders…</div></div>
+</div>
+
+<script>
+(function(){
+  const CODE_KEY = 'cf_admin_code';
+  const $login = document.getElementById('loginBox');
+  const $app = document.getElementById('app');
+  const $err = document.getElementById('loginErr');
+  const $code = document.getElementById('code');
+
+  const API = '/api/store/admin';
+  function headers(){
+    return { 'Content-Type': 'application/json', 'X-Admin-Code': sessionStorage.getItem(CODE_KEY) || '' };
+  }
+
+  async function api(path, opts){
+    const res = await fetch(API + path, Object.assign({ headers: headers() }, opts));
+    const data = await res.json().catch(()=>({ success:false, error:'Bad response' }));
+    if(res.status === 401){
+      showLogin();
+      throw new Error('Unauthorized');
+    }
+    if(!data.success) throw new Error(data.error || 'Request failed');
+    return data;
+  }
+
+  function showLogin(){ $app.classList.remove('show'); $login.style.display='flex'; sessionStorage.removeItem(CODE_KEY); }
+  function showApp(){ $login.style.display='none'; $app.classList.add('show'); loadAll(); }
+
+  document.getElementById('loginBtn').addEventListener('click', async ()=>{
+    const code = $code.value.trim();
+    if(!code) return;
+    $err.classList.remove('show');
+    try{
+      const res = await fetch(API+'/orders', { headers: { 'X-Admin-Code': code } });
+      if(!res.ok) throw new Error('Unauthorized');
+      sessionStorage.setItem(CODE_KEY, code);
+      showApp();
+    }catch{
+      $err.classList.add('show');
+    }
+  });
+  $code.addEventListener('keydown', e=>{ if(e.key==='Enter') document.getElementById('loginBtn').click(); });
+  document.getElementById('logoutBtn').addEventListener('click', showLogin);
+
+  const fmt = n => 'R ' + Number(n).toLocaleString('en-ZA', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const STATUSES = ['pending','processing','shipped','completed','cancelled'];
+
+  async function loadStats(){
+    const { stats } = await api('/stats');
+    document.getElementById('stats').innerHTML = `
+      <div class="stat"><div class="v">${stats.totalOrders}</div><div class="l">Total Orders</div></div>
+      <div class="stat"><div class="v">${fmt(stats.revenue)}</div><div class="l">Revenue (excl. cancelled)</div></div>
+      <div class="stat"><div class="v">${stats.units}</div><div class="l">Units Sold</div></div>
+      <div class="stat"><div class="v">${stats.pending}</div><div class="l">Pending</div></div>`;
+  }
+
+  async function loadOrders(){
+    const { orders } = await api('/orders');
+    const list = document.getElementById('ordersList');
+    if(!orders.length){ list.innerHTML = '<div class="empty">No orders yet.</div>'; return; }
+    list.innerHTML = orders.map(o=>`
+      <div class="order">
+        <div class="order-head">
+          <span class="id">${o.id}</span>
+          <span class="date">${new Date(o.createdAt).toLocaleString()}</span>
+          <span class="status ${o.status}">${o.status}</span>
+        </div>
+        <div class="cust">
+          <strong>${escapeHtml(o.customer.name)}</strong> · ${escapeHtml(o.customer.email)} · ${escapeHtml(o.customer.phone)}<br>
+          ${escapeHtml(o.customer.address)}
+        </div>
+        <ul class="items">
+          ${o.items.map(i=>`<li>${i.qty} × ${escapeHtml(i.name)} — ${fmt(i.lineTotal)}</li>`).join('')}
+        </ul>
+        <div class="order-foot">
+          <span class="total">${fmt(o.total)} ${o.shipping>0 ? `(incl. ${fmt(o.shipping)} shipping)` : '(free shipping)'}</span>
+          <select data-order="${o.id}">
+            ${STATUSES.map(s=>`<option value="${s}" ${s===o.status?'selected':''}>${s}</option>`).join('')}
+          </select>
+        </div>
+      </div>`).join('');
+    list.querySelectorAll('select[data-order]').forEach(sel=>{
+      sel.addEventListener('change', async ()=>{
+        try{
+          const { order } = await api('/orders/'+sel.dataset.order, {
+            method:'PATCH', body: JSON.stringify({ status: sel.value })
+          });
+          loadStats();
+        }catch(e){
+          sel.value = 'pending';
+          alert('Failed to update status: ' + e.message);
+        }
+      });
+    });
+  }
+
+  function escapeHtml(s){
+    return String(s).replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+  }
+
+  async function loadAll(){
+    try{
+      await Promise.all([loadStats(), loadOrders()]);
+    }catch(e){
+      if(e.message !== 'Unauthorized') {
+        document.getElementById('ordersList').innerHTML = '<div class="empty">Error loading: '+escapeHtml(e.message)+'</div>';
+      }
+    }
+  }
+
+  if(sessionStorage.getItem(CODE_KEY)){
+    showApp();
+  } else {
+    showLogin();
+  }
+})();
+</script>
+</body>
+</html>

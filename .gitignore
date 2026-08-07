@@ -16,3 +16,13 @@ _site/
 # counterproductive to check this file into the repository.
 # Details at https://github.com/github/pages-gem/issues/768
 Gemfile.lock
+
+# ─── Skyline IT runtime, secrets and local-only files ───
+.env
+node_modules/
+server/data/
+data/
+.ctx/
+CNAME.txt
+.gitattributes
+gitattributes

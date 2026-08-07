@@ -1,0 +1,246 @@
+/* Mzansi Cloud - Analytics Dashboard Styles
+   SPDX-License-Identifier: Apache-2.0 */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --sa-green: #007A4B;
+  --sa-gold: #FFB612;
+  --sa-red: #DE3831;
+  --sa-blue: #002395;
+  --black: #0A0A0A;
+  --dark: #141414;
+  --panel: #1B1B1B;
+  --line: #2E2E2E;
+  --text: #ECECEC;
+  --muted: #9A9A9A;
+}
+
+body {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  background: var(--black);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+.flag-strip { display: flex; height: 8px; }
+.flag-strip span { flex: 1; }
+.flag-strip span:nth-child(1) { background: var(--sa-red); }
+.flag-strip span:nth-child(2) { background: var(--sa-blue); }
+.flag-strip span:nth-child(3) { background: var(--sa-gold); }
+.flag-strip span:nth-child(4) { background: var(--sa-green); }
+.flag-strip span:nth-child(5) { background: var(--sa-blue); }
+.flag-strip span:nth-child(6) { background: var(--sa-red); }
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 24px;
+  border-bottom: 2px solid var(--line);
+  background: var(--dark);
+  position: sticky;
+  top: 8px;
+  z-index: 50;
+}
+
+.brand { display: flex; align-items: center; gap: 12px; }
+
+a.brand { text-decoration: none; color: inherit; }
+
+.footer-home {
+  color: var(--sa-gold);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.footer-home:hover { text-decoration: underline; }
+
+.logo-img {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  border: 2px solid var(--sa-green);
+  background: #fff;
+  padding: 2px;
+  flex-shrink: 0;
+}
+
+.download-btn {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  padding: 7px 12px;
+  background: var(--sa-gold);
+  color: var(--black);
+  border: none;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.download-btn:active { transform: scale(0.96); }
+
+.brand h1 { font-size: 1.1rem; font-family: 'Archivo Black', sans-serif; }
+.brand p { font-size: 0.7rem; color: var(--muted); }
+
+.header-meta { display: flex; align-items: center; gap: 10px; }
+
+.conn-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(222,56,49,0.2);
+  color: var(--sa-red);
+}
+.conn-badge.connected {
+  background: rgba(0,122,75,0.2);
+  color: var(--sa-green);
+}
+
+.refresh-btn {
+  padding: 6px 14px;
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  background: var(--sa-green);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+.refresh-btn:active { transform: scale(0.96); }
+
+.demo-banner {
+  background: var(--sa-gold);
+  color: var(--black);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-align: center;
+  padding: 6px 12px;
+}
+
+main {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px 20px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ─── Stat cards ─── */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.stat-card {
+  background: var(--panel);
+  border: 2px solid var(--line);
+  border-top: 4px solid var(--sa-green);
+  padding: 16px;
+}
+.stat-card .s-num {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 1.9rem;
+  color: var(--sa-gold);
+}
+.stat-card .s-label {
+  font-size: 0.68rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+/* ─── Charts ─── */
+.chart-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 12px;
+}
+
+.chart-card, .card {
+  background: var(--panel);
+  border: 2px solid var(--line);
+  padding: 16px;
+}
+
+.chart-card h3, .card h3 {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 0.85rem;
+  margin-bottom: 12px;
+}
+
+.chart-toolbar { display: flex; gap: 8px; margin-bottom: 10px; }
+.chart-toolbar select {
+  background: var(--dark);
+  color: var(--text);
+  border: 2px solid var(--line);
+  padding: 6px 10px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.75rem;
+}
+.chart-toolbar select option { background: var(--dark); color: var(--text); }
+
+#lineChart, #pieChart { width: 100%; display: block; }
+
+/* ─── Tables ─── */
+.tables {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+table { width: 100%; border-collapse: collapse; font-size: 0.78rem; }
+
+th {
+  text-align: left;
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 8px 8px;
+  border-bottom: 2px solid var(--line);
+}
+
+td { padding: 8px; border-bottom: 1px solid var(--line); color: var(--text); }
+
+.sev { font-weight: 700; }
+.sev.critical { color: var(--sa-red); }
+.sev.warning { color: var(--sa-gold); }
+.sev.info { color: var(--sa-blue); }
+
+.status { font-weight: 700; font-size: 0.68rem; }
+.status.online { color: var(--sa-green); }
+.status.offline { color: var(--muted); }
+.status.low_battery { color: var(--sa-gold); }
+.status.error { color: var(--sa-red); }
+.status.provisioning { color: var(--sa-blue); }
+
+/* ─── Footer ─── */
+footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+  border-top: 2px solid var(--line);
+  background: var(--dark);
+  font-size: 0.65rem;
+  color: var(--muted);
+}
+
+/* ─── Mobile ─── */
+@media (max-width: 800px) {
+  .stat-grid { grid-template-columns: 1fr 1fr; }
+  .chart-grid, .tables { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+  .stat-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+  header { padding: 12px 16px; }
+  main { padding: 14px 12px 30px; }
+  .header-meta .conn-badge { display: none; }
+  .download-btn { font-size: 0.55rem; padding: 6px 8px; }
+  .brand p { display: none; }
+}

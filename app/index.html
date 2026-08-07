@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--
+    Mzansi Connect App - Companion Dashboard
+    SPDX-License-Identifier: Apache-2.0
+    POPIA: No PII processed client-side.
+    ECTA:  Transactions facilitated via server API.
+  -->
+  <meta name="description" content="Mzansi Connect App - view device data, real-time alerts, energy usage, security systems, and subscriptions from your phone.">
+  <title>Mzansi Connect App</title>
+  <link rel="icon" type="image/png" href="images/logo-square.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Archivo+Black&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="flag-strip"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+
+  <header>
+    <a href="/" class="app-logo" aria-label="Mzansi Connect home">
+      <img fetchpriority="high" src="images/logo-square.png" alt="Mzansi Connect logo" class="logo-img">
+      <div>
+        <h1>Mzansi Connect</h1>
+        <p>A Skyline IT &amp; Cloud Company</p>
+      </div>
+    </a>
+    <div class="header-actions">
+      <a href="downloads/mzansi-connect-app.apk" class="download-btn" download id="downloadBtn">⬇ Download App</a>
+      <span class="conn-dot" id="connDot" title="Connection status"></span>
+    </div>
+  </header>
+
+  <div id="demoBanner" class="demo-banner" hidden>
+    Demo mode - sample data. Connect the API server for live data.
+  </div>
+
+  <nav class="tab-bar" id="tabBar">
+    <button class="tab active" data-tab="devices">Devices</button>
+    <button class="tab" data-tab="alerts">Alerts <span id="alertCount" class="tab-count">0</span></button>
+    <button class="tab" data-tab="energy">Energy</button>
+    <button class="tab" data-tab="security">Security</button>
+    <button class="tab" data-tab="subscriptions">Subscriptions</button>
+  </nav>
+
+  <main>
+    <!-- ─── DEVICES ─── -->
+    <section id="tab-devices" class="tab-panel active">
+      <h2>My Devices</h2>
+      <div id="deviceGrid" class="device-grid"></div>
+    </section>
+
+    <!-- ─── ALERTS ─── -->
+    <section id="tab-alerts" class="tab-panel">
+      <h2>Alerts</h2>
+      <div id="alertList" class="alert-list"></div>
+    </section>
+
+    <!-- ─── ENERGY ─── -->
+    <section id="tab-energy" class="tab-panel">
+      <h2>Energy Usage</h2>
+      <div class="energy-summary" id="energySummary"></div>
+      <canvas id="energyChart" width="340" height="180" aria-label="Energy usage chart"></canvas>
+      <p class="chart-caption">Daily kWh - last 7 days</p>
+    </section>
+
+    <!-- ─── SECURITY ─── -->
+    <section id="tab-security" class="tab-panel">
+      <h2>Security Events</h2>
+      <div class="security-stats" id="securityStats"></div>
+      <div id="securityFeed" class="security-feed"></div>
+    </section>
+
+    <!-- ─── SUBSCRIPTIONS ─── -->
+    <section id="tab-subscriptions" class="tab-panel">
+      <h2>Subscriptions</h2>
+      <div id="planGrid" class="plan-grid"></div>
+      <div id="subList" class="sub-list"></div>
+    </section>
+  </main>
+
+  <footer>
+    <span>Mzansi Connect App v1.0</span>
+    <a href="/" class="footer-home">Back to Mzansi Connect</a>
+    <span id="connText">Connecting...</span>
+  </footer>
+
+  <script src="app.js" defer></script>
+</body>
+</html>

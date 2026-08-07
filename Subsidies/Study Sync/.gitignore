@@ -1,0 +1,13 @@
+node_modules/
+data/
+*.db
+studysync.html
+.env
+.env.local
+.DS_Store
+npm-debug.log*
+Thumbs.db
+*.log
+dist/
+build/
+.cache/

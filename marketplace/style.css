@@ -1,0 +1,310 @@
+/* Mzansi Marketplace - Jobs & Technicians Styles
+   SPDX-License-Identifier: Apache-2.0 */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --sa-green: #007A4B;
+  --sa-gold: #FFB612;
+  --sa-red: #DE3831;
+  --sa-blue: #002395;
+  --black: #0A0A0A;
+  --dark: #141414;
+  --panel: #1B1B1B;
+  --line: #2E2E2E;
+  --text: #ECECEC;
+  --muted: #9A9A9A;
+}
+
+body {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  background: var(--black);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+.flag-strip { display: flex; height: 8px; }
+.flag-strip span { flex: 1; }
+.flag-strip span:nth-child(1) { background: var(--sa-red); }
+.flag-strip span:nth-child(2) { background: var(--sa-blue); }
+.flag-strip span:nth-child(3) { background: var(--sa-gold); }
+.flag-strip span:nth-child(4) { background: var(--sa-green); }
+.flag-strip span:nth-child(5) { background: var(--sa-blue); }
+.flag-strip span:nth-child(6) { background: var(--sa-red); }
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 24px;
+  border-bottom: 2px solid var(--line);
+  background: var(--dark);
+  position: sticky;
+  top: 8px;
+  z-index: 50;
+}
+
+.brand { display: flex; align-items: center; gap: 12px; }
+
+a.brand { text-decoration: none; color: inherit; }
+
+.footer-home {
+  color: var(--sa-gold);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.footer-home:hover { text-decoration: underline; }
+
+.logo-img {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  border: 2px solid var(--sa-green);
+  background: #fff;
+  padding: 2px;
+  flex-shrink: 0;
+}
+
+.download-btn {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  padding: 7px 12px;
+  background: var(--sa-gold);
+  color: var(--black);
+  border: none;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.download-btn:active { transform: scale(0.96); }
+
+.brand h1 { font-size: 1.05rem; font-family: 'Archivo Black', sans-serif; }
+.brand p { font-size: 0.7rem; color: var(--muted); }
+
+.header-meta { display: flex; align-items: center; gap: 10px; }
+
+.conn-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(222,56,49,0.2);
+  color: var(--sa-red);
+}
+.conn-badge.connected {
+  background: rgba(0,122,75,0.2);
+  color: var(--sa-green);
+}
+
+.refresh-btn {
+  padding: 6px 14px;
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  background: var(--sa-green);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.demo-banner {
+  background: var(--sa-gold);
+  color: var(--black);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-align: center;
+  padding: 6px 12px;
+}
+
+main {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px 20px 40px;
+}
+
+/* ─── Hero ─── */
+.hero {
+  text-align: center;
+  padding: 34px 16px;
+  border: 3px solid var(--sa-green);
+  background: var(--dark);
+  margin-bottom: 20px;
+}
+.hero h2 { font-family: 'Archivo Black', sans-serif; font-size: 1.8rem; }
+.hero .highlight { color: var(--sa-gold); }
+.hero p { color: var(--muted); font-size: 0.85rem; margin-top: 8px; }
+
+/* ─── Tabs ─── */
+.tab-bar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+.tab {
+  flex: 1;
+  padding: 12px;
+  background: var(--panel);
+  border: 2px solid var(--line);
+  color: var(--muted);
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.tab.active {
+  background: var(--sa-green);
+  border-color: var(--sa-green);
+  color: #fff;
+}
+
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ─── Filter ─── */
+.filter-row { margin-bottom: 14px; }
+.filter-row input {
+  width: 100%;
+  padding: 10px 14px;
+  background: var(--dark);
+  border: 2px solid var(--line);
+  color: var(--text);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.85rem;
+}
+.filter-row input::placeholder { color: var(--muted); }
+
+/* ─── Jobs ─── */
+.job-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.job-card {
+  background: var(--panel);
+  border: 2px solid var(--line);
+  border-top: 4px solid var(--sa-gold);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.job-card h3 { font-size: 0.9rem; }
+.job-card .j-meta { display: flex; justify-content: space-between; font-size: 0.68rem; color: var(--muted); }
+.job-card .j-desc { font-size: 0.75rem; color: var(--muted); }
+.job-card .j-pay {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 1.2rem;
+  color: var(--sa-gold);
+}
+.job-card .j-foot { display: flex; justify-content: space-between; align-items: center; }
+.job-status { font-size: 0.62rem; font-weight: 700; padding: 3px 8px; border-radius: 999px; text-transform: uppercase; }
+.job-status.open { background: rgba(0,122,75,0.2); color: var(--sa-green); }
+.job-status.assigned, .job-status.in_progress { background: rgba(0,37,149,0.2); color: #7A9BFF; }
+.job-status.completed { background: rgba(255,182,18,0.2); color: var(--sa-gold); }
+
+.apply-btn {
+  padding: 7px 14px;
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  background: var(--sa-gold);
+  color: var(--black);
+  border: none;
+  cursor: pointer;
+}
+
+/* ─── Technicians ─── */
+.tech-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.tech-card {
+  background: var(--panel);
+  border: 2px solid var(--line);
+  padding: 14px;
+}
+.tech-card .t-head { display: flex; justify-content: space-between; align-items: center; }
+.tech-card h3 { font-size: 0.9rem; }
+.tech-card .t-rating { color: var(--sa-gold); font-size: 0.85rem; }
+.tech-card .t-town { font-size: 0.68rem; color: var(--muted); margin: 4px 0; }
+.tech-card .t-skills { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+.skill-tag {
+  background: var(--dark);
+  border: 1px solid var(--line);
+  font-size: 0.62rem;
+  padding: 3px 8px;
+  border-radius: 999px;
+  color: var(--muted);
+}
+.tech-card .t-stats { display: flex; gap: 16px; font-size: 0.68rem; color: var(--muted); }
+.tech-card .t-stats strong { color: var(--text); }
+
+/* ─── Earnings ─── */
+.earnings-summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.e-stat {
+  background: var(--panel);
+  border: 2px solid var(--line);
+  padding: 16px;
+  text-align: center;
+}
+.e-stat strong { display: block; font-family: 'Archivo Black', sans-serif; font-size: 1.4rem; color: var(--sa-gold); }
+.e-stat span { font-size: 0.65rem; color: var(--muted); text-transform: uppercase; }
+
+.payout-list { display: flex; flex-direction: column; gap: 10px; }
+.payout-item {
+  background: var(--panel);
+  border: 2px solid var(--line);
+  padding: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.payout-item strong { font-size: 1rem; }
+.payout-item small { color: var(--muted); }
+.p-status { font-size: 0.62rem; font-weight: 700; padding: 3px 8px; border-radius: 999px; text-transform: uppercase; }
+.p-status.paid { background: rgba(0,122,75,0.2); color: var(--sa-green); }
+.p-status.pending { background: rgba(255,182,18,0.2); color: var(--sa-gold); }
+.p-status.failed { background: rgba(222,56,49,0.2); color: var(--sa-red); }
+
+/* ─── Footer ─── */
+footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+  border-top: 2px solid var(--line);
+  background: var(--dark);
+  font-size: 0.65rem;
+  color: var(--muted);
+}
+
+.empty {
+  background: var(--panel);
+  border: 2px dashed var(--line);
+  color: var(--muted);
+  text-align: center;
+  font-size: 0.8rem;
+  padding: 28px 16px;
+  grid-column: 1 / -1;
+}
+
+/* ─── Mobile ─── */
+@media (max-width: 640px) {
+  .job-grid, .tech-grid { grid-template-columns: 1fr; }
+  .earnings-summary { grid-template-columns: 1fr; }
+  header { padding: 12px 16px; }
+  main { padding: 14px 12px 30px; }
+  .hero h2 { font-size: 1.4rem; }
+  .download-btn { font-size: 0.55rem; padding: 6px 8px; }
+  .brand p { display: none; }
+}

@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Circuit Forge Technologies</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&family=Space+Grotesk:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    /* ─── RESET & BASE ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --esp-blue:       #0a1628;
+      --esp-deep:       #0f1f3a;
+      --esp-dark:       #152d50;
+      --esp-mid:        #1a4a7a;
+      --esp-teal:       #00b4d8;
+      --esp-cyan:       #48cae4;
+      --esp-gold:       #ffb703;
+      --esp-amber:      #fb8500;
+      --esp-orange:     #f97316;
+      --esp-accent:     #e85d04;
+      --esp-pcb:        #0d5c3a;
+      --esp-copper:     #b8860b;
+      --text-primary:   #e2e8f0;
+      --text-secondary: #94a3b8;
+      --text-dim:       #64748b;
+      --border-glow:    rgba(0, 180, 216, 0.25);
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background: var(--esp-blue);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ─── PCB BACKGROUND PATTERN ─── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(0,180,216,0.03) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(0,180,216,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 50%, rgba(0,180,216,0.06) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(251,133,0,0.04) 0%, transparent 50%),
+        radial-gradient(circle at 50% 80%, rgba(255,183,3,0.03) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ─── TERMINAL BAR ─── */
+    .term-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 32px;
+      background: #0a0f1a;
+      border-bottom: 1px solid var(--esp-dark);
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-dim);
+      z-index: 100;
+    }
+
+    .term-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .term-dot.r { background: #ff5f56; }
+    .term-dot.y { background: #ffbd2e; }
+    .term-dot.g { background: #27c93f; }
+
+    .term-title {
+      margin-left: 12px;
+      letter-spacing: 0.5px;
+    }
+
+    .term-title span {
+      color: var(--esp-teal);
+    }
+
+    /* ─── ASIDE BADGE ─── */
+    .sub-badge {
+      position: fixed;
+      top: 32px;
+      right: 24px;
+      z-index: 99;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      color: var(--text-dim);
+      background: rgba(15,31,58,0.85);
+      border: 1px solid var(--esp-dark);
+      padding: 4px 12px;
+      border-radius: 0;
+      text-transform: uppercase;
+      backdrop-filter: blur(4px);
+    }
+
+    .sub-badge a {
+      color: var(--esp-cyan);
+      text-decoration: none;
+    }
+
+    .sub-badge a:hover {
+      color: var(--esp-gold);
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 80px 24px 60px;
+      border-bottom: 2px solid var(--esp-dark);
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background:
+        linear-gradient(180deg, rgba(10,22,40,0) 0%, rgba(10,22,40,0.9) 100%),
+        radial-gradient(ellipse at center top, rgba(0,180,216,0.12) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    #liquid-ether-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+    #liquid-ether-bg canvas {
+      pointer-events: auto;
+    }
+
+    /* ─── BRAND LOGO TEXT ─── */
+    .brand-logo-text {
+      position: relative;
+      z-index: 1;
+      margin-bottom: 22px;
+    }
+
+    .brand-logo-text .word {
+      display: block;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 900;
+      font-size: clamp(2.6rem, 8vw, 6rem);
+      line-height: 1.02;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, var(--esp-teal), var(--esp-cyan), var(--esp-gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 24px rgba(0,180,216,0.25));
+    }
+
+    .brand-logo-text .subword {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: clamp(0.8rem, 2vw, 1.1rem);
+      font-weight: 700;
+      color: var(--esp-gold);
+      letter-spacing: 0.45em;
+      text-transform: uppercase;
+      margin-top: 12px;
+      text-shadow: 0 0 20px rgba(255,183,3,0.25);
+    }
+
+    .brand-logo-text .subword::before {
+      content: '──';
+      margin-right: 14px;
+      opacity: 0.6;
+    }
+
+    .brand-logo-text .subword::after {
+      content: '──';
+      margin-left: 14px;
+      opacity: 0.6;
+    }
+
+    .hero-title {
+      font-size: clamp(1.35rem, 3.4vw, 2.3rem);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      line-height: 1.15;
+      position: relative;
+      z-index: 1;
+      background: linear-gradient(135deg, var(--esp-teal), var(--esp-cyan), var(--esp-gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      max-width: 900px;
+    }
+
+    .hero-sub {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: clamp(0.75rem, 1.5vw, 1rem);
+      color: var(--text-secondary);
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-top: 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-sub span {
+      color: var(--esp-gold);
+    }
+
+    .hero-desc {
+      max-width: 640px;
+      margin-top: 24px;
+      font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+      color: var(--text-secondary);
+      position: relative;
+      z-index: 1;
+      line-height: 1.7;
+    }
+
+    .hero-motto {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      margin-top: 28px;
+      padding: 8px 24px;
+      border: 1px solid var(--esp-dark);
+      background: rgba(15,31,58,0.5);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-motto::before {
+      content: '✦ ';
+      color: var(--esp-gold);
+    }
+
+    .hero-motto::after {
+      content: ' ✦';
+      color: var(--esp-gold);
+    }
+
+    /* ─── SCROLL INDICATOR ─── */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--text-dim);
+      letter-spacing: 2px;
+      animation: pulse-down 2s ease-in-out infinite;
+      z-index: 1;
+    }
+
+    @keyframes pulse-down {
+      0%, 100% { opacity: 0.4; transform: translateX(-50%) translateY(0); }
+      50% { opacity: 1; transform: translateX(-50%) translateY(6px); }
+    }
+
+    /* ─── SECTION WRAP ─── */
+    section {
+      position: relative;
+      z-index: 1;
+      padding: 80px 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 48px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .section-header .num {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--esp-dark);
+      line-height: 1;
+    }
+
+    .section-header h2 {
+      font-size: clamp(1.4rem, 2.5vw, 2.2rem);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+    }
+
+    .section-header h2 span {
+      color: var(--esp-teal);
+    }
+
+    .section-header .line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--esp-dark), transparent);
+    }
+
+    /* ─── SERVICES GRID ─── */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .service-card {
+      background: linear-gradient(160deg, rgba(15,31,58,0.8), rgba(10,22,40,0.9));
+      border: 1px solid var(--esp-dark);
+      padding: 28px 24px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 3px;
+      height: 100%;
+      background: linear-gradient(180deg, var(--esp-teal), var(--esp-gold));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .service-card:hover {
+      border-color: var(--esp-mid);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 32px rgba(0,180,216,0.08);
+    }
+
+    .service-card:hover::before {
+      opacity: 1;
+    }
+
+    .service-card .chip {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--esp-cyan);
+      border: 1px solid var(--esp-mid);
+      padding: 2px 8px;
+      margin-bottom: 14px;
+      letter-spacing: 1px;
+    }
+
+    .service-card h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .service-card p {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    .service-card .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 16px;
+    }
+
+    .service-card .tags span {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      padding: 3px 8px;
+      background: rgba(0,180,216,0.08);
+      border: 1px solid rgba(0,180,216,0.15);
+      color: var(--text-dim);
+      letter-spacing: 0.5px;
+    }
+
+    /* ─── TECH STACK ─── */
+    .tech-section {
+      border-top: 1px solid var(--esp-dark);
+      border-bottom: 1px solid var(--esp-dark);
+      padding: 60px 24px;
+      max-width: none;
+      background: linear-gradient(90deg, rgba(0,180,216,0.02), transparent, rgba(251,133,0,0.02));
+      position: relative;
+      z-index: 1;
+    }
+
+    .tech-section .inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .tech-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .tech-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-family: 'JetBrains Mono', monospace;
+      flex-wrap: wrap;
+    }
+
+    .tech-row .label {
+      font-size: 10px;
+      color: var(--text-dim);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      min-width: 110px;
+    }
+
+    .tech-row .label .arr {
+      color: var(--esp-gold);
+    }
+
+    .tech-row .items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tech-chip {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      padding: 5px 14px;
+      background: rgba(15,31,58,0.7);
+      border: 1px solid var(--esp-dark);
+      color: var(--text-secondary);
+      letter-spacing: 0.5px;
+      transition: all 0.2s ease;
+    }
+
+    .tech-chip:hover {
+      border-color: var(--esp-teal);
+      color: var(--esp-cyan);
+      background: rgba(0,180,216,0.06);
+    }
+
+    .tech-chip.hl {
+      border-color: var(--esp-gold);
+      color: var(--esp-gold);
+    }
+
+    .tech-chip.hl:hover {
+      border-color: var(--esp-amber);
+      color: var(--esp-amber);
+      background: rgba(255,183,3,0.06);
+    }
+
+    /* ─── ASCII CHIP DISPLAY ─── */
+    .chip-display {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      line-height: 1.3;
+      color: var(--esp-cyan);
+      background: rgba(10,22,40,0.6);
+      border: 1px solid var(--esp-dark);
+      padding: 20px 24px;
+      margin: 32px 0 0;
+      overflow-x: auto;
+      white-space: pre;
+    }
+
+    .chip-display .g { color: var(--esp-gold); }
+    .chip-display .o { color: var(--esp-orange); }
+    .chip-display .d { color: var(--text-dim); }
+    .chip-display .w { color: var(--text-primary); }
+
+    /* ─── PRODUCTS ─── */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+
+    .product-card {
+      background: rgba(15,31,58,0.5);
+      border: 1px solid var(--esp-dark);
+      padding: 24px 20px;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .product-card:hover {
+      border-color: var(--esp-mid);
+      background: rgba(15,31,58,0.8);
+    }
+
+    .product-card .icon {
+      font-size: 1.6rem;
+      margin-bottom: 10px;
+    }
+
+    .product-card h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .product-card ul {
+      list-style: none;
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+    }
+
+    .product-card ul li {
+      padding: 3px 0;
+      padding-left: 14px;
+      position: relative;
+    }
+
+    .product-card ul li::before {
+      content: '─-─';
+      position: absolute;
+      left: 0;
+      color: var(--esp-teal);
+    }
+
+    /* ─── PROCESS ─── */
+    .process-flow {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 0;
+      border: 1px solid var(--esp-dark);
+      background: rgba(15,31,58,0.3);
+    }
+
+    .process-step {
+      padding: 24px 16px;
+      text-align: center;
+      border-right: 1px solid var(--esp-dark);
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .process-step:last-child {
+      border-right: none;
+    }
+
+    .process-step:hover {
+      background: rgba(0,180,216,0.04);
+    }
+
+    .process-step .step-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--esp-dark);
+      line-height: 1;
+    }
+
+    .process-step .step-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      margin-top: 6px;
+      color: var(--text-primary);
+    }
+
+    .process-step .step-sub {
+      font-size: 0.68rem;
+      color: var(--text-dim);
+      margin-top: 4px;
+    }
+
+    .process-step .arrow {
+      display: none;
+    }
+
+    @media (min-width: 768px) {
+      .process-step {
+        position: relative;
+      }
+      .process-step:not(:last-child)::after {
+        content: '→';
+        position: absolute;
+        right: -10px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 1.2rem;
+        color: var(--esp-gold);
+        opacity: 0.5;
+      }
+    }
+
+    /* ─── VALUES ─── */
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+    }
+
+    .value-item {
+      border: 1px solid var(--esp-dark);
+      padding: 20px 16px;
+      text-align: center;
+      transition: all 0.3s ease;
+      background: rgba(15,31,58,0.3);
+    }
+
+    .value-item:hover {
+      border-color: var(--esp-gold);
+      background: rgba(255,183,3,0.03);
+    }
+
+    .value-item .val-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--esp-gold);
+      letter-spacing: 2px;
+      margin-bottom: 6px;
+    }
+
+    .value-item h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+
+    .value-item p {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      margin-top: 6px;
+      line-height: 1.5;
+    }
+
+    /* ─── TERMINAL BLOCK ─── */
+    .terminal-block {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      background: #080c14;
+      border: 1px solid var(--esp-dark);
+      padding: 24px 28px;
+      margin: 40px 0 0;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      overflow-x: auto;
+    }
+
+    .terminal-block .prompt {
+      color: var(--esp-pcb);
+    }
+
+    .terminal-block .cmd {
+      color: var(--esp-cyan);
+    }
+
+    .terminal-block .out {
+      color: var(--text-dim);
+    }
+
+    .terminal-block .highlight {
+      color: var(--esp-gold);
+    }
+
+    .terminal-block .accent {
+      color: var(--esp-orange);
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 2px solid var(--esp-dark);
+      padding: 48px 24px 32px;
+      text-align: center;
+      background: rgba(10,22,40,0.5);
+    }
+
+    footer .footer-box {
+      max-width: 600px;
+      margin: 0 auto;
+      border: 1px solid var(--esp-dark);
+      padding: 32px 24px;
+      background: rgba(15,31,58,0.4);
+    }
+
+    footer .footer-box .brand {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+    }
+
+    footer .footer-box .brand span {
+      color: var(--esp-teal);
+    }
+
+    footer .footer-box .slogan {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--text-dim);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin: 8px 0 16px;
+    }
+
+    footer .footer-box .sub-line {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+    }
+
+    footer .footer-box .sub-line a {
+      color: var(--esp-cyan);
+      text-decoration: none;
+    }
+
+    footer .footer-box .sub-line a:hover {
+      color: var(--esp-gold);
+    }
+
+    footer .footer-box .tagline-cycle {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-dim);
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--esp-dark);
+    }
+
+    footer .copy {
+      font-size: 10px;
+      color: var(--text-dim);
+      margin-top: 20px;
+      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: 1px;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 600px) {
+      .brand-logo-text .word {
+        font-size: clamp(2rem, 12vw, 3.2rem);
+      }
+      section {
+        padding: 48px 16px;
+      }
+      .tech-section {
+        padding: 40px 16px;
+      }
+      .process-flow {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .process-step:nth-child(even) {
+        border-right: none;
+      }
+      .process-step:nth-child(1),
+      .process-step:nth-child(2) {
+        border-bottom: 1px solid var(--esp-dark);
+      }
+      .sub-badge {
+        display: none;
+      }
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── TERMINAL BAR ─── -->
+  <div class="term-bar">
+    <div class="term-dot r"></div>
+    <div class="term-dot y"></div>
+    <div class="term-dot g"></div>
+    <div class="term-title"><span>circuit-forge@africa</span>:~$ ./build --target=africa</div>
+  </div>
+
+  <div class="sub-badge">
+    ⊞ subsidiary of <a href="https://skylineit.site/">Skyline IT</a>
+    &nbsp;·&nbsp; <a href="/store/" target="_blank" rel="noopener">🛒 Online Store</a>
+  </div>
+
+  <div class="cf-logo" style="text-align:center;padding:20px 0 0;">
+    <img fetchpriority="high" src="images/circuit-forge-logo.png" alt="Circuit Forge Technologies" style="width:120px;height:auto;object-fit:contain;display:inline-block;">
+  </div>
+
+  <!-- ─── HERO ─── -->
+  <header class="hero">
+    <div id="liquid-ether-bg"></div>
+    <div class="brand-logo-text">
+      <span class="word">Circuit Forge</span>
+      <span class="subword">Technologies</span>
+    </div>
+
+    <h1 class="hero-title">Building Africa's Hardware Future</h1>
+    <p class="hero-sub">Custom Electronics &nbsp;·&nbsp; <span>PCB Design</span> &nbsp;·&nbsp; Embedded Systems &nbsp;·&nbsp; Internet Of Things (IoT)</p>
+    <p class="hero-desc">We design, build, and manufacture intelligent hardware that solves real-world problems — from concept to production, right here in Africa.</p>
+    <div class="hero-motto">From Idea to Innovation</div>
+    <div class="hero-cta" style="margin-top:26px;display:flex;justify-content:center;gap:14px;flex-wrap:wrap;">
+      <a href="/store/" target="_blank" rel="noopener" style="background:var(--esp-teal);color:#04121a;font-weight:700;padding:14px 28px;border-radius:10px;text-decoration:none;font-family:'Space Grotesk',sans-serif;transition:0.2s;">Shop Our Devices</a>
+      <a href="#services" style="border:1px solid var(--esp-mid);color:var(--esp-cyan);font-weight:600;padding:14px 28px;border-radius:10px;text-decoration:none;font-family:'Space Grotesk',sans-serif;transition:0.2s;">Explore Services</a>
+    </div>
+    <div class="scroll-indicator">─-─ SCROLL ─-─</div>
+  </header>
+
+  <!-- ─── SERVICES ─── -->
+  <section id="services">
+    <div class="section-header">
+      <span class="num">01</span>
+      <h2>Our <span>Services</span></h2>
+      <span class="line"></span>
+    </div>
+
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="chip">─-─ PCB</div>
+        <h3>PCB Design</h3>
+        <p>Professional printed circuit board development for consumer electronics, industrial automation, Internet Of Things (IoT), smart agriculture, and security systems.</p>
+        <div class="tags">
+          <span>Schematic</span>
+          <span>Layout</span>
+          <span>Gerber</span>
+          <span>BOM</span>
+          <span>DFM</span>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="chip">─-─ FW</div>
+        <h3>Embedded Systems</h3>
+        <p>Firmware development for ESP32, STM32, Arduino, Raspberry Pi, PIC, and ARM-based systems. C, C++, Python, MicroPython, Embedded Linux.</p>
+        <div class="tags">
+          <span>ESP32</span>
+          <span>STM32</span>
+          <span>Arduino</span>
+          <span>RPi</span>
+          <span>ARM</span>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="chip">📡</div>
+        <h3>Internet Of Things (IoT) Solutions</h3>
+        <p>End-to-end Internet Of Things (IoT) product development — smart home, environmental monitoring, asset tracking, energy monitoring, industrial telemetry.</p>
+        <div class="tags">
+          <span>Wi-Fi</span>
+          <span>BLE</span>
+          <span>LoRa</span>
+          <span>MQTT</span>
+          <span>Zigbee</span>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="chip">⚡</div>
+        <h3>Hardware Prototyping</h3>
+        <p>Rapid turnaround from breadboard to functional prototypes. Enclosure design, sensor integration, and wireless communication systems.</p>
+        <div class="tags">
+          <span>Breadboard</span>
+          <span>PCB Proto</span>
+          <span>Enclosure</span>
+          <span>Integration</span>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="chip">─-─</div>
+        <h3>Product Development</h3>
+        <p>Full lifecycle hardware development — concept, feasibility, circuit design, PCB, firmware, testing, and manufacturing support.</p>
+        <div class="tags">
+          <span>Concept</span>
+          <span>Design</span>
+          <span>Test</span>
+          <span>Manufacture</span>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="chip">⊕</div>
+        <h3>Hardware Consulting</h3>
+        <p>Technical guidance on architecture, component selection, design review, and manufacturing strategy for hardware startups and enterprises.</p>
+        <div class="tags">
+          <span>Architecture</span>
+          <span>Review</span>
+          <span>Strategy</span>
+          <span>Sourcing</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── TECH STACK ─── -->
+  <div class="tech-section">
+    <div class="inner">
+      <div class="section-header">
+        <span class="num">02</span>
+        <h2>Tech <span>Stack</span></h2>
+        <span class="line"></span>
+      </div>
+
+      <div class="tech-rows">
+        <div class="tech-row">
+          <span class="label">MCUs <span class="arr">→</span></span>
+          <div class="items">
+            <span class="tech-chip hl">ESP32</span>
+            <span class="tech-chip hl">ESP8266</span>
+            <span class="tech-chip hl">STM32</span>
+            <span class="tech-chip">Arduino</span>
+            <span class="tech-chip">Raspberry Pi</span>
+            <span class="tech-chip">PIC</span>
+            <span class="tech-chip">ARM</span>
+          </div>
+        </div>
+        <div class="tech-row">
+          <span class="label">Languages <span class="arr">→</span></span>
+          <div class="items">
+            <span class="tech-chip hl">C</span>
+            <span class="tech-chip hl">C++</span>
+            <span class="tech-chip">Python</span>
+            <span class="tech-chip">MicroPython</span>
+            <span class="tech-chip">Embedded Linux</span>
+          </div>
+        </div>
+        <div class="tech-row">
+          <span class="label">Protocols <span class="arr">→</span></span>
+          <div class="items">
+            <span class="tech-chip">Wi-Fi</span>
+            <span class="tech-chip">BLE</span>
+            <span class="tech-chip">LoRa</span>
+            <span class="tech-chip">Zigbee</span>
+            <span class="tech-chip">MQTT</span>
+            <span class="tech-chip">SPI</span>
+            <span class="tech-chip">I²C</span>
+            <span class="tech-chip">UART</span>
+            <span class="tech-chip">CAN</span>
+            <span class="tech-chip">RS-485</span>
+          </div>
+        </div>
+        <div class="tech-row">
+          <span class="label">Tools <span class="arr">→</span></span>
+          <div class="items">
+            <span class="tech-chip">KiCad</span>
+            <span class="tech-chip">Altium</span>
+            <span class="tech-chip">Eagle</span>
+            <span class="tech-chip">FreeRTOS</span>
+            <span class="tech-chip">Zephyr</span>
+            <span class="tech-chip">PlatformIO</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── ASCII CHIP DIAGRAM ─── -->
+      <div class="chip-display">┌─────────────────────────────────────────────────────────────────────┐
+│  <span class="w"> CIRCUIT FORGE — TECHNOLOGY STACK </span>                               │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                     │
+│  <span class="g"> ┌──────┐  ┌──────┐  ┌──────┐  ┌────────┐  ┌────────┐ </span>          │
+│  <span class="g"> │ ESP32 │  │STM32 │  │ARDNNO│  │   RPi  │  │  PIC   │ </span>          │
+│  <span class="g"> └──┬───┘  └──┬───┘  └──┬───┘  └───┬────┘  └───┬────┘ </span>          │
+│  <span class="g">    │         │         │          │           │        </span>          │
+│  <span class="g">    └─────────┴─────────┴──────────┴───────────┘        </span>          │
+│  <span class="g">                        │                                        </span>          │
+│  <span class="g">                 ┌───────┴───────┐                             </span>          │
+│  <span class="g">                 │   FIRMWARE    │  C · C++ · Python · µPy     </span>          │
+│  <span class="g">                 └───────┬───────┘                             </span>          │
+│  <span class="g">                         │                                     </span>          │
+│  <span class="g">    ┌────────────────────┼────────────────────┐               </span>          │
+│  <span class="g">    │                    │                    │               </span>          │
+│  <span class="g"> ┌──┴───┐          ┌────┴────┐          ┌───┴────┐         </span>          │
+│  <span class="g"> │ PCB  │          │   Internet Of Things (IoT)   │          │ PROTO  │         </span>          │
+│  <span class="g"> │DESIGN│          │PROTOCOLS│          │ TYPING │         </span>          │
+│  <span class="g"> └──────┘          └─────────┘          └────────┘         </span>          │
+│                                                                     │
+│  <span class="d"> Wi-Fi BLE LoRa Zigbee MQTT · SPI I²C UART CAN RS-485        </span>          │
+│  <span class="d"> KiCad Altium Eagle · FreeRTOS Zephyr PlatformIO            </span>          │
+│                                                                     │
+└─────────────────────────────────────────────────────────────────────┘</div>
+    </div>
+  </div>
+
+  <!-- ─── PRODUCTS ─── -->
+  <section>
+    <div class="section-header">
+      <span class="num">03</span>
+      <h2>Products We <span>Build</span></h2>
+      <span class="line"></span>
+    </div>
+
+    <div class="products-grid">
+      <div class="product-card">
+        <div class="icon">🔒</div>
+        <h4>Smart Security</h4>
+        <ul>
+          <li>Motion sensors</li>
+          <li>Access control</li>
+          <li>Smart alarms</li>
+          <li>Remote monitoring</li>
+        </ul>
+      </div>
+
+      <div class="product-card">
+        <div class="icon">📡</div>
+        <h4>Environmental</h4>
+        <ul>
+          <li>Weather stations</li>
+          <li>Air quality monitors</li>
+          <li>Water quality systems</li>
+          <li>Agri monitoring</li>
+        </ul>
+      </div>
+
+      <div class="product-card">
+        <div class="icon">🏭</div>
+        <h4>Industrial Automation</h4>
+        <ul>
+          <li>Equipment monitoring</li>
+          <li>Data acquisition</li>
+          <li>Process control</li>
+          <li>Predictive maintenance</li>
+        </ul>
+      </div>
+
+      <div class="product-card">
+        <div class="icon">🌱</div>
+        <h4>Smart Agriculture</h4>
+        <ul>
+          <li>Soil moisture</li>
+          <li>Irrigation control</li>
+          <li>Greenhouse automation</li>
+          <li>Environmental monitoring</li>
+        </ul>
+      </div>
+
+      <div class="product-card">
+        <div class="icon">📚</div>
+        <h4>Educational</h4>
+        <ul>
+          <li>Dev boards</li>
+          <li>Robotics kits</li>
+          <li>STEM learning kits</li>
+          <li>Training equipment</li>
+        </ul>
+      </div>
+
+      <div class="product-card">
+        <div class="icon">🔧</div>
+        <h4>Custom Solutions</h4>
+        <ul>
+          <li>Bespoke hardware</li>
+          <li>Sensor systems</li>
+          <li>Wireless devices</li>
+          <li>Embedded products</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── PROCESS ─── -->
+  <section>
+    <div class="section-header">
+      <span class="num">04</span>
+      <h2>Our <span>Process</span></h2>
+      <span class="line"></span>
+    </div>
+
+    <div class="process-flow">
+      <div class="process-step">
+        <div class="step-num">01</div>
+        <div class="step-label">Concept Design</div>
+        <div class="step-sub">Requirements & specs</div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">02</div>
+        <div class="step-label">Feasibility Study</div>
+        <div class="step-sub">Architecture & analysis</div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">03</div>
+        <div class="step-label">Circuit Design</div>
+        <div class="step-sub">Schematic & simulation</div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">04</div>
+        <div class="step-label">PCB Development</div>
+        <div class="step-sub">Layout & Gerber</div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">05</div>
+        <div class="step-label">Firmware</div>
+        <div class="step-sub">Code & debug</div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">06</div>
+        <div class="step-label">Prototype Testing</div>
+        <div class="step-sub">Verify & validate</div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">07</div>
+        <div class="step-label">Manufacturing</div>
+        <div class="step-sub">Production support</div>
+      </div>
+    </div>
+
+    <!-- ─── TERMINAL ─── -->
+    <div class="terminal-block">
+      <span class="prompt">circuit-forge@africa</span>:<span class="cmd">~</span>$ <span class="cmd">./start-product --name "MyDevice" --target africa</span>
+      <br>
+      <span class="out">[INFO]  Loading product blueprint...</span>
+      <br>
+      <span class="out">[INFO]  Concept phase:   <span class="highlight">COMPLETE</span></span>
+      <br>
+      <span class="out">[INFO]  Feasibility:     <span class="highlight">COMPLETE</span></span>
+      <br>
+      <span class="out">[INFO]  Circuit design:  <span class="accent">IN PROGRESS</span></span>
+      <br>
+      <span class="out">[INFO]  PCB layout:      <span class="accent">PENDING</span></span>
+      <br>
+      <span class="out">[INFO]  Firmware:        <span class="accent">PENDING</span></span>
+      <br>
+      <span class="out">[INFO]  Testing:         <span class="accent">PENDING</span></span>
+      <br>
+      <span class="out">[INFO]  Manufacturing:   <span class="accent">PENDING</span></span>
+      <br>
+      <span class="prompt">circuit-forge@africa</span>:<span class="cmd">~</span>$ <span class="cmd">─-─</span>
+    </div>
+  </section>
+
+  <!-- ─── WHY + VALUES ─── -->
+  <section>
+    <div class="section-header">
+      <span class="num">05</span>
+      <h2>Why <span>Circuit Forge</span></h2>
+      <span class="line"></span>
+    </div>
+
+    <div class="services-grid" style="margin-bottom:40px;">
+      <div class="service-card">
+        <div class="chip">⚡</div>
+        <h3>Technical Excellence</h3>
+        <p>Built on modern engineering principles and industry standards.</p>
+      </div>
+      <div class="service-card">
+        <div class="chip">⚡</div>
+        <h3>Rapid Development</h3>
+        <p>Faster turnaround from concept to working prototype.</p>
+      </div>
+      <div class="service-card">
+        <div class="chip">⚡</div>
+        <h3>Cost Effective</h3>
+        <p>Affordable solutions tailored to African businesses.</p>
+      </div>
+      <div class="service-card">
+        <div class="chip">⚡</div>
+        <h3>Local Support</h3>
+        <p>South African-based development and support services.</p>
+      </div>
+      <div class="service-card">
+        <div class="chip">⚡</div>
+        <h3>Scalable Designs</h3>
+        <p>Products architected for future growth and manufacturing.</p>
+      </div>
+      <div class="service-card">
+        <div class="chip">⚡</div>
+        <h3>End-to-End</h3>
+        <p>From initial concept through production — we handle it all.</p>
+      </div>
+    </div>
+
+    <div class="values-grid">
+      <div class="value-item">
+        <div class="val-num">✦ 01 ✦</div>
+        <h4>Innovation</h4>
+        <p>We create solutions that solve real problems.</p>
+      </div>
+      <div class="value-item">
+        <div class="val-num">✦ 02 ✦</div>
+        <h4>Quality</h4>
+        <p>Every design to professional standard.</p>
+      </div>
+      <div class="value-item">
+        <div class="val-num">✦ 03 ✦</div>
+        <h4>Reliability</h4>
+        <p>Products built to perform consistently.</p>
+      </div>
+      <div class="value-item">
+        <div class="val-num">✦ 04 ✦</div>
+        <h4>Learning</h4>
+        <p>Continuous improvement & advancement.</p>
+      </div>
+      <div class="value-item">
+        <div class="val-num">✦ 05 ✦</div>
+        <h4>Community</h4>
+        <p>Supporting local innovation & entrepreneurship.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── INDUSTRIES ─── -->
+  <section>
+    <div class="section-header">
+      <span class="num">06</span>
+      <h2>Industries We <span>Serve</span></h2>
+      <span class="line"></span>
+    </div>
+
+    <div class="tech-rows">
+      <div class="tech-row" style="justify-content:center;">
+        <div class="items" style="justify-content:center;">
+          <span class="tech-chip hl">Education</span>
+          <span class="tech-chip hl">Agriculture</span>
+          <span class="tech-chip hl">Manufacturing</span>
+          <span class="tech-chip hl">Security</span>
+          <span class="tech-chip hl">Telecom</span>
+        </div>
+      </div>
+      <div class="tech-row" style="justify-content:center;">
+        <div class="items" style="justify-content:center;">
+          <span class="tech-chip hl">Energy</span>
+          <span class="tech-chip hl">Mining</span>
+          <span class="tech-chip hl">Transportation</span>
+          <span class="tech-chip hl">Retail</span>
+          <span class="tech-chip hl">Smart Cities</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="terminal-block" style="margin-top:40px;">
+      <span class="prompt">circuit-forge@africa</span>:<span class="cmd">~</span>$ <span class="cmd">cat /etc/africa/markets.list</span>
+      <br>
+      <span class="out"> > education    [ACTIVE]   <span class="highlight">12 projects delivered</span></span>
+      <br>
+      <span class="out"> > agriculture  [ACTIVE]   <span class="highlight">8 projects delivered</span></span>
+      <br>
+      <span class="out"> > manufacturing [ACTIVE]   <span class="highlight">6 projects delivered</span></span>
+      <br>
+      <span class="out"> > security     [ACTIVE]   <span class="highlight">9 projects delivered</span></span>
+      <br>
+      <span class="out"> > telecom      [ACTIVE]   <span class="highlight">4 projects delivered</span></span>
+      <br>
+      <span class="out"> > energy       [ACTIVE]   <span class="highlight">5 projects delivered</span></span>
+      <br>
+      <span class="out"> > all sectors  [GROWING]  <span class="highlight">44+ projects total</span></span>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─── -->
+  <footer>
+    <div class="footer-box">
+      <div class="brand">Circuit <span>Forge</span> Technologies</div>
+      <div class="slogan">From Idea to Innovation</div>
+      <div class="sub-line">
+        Custom Electronics · PCB Design · Embedded Systems · Internet Of Things (IoT) Development
+      </div>
+      <div class="sub-line" style="margin-top:8px;">
+        A subsidiary of <a href="https://skylineit.site/">Skyline IT</a>
+      </div>
+      <div class="tagline-cycle">
+        ─- Engineering Tomorrow ─- Where Ideas Become Hardware ─- Design. Build. Innovate. ─-
+      </div>
+    </div>
+    <div class="copy">
+      ⚡ Circuit Forge Technologies — Building the next generation of African technology ⚡
+    </div>
+  </footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="js/liquid-ether.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var container = document.getElementById('liquid-ether-bg');
+  if (container && typeof initLiquidEther === 'function') {
+    initLiquidEther(container, {
+      colors: ['#00b4d8', '#48cae4', '#ffb703', '#fb8500', '#f97316'],
+      mouseForce: 25,
+      cursorSize: 120,
+      resolution: 0.4,
+      autoDemo: true,
+      autoSpeed: 0.4,
+      autoIntensity: 2.5,
+      takeoverDuration: 0.3,
+      autoResumeDelay: 2000,
+      autoRampDuration: 0.8
+    });
+  }
+});
+</script>
+</body>
+</html>

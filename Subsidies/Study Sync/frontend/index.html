@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StudySync – Study Together, Grow Together</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Fraunces:wght@600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js" defer></script>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<!-- ===== AUTH PAGE ===== -->
+<div id="page-auth" class="page active" role="main">
+  <div class="auth-card" role="region" aria-label="Authentication">
+    <div class="auth-logo">
+      <img fetchpriority="high" src="../images/logo.png" alt="StudySync" style="width:60px;height:auto;margin-bottom:8px;">
+      <h1>StudySync</h1>
+      <p>Study together, grow together</p>
+    </div>
+    <div class="auth-tabs" role="tablist" aria-label="Login or Sign Up">
+      <button class="auth-tab active" id="tab-login" role="tab" aria-selected="true" aria-controls="panel-login" onclick="switchAuthTab('login')">Login</button>
+      <button class="auth-tab" id="tab-signup" role="tab" aria-selected="false" aria-controls="panel-signup" onclick="switchAuthTab('signup')">Sign Up</button>
+    </div>
+    <div class="auth-body">
+      <!-- LOGIN -->
+      <div id="panel-login" role="tabpanel" aria-labelledby="tab-login">
+        <div class="auth-form">
+          <div class="form-group">
+            <label for="login-email">University Email</label>
+            <input type="email" id="login-email" placeholder="you@university.edu" autocomplete="email" aria-required="true">
+            <span class="form-error" id="login-email-err" role="alert"></span>
+          </div>
+          <div class="form-group">
+            <label for="login-pass">Password</label>
+            <div class="password-wrap">
+              <input type="password" id="login-pass" placeholder="••••••••" autocomplete="current-password" aria-required="true">
+              <button class="password-toggle" onclick="togglePassword('login-pass', this)" aria-label="Show password">
+                <i class="fa-solid fa-eye" aria-hidden="true"></i>
+              </button>
+            </div>
+            <span class="form-error" id="login-pass-err" role="alert"></span>
+          </div>
+          <button class="btn btn-primary btn-full" onclick="doLogin()" aria-label="Log in to StudySync">
+            <i class="fa-solid fa-arrow-right-to-bracket" aria-hidden="true"></i> Log In
+          </button>
+        </div>
+      </div>
+      <!-- SIGNUP -->
+      <div id="panel-signup" role="tabpanel" aria-labelledby="tab-signup" style="display:none">
+        <div class="auth-form">
+          <div class="form-group">
+            <label for="su-name">Full Name</label>
+            <input type="text" id="su-name" placeholder="Alex Johnson" autocomplete="name" aria-required="true">
+            <span class="form-error" id="su-name-err" role="alert"></span>
+          </div>
+          <div class="form-group">
+            <label for="su-email">University Email</label>
+            <input type="email" id="su-email" placeholder="you@university.edu" autocomplete="email" aria-required="true">
+            <span class="form-error" id="su-email-err" role="alert"></span>
+          </div>
+          <div class="form-group">
+            <label for="su-course">Course / Programme</label>
+            <input type="text" id="su-course" placeholder="e.g. Computer Science" aria-required="true">
+          </div>
+          <div class="form-group">
+            <label>Weekly Availability</label>
+            <div class="availability-grid" role="group" aria-label="Select your available days">
+              <label class="avail-check"><input type="checkbox" value="Mon" aria-label="Monday"> Mon</label>
+              <label class="avail-check"><input type="checkbox" value="Tue" aria-label="Tuesday"> Tue</label>
+              <label class="avail-check"><input type="checkbox" value="Wed" aria-label="Wednesday"> Wed</label>
+              <label class="avail-check"><input type="checkbox" value="Thu" aria-label="Thursday"> Thu</label>
+              <label class="avail-check"><input type="checkbox" value="Fri" aria-label="Friday"> Fri</label>
+              <label class="avail-check"><input type="checkbox" value="Sat" aria-label="Saturday"> Sat</label>
+              <label class="avail-check"><input type="checkbox" value="Sun" aria-label="Sunday"> Sun</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="su-method">Preferred Study Method</label>
+            <select id="su-method" aria-required="true">
+              <option value="">Select a method...</option>
+              <option value="Pomodoro">Pomodoro Technique</option>
+              <option value="Active Recall">Active Recall</option>
+              <option value="Flashcards">Flashcards</option>
+              <option value="Revision Quizzes">Revision Quizzes</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="su-pass">Password</label>
+            <div class="password-wrap">
+              <input type="password" id="su-pass" placeholder="Min 8 characters" autocomplete="new-password" aria-required="true">
+              <button class="password-toggle" onclick="togglePassword('su-pass', this)" aria-label="Show password">
+                <i class="fa-solid fa-eye" aria-hidden="true"></i>
+              </button>
+            </div>
+            <span class="form-error" id="su-pass-err" role="alert"></span>
+          </div>
+          <button class="btn btn-primary btn-full" onclick="doSignup()">
+            <i class="fa-solid fa-user-plus" aria-hidden="true"></i> Create Account
+          </button>
+        </div>
+        <p style="margin-top:14px;font-size:0.8rem;color:var(--text-light);text-align:center">
+          By signing up you agree to our <a href="#" onclick="openModal('privacy-modal');return false;" style="color:var(--green)">Privacy Policy</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== APP SHELL ===== -->
+<div id="page-app" class="page" role="main">
+  <!-- SIDEBAR -->
+  <nav class="sidebar" aria-label="Main navigation" id="sidebar">
+    <div class="sidebar-logo">
+      <img loading="lazy" decoding="async" src="../images/logo.png" alt="StudySync" style="width:36px;height:auto;vertical-align:middle;margin-right:6px;">
+      <h2 style="display:inline">StudySync</h2>
+      <span>v2.0</span>
+    </div>
+    <div class="nav-menu" role="menubar">
+      <button class="nav-item active" onclick="showSubPage('dashboard')" role="menuitem" aria-current="page">
+        <i class="fa-solid fa-house" aria-hidden="true"></i> Dashboard
+      </button>
+      <button class="nav-item" onclick="showSubPage('groups')" role="menuitem">
+        <i class="fa-solid fa-users" aria-hidden="true"></i> Find Groups
+      </button>
+      <button class="nav-item" onclick="showSubPage('chat')" role="menuitem">
+        <i class="fa-solid fa-comments" aria-hidden="true"></i> Chat
+        <span class="nav-badge" aria-label="unread messages">3</span>
+      </button>
+      <button class="nav-item" onclick="showSubPage('calendar')" role="menuitem">
+        <i class="fa-solid fa-calendar-days" aria-hidden="true"></i> Calendar
+      </button>
+      <button class="nav-item" onclick="showSubPage('profile')" role="menuitem">
+        <i class="fa-solid fa-user-gear" aria-hidden="true"></i> Profile
+      </button>
+      <button class="nav-item" onclick="openModal('admin-modal')" role="menuitem" style="margin-top:8px;border-top:1px solid var(--border);padding-top:12px">
+        <i class="fa-solid fa-shield-halved" aria-hidden="true"></i> Admin
+      </button>
+    </div>
+    <div class="sidebar-bottom">
+      <div class="user-chip">
+        <div class="avatar" id="sidebar-avatar" aria-hidden="true">A</div>
+        <div class="user-chip-info">
+          <div class="user-chip-name" id="sidebar-name">Alex Johnson</div>
+          <div class="user-chip-role" id="sidebar-role">StudySync</div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MAIN -->
+  <div class="main-content">
+    <!-- TOPBAR -->
+    <header class="topbar" role="banner">
+      <div class="topbar-title" id="topbar-title">Dashboard</div>
+      <div class="topbar-actions">
+        <div id="dnd-status" class="dnd-banner" role="status" aria-live="polite">
+          <i class="fa-solid fa-moon" aria-hidden="true"></i> Do Not Disturb is ON
+        </div>
+        <button class="icon-btn" onclick="openModal('studybot-modal')" data-tooltip="Ask StudyBot" aria-label="Open StudyBot assistant">
+          <i class="fa-solid fa-robot" aria-hidden="true"></i>
+        </button>
+        <button class="icon-btn" onclick="openModal('notif-modal')" data-tooltip="Notifications" aria-label="Open notifications">
+          <i class="fa-solid fa-bell" aria-hidden="true"></i>
+        </button>
+        <button class="icon-btn" onclick="doLogout()" data-tooltip="Logout" aria-label="Log out">
+          <i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i>
+        </button>
+      </div>
+    </header>
+
+    <div class="content-area" id="main-content" role="main">
+
+      <!-- DASHBOARD -->
+      <section class="sub-page active" id="sub-dashboard" aria-labelledby="dash-heading">
+        <div class="missed-banner" id="missed-banner" role="alert">
+          <i class="fa-solid fa-heart" aria-hidden="true"></i>
+          <p><strong>Hey, no worries!</strong> You missed Tuesday's session – that's totally okay. Your group understands! Want to <a href="#" onclick="showSubPage('calendar');return false;" style="color:var(--purple)">schedule a make-up session?</a> 💪</p>
+        </div>
+
+        <div class="welcome-banner" role="region" aria-label="Welcome section">
+          <h2 id="dash-heading">Good morning, <span id="welcome-name">Alex</span>! 👋</h2>
+          <p>Your group has studied <strong id="group-hours">0</strong> hours together this month. Keep it up!</p>
+          <div class="welcome-meta" role="list">
+            <div class="welcome-stat" role="listitem">
+              <span class="val" id="streak-val" aria-label="day streak">🔥 0</span>
+              <span class="lbl">Day Streak</span>
+            </div>
+            <div class="welcome-stat" role="listitem">
+              <span class="val" id="weekly-val">0h</span>
+              <span class="lbl">This Week</span>
+            </div>
+            <div class="welcome-stat" role="listitem">
+              <span class="val" id="rank-val">#0</span>
+              <span class="lbl">Group Rank</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="leaderboard-toggle">
+          <label class="toggle-switch" for="lb-toggle" aria-label="Show leaderboard">
+            <input type="checkbox" id="lb-toggle" onchange="toggleLeaderboard(this)">
+            <span class="toggle-slider"></span>
+          </label>
+          <span>Show Group Leaderboard</span>
+        </div>
+        <div class="leaderboard" id="leaderboard" aria-label="Group leaderboard" role="region">
+          <div class="lb-row"><span class="lb-rank gold" aria-label="Rank 1">🥇</span><div class="avatar" style="width:28px;height:28px;font-size:0.7rem" aria-hidden="true">J</div><span>Jamie K.</span><span class="lb-hrs">14.5h</span></div>
+          <div class="lb-row"><span class="lb-rank silver" aria-label="Rank 2">🥈</span><div class="avatar" style="width:28px;height:28px;font-size:0.7rem;background:linear-gradient(135deg,#1976D2,#0D47A1)" aria-hidden="true">A</div><span id="lb-you">You</span><span class="lb-hrs">8.5h</span></div>
+          <div class="lb-row"><span class="lb-rank bronze" aria-label="Rank 3">🥉</span><div class="avatar" style="width:28px;height:28px;font-size:0.7rem;background:linear-gradient(135deg,#7c3aed,#5b21b6)" aria-hidden="true">P</div><span>Priya M.</span><span class="lb-hrs">6.2h</span></div>
+          <div class="lb-row"><span class="lb-rank" aria-label="Rank 4">4</span><div class="avatar" style="width:28px;height:28px;font-size:0.7rem;background:linear-gradient(135deg,#6A1B9A,#4A148C)" aria-hidden="true">S</div><span>Sam T.</span><span class="lb-hrs">3.1h</span></div>
+        </div>
+
+        <div class="dash-grid" role="region" aria-label="Dashboard overview">
+
+          <!-- Current Group Card -->
+          <div class="card" role="region" aria-labelledby="group-card-title">
+            <div class="card-header">
+              <span class="card-title" id="group-card-title"><i class="fa-solid fa-users" aria-hidden="true"></i> Study Group</span>
+              <span class="card-badge" id="group-badge">Loading...</span>
+            </div>
+            <div class="member-list" id="group-member-list" role="list" aria-label="Group members">
+              <div class="member-chip" role="listitem"><span class="online-dot" aria-label="Online"></span> Loading...</div>
+            </div>
+            <div class="streak-display" role="status" aria-live="polite">
+              <span class="streak-fire" aria-hidden="true">🔥</span>
+              <span class="streak-count" id="group-streak">0</span>
+              <span style="color:var(--text-light);font-size:0.85rem">day group streak!</span>
+            </div>
+            <div class="card-actions">
+              <button class="btn btn-primary btn-sm" onclick="showSubPage('calendar')" data-tooltip="Schedule a group session" aria-label="Schedule a study session">
+                <i class="fa-solid fa-calendar-plus" aria-hidden="true"></i> Schedule
+              </button>
+              <button class="btn btn-secondary btn-sm" onclick="startPomodoroFromGroup()" data-tooltip="Start a Pomodoro timer" aria-label="Start Pomodoro timer">
+                <i class="fa-solid fa-clock" aria-hidden="true"></i> Timer
+              </button>
+              <button class="btn btn-outline btn-sm" onclick="showSubPage('chat')" aria-label="Go to group chat">
+                <i class="fa-solid fa-comment" aria-hidden="true"></i> Chat
+              </button>
+            </div>
+          </div>
+
+          <!-- Pomodoro -->
+          <div class="card" role="region" aria-labelledby="pomo-title">
+            <div class="card-header">
+              <span class="card-title" id="pomo-title"><i class="fa-solid fa-clock" aria-hidden="true"></i> Pomodoro Timer</span>
+              <span class="card-badge" id="pomo-phase">Focus</span>
+            </div>
+            <div class="pomodoro-display">
+              <div class="pomodoro-time" id="pomo-display" aria-live="polite" aria-label="Timer">25:00</div>
+              <div class="pomodoro-label" id="pomo-label">Ready to focus?</div>
+            </div>
+            <div class="pomodoro-progress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+              <div class="pomodoro-bar" id="pomo-bar"></div>
+            </div>
+            <div class="pomodoro-controls">
+              <button class="btn btn-primary btn-sm" id="pomo-start-btn" onclick="togglePomodoro()" aria-label="Start Pomodoro timer">
+                <i class="fa-solid fa-play" aria-hidden="true"></i> Start
+              </button>
+              <button class="btn btn-secondary btn-sm" onclick="resetPomodoro()" aria-label="Reset Pomodoro timer">
+                <i class="fa-solid fa-rotate-left" aria-hidden="true"></i> Reset
+              </button>
+              <button class="btn btn-secondary btn-sm" onclick="openModal('pomo-settings-modal')" aria-label="Pomodoro settings">
+                <i class="fa-solid fa-gear" aria-hidden="true"></i>
+              </button>
+            </div>
+            <div class="studying-label" id="studying-label" aria-live="polite">Ready to study?</div>
+          </div>
+
+          <!-- Upcoming Sessions -->
+          <div class="card" role="region" aria-labelledby="sessions-title">
+            <div class="card-header">
+              <span class="card-title" id="sessions-title"><i class="fa-solid fa-calendar-check" aria-hidden="true"></i> Upcoming Sessions</span>
+            </div>
+            <div id="sessions-list" role="list" aria-label="Upcoming study sessions">
+              <div style="padding:20px;text-align:center;color:var(--text-light)">Join a group to see sessions</div>
+            </div>
+          </div>
+
+          <!-- Task Tracker -->
+          <div class="card" role="region" aria-labelledby="tasks-title">
+            <div class="card-header">
+              <span class="card-title" id="tasks-title"><i class="fa-solid fa-list-check" aria-hidden="true"></i> Task Tracker</span>
+              <span class="card-badge" id="task-count">0/0</span>
+            </div>
+            <div id="task-list" role="list" aria-label="Study tasks" aria-live="polite"></div>
+            <div class="task-add">
+              <input type="text" id="task-input" placeholder="Add a task… press Enter" aria-label="New task name" onkeydown="if(event.key==='Enter')addTask()">
+              <button class="btn btn-primary btn-sm" onclick="addTask()" aria-label="Add task">
+                <i class="fa-solid fa-plus" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Chat Preview -->
+          <div class="card" role="region" aria-labelledby="chat-preview-title">
+            <div class="card-header">
+              <span class="card-title" id="chat-preview-title"><i class="fa-solid fa-comment-dots" aria-hidden="true"></i> Chat Preview</span>
+              <span class="card-badge" style="background:var(--red-pale);color:var(--red)">new</span>
+            </div>
+            <div id="chat-preview" role="log" aria-label="Recent chat messages" aria-live="polite">
+              <p style="color:var(--text-light);font-size:0.85rem">No recent messages</p>
+            </div>
+            <button class="btn btn-primary btn-sm" style="margin-top:12px" onclick="showSubPage('chat')" aria-label="Open full chat">
+              <i class="fa-solid fa-arrow-right" aria-hidden="true"></i> Open Chat
+            </button>
+          </div>
+
+          <!-- Progress Card -->
+          <div class="card" role="region" aria-labelledby="progress-title">
+            <div class="card-header">
+              <span class="card-title" id="progress-title"><i class="fa-solid fa-chart-line" aria-hidden="true"></i> Your Progress</span>
+            </div>
+            <div class="progress-bar-wrap">
+              <div class="progress-label"><span>Weekly Goal</span><span id="weekly-progress">0h / 10h</span></div>
+              <div class="progress-track" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Weekly goal">
+                <div class="progress-fill" id="weekly-fill" style="width:0%"></div>
+              </div>
+            </div>
+            <div class="progress-bar-wrap">
+              <div class="progress-label"><span>Total Hours</span><span id="total-hours">0h</span></div>
+              <div class="progress-track" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Total hours">
+                <div class="progress-fill" id="total-fill" style="width:0%;background:linear-gradient(90deg,var(--blue),#64B5F6)"></div>
+              </div>
+            </div>
+            <div class="badge-row" role="list" aria-label="Earned badges">
+              <div class="badge" role="listitem" data-tooltip="Attended 5 sessions in a row!" aria-label="Hot Streak badge">
+                <i class="fa-solid fa-fire" aria-hidden="true"></i>Hot Streak
+              </div>
+              <div class="badge" role="listitem" data-tooltip="First session completed!" aria-label="First Session badge">
+                <i class="fa-solid fa-star" aria-hidden="true"></i>First Session
+              </div>
+              <div class="badge" role="listitem" data-tooltip="Study 20 hours in a week" aria-label="Study Machine badge">
+                <i class="fa-solid fa-brain" aria-hidden="true"></i>Study Machine
+              </div>
+              <div class="badge" role="listitem" data-tooltip="Help 3 group members" aria-label="Mentor badge">
+                <i class="fa-solid fa-hands-helping" aria-hidden="true"></i>Mentor
+              </div>
+            </div>
+            <button class="btn btn-primary btn-sm" style="margin-top:14px" onclick="fireConfetti();openModal('session-complete-modal')" aria-label="Complete session and see summary">
+              <i class="fa-solid fa-trophy" aria-hidden="true"></i> Complete Session
+            </button>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- GROUPS -->
+      <section class="sub-page" id="sub-groups" aria-labelledby="groups-heading">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px">
+          <h2 id="groups-heading" style="font-family:var(--font-display);font-size:1.4rem">Find Your Study Group</h2>
+          <button class="btn btn-primary" onclick="openModal('create-group-modal')" aria-label="Create a new study group">
+            <i class="fa-solid fa-plus" aria-hidden="true"></i> Create New Group
+          </button>
+        </div>
+        <div class="filters-bar" role="search" aria-label="Filter study groups">
+          <select aria-label="Filter by course" onchange="filterGroups()">
+            <option value="">All Courses</option>
+            <option>Computer Science</option>
+            <option>Mathematics</option>
+            <option>Physics</option>
+            <option>Engineering</option>
+            <option>Psychology</option>
+          </select>
+          <select aria-label="Filter by study method" onchange="filterGroups()">
+            <option value="">All Methods</option>
+            <option>Pomodoro</option>
+            <option>Active Recall</option>
+            <option>Flashcards</option>
+            <option>Revision Quizzes</option>
+          </select>
+          <div id="groups-spinner" class="spinner" style="display:none;width:24px;height:24px;margin:0" aria-label="Loading groups"></div>
+        </div>
+        <div class="groups-grid" id="groups-grid" role="list" aria-label="Available study groups"></div>
+      </section>
+
+      <!-- CHAT -->
+      <section class="sub-page" id="sub-chat" aria-labelledby="chat-heading" style="padding:0">
+        <div class="chat-layout">
+          <aside class="chat-sidebar" aria-label="Chat rooms">
+            <h3 id="chat-heading">Rooms</h3>
+            <div class="chat-room-item active" onclick="switchRoom(this,'General')" role="button" tabindex="0" aria-label="General room - active">
+              <span class="dot" style="background:#4CAF50" aria-hidden="true"></span> General
+            </div>
+            <h3 style="margin-top:16px">Members</h3>
+            <div id="chat-members-list" style="display:flex;flex-direction:column;gap:6px;font-size:0.85rem">
+              <p style="color:var(--text-light);font-size:0.8rem">Join a group to see members</p>
+            </div>
+          </aside>
+          <div class="chat-main">
+            <div style="padding:12px 20px;border-bottom:1px solid var(--border);background:var(--surface);display:flex;align-items:center;justify-content:space-between">
+              <span style="font-weight:700" id="chat-room-title" aria-live="polite">General</span>
+              <div style="display:flex;gap:8px">
+                <button class="btn btn-secondary btn-sm" onclick="openModal('shoutout-modal')" aria-label="Give a shout-out">
+                  <i class="fa-solid fa-hand-holding-heart" aria-hidden="true"></i> Shout-out
+                </button>
+              </div>
+            </div>
+            <div class="chat-messages" id="chat-messages" role="log" aria-label="Chat messages" aria-live="polite">
+              <p style="color:var(--text-light);text-align:center;padding:40px">Join a group to start chatting</p>
+            </div>
+            <div class="chat-input-area" role="form" aria-label="Send a message">
+              <div class="chat-input-row">
+                <div class="chat-input-wrap">
+                  <input type="text" id="chat-input" placeholder="Type a message… use @ to mention" aria-label="Chat message input" onkeydown="if(event.key==='Enter')sendChatMessage()">
+                  <div class="emoji-bar">
+                    <button class="emoji-btn" onclick="insertEmoji('👍')" aria-label="Insert thumbs up">👍</button>
+                    <button class="emoji-btn" onclick="insertEmoji('🎉')" aria-label="Insert celebration">🎉</button>
+                    <button class="emoji-btn" onclick="insertEmoji('🙌')" aria-label="Insert hands raised">🙌</button>
+                  </div>
+                </div>
+                <button class="send-btn" onclick="sendChatMessage()" aria-label="Send message">
+                  <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CALENDAR -->
+      <section class="sub-page" id="sub-calendar" aria-labelledby="cal-heading">
+        <div class="cal-header">
+          <h2 id="cal-heading" style="font-family:var(--font-display);font-size:1.3rem">
+            <button class="icon-btn" onclick="changeWeek(-1)" aria-label="Previous week"><i class="fa-solid fa-chevron-left" aria-hidden="true"></i></button>
+            <span id="cal-week-label" style="margin:0 12px">This Week</span>
+            <button class="icon-btn" onclick="changeWeek(1)" aria-label="Next week"><i class="fa-solid fa-chevron-right" aria-hidden="true"></i></button>
+          </h2>
+          <button class="btn btn-primary" onclick="openModal('create-session-modal')" aria-label="Create a new study session">
+            <i class="fa-solid fa-plus" aria-hidden="true"></i> Create Session
+          </button>
+        </div>
+        <div class="cal-week" id="calendar-grid" role="grid" aria-label="Weekly calendar"></div>
+        <div style="display:flex;gap:12px;margin-top:12px;font-size:0.82rem;flex-wrap:wrap" role="list" aria-label="Calendar legend">
+          <span role="listitem"><span style="display:inline-block;width:12px;height:12px;background:var(--green);border-radius:3px;margin-right:4px" aria-hidden="true"></span>Focus</span>
+          <span role="listitem"><span style="display:inline-block;width:12px;height:12px;background:var(--blue);border-radius:3px;margin-right:4px" aria-hidden="true"></span>Video Call</span>
+          <span role="listitem"><span style="display:inline-block;width:12px;height:12px;background:var(--purple);border-radius:3px;margin-right:4px" aria-hidden="true"></span>In-Person</span>
+        </div>
+      </section>
+
+      <!-- PROFILE -->
+      <section class="sub-page" id="sub-profile" aria-labelledby="profile-heading">
+        <h2 id="profile-heading" style="font-family:var(--font-display);font-size:1.4rem;margin-bottom:20px">Profile & Settings</h2>
+        <div class="profile-grid">
+          <div class="card profile-header-card" role="region" aria-label="Profile information">
+            <div class="avatar-lg" id="profile-avatar" aria-hidden="true">A</div>
+            <div>
+              <h3 style="font-size:1.1rem;font-weight:700" id="profile-name-display">Alex Johnson</h3>
+              <p style="color:var(--text-mid);font-size:0.88rem" id="profile-email-display">user@studysync.edu</p>
+              <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
+                <span class="tag"><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i> <span id="profile-course">Computer Science</span></span>
+                <span class="tag"><i class="fa-solid fa-clock" aria-hidden="true"></i> <span id="profile-method">Pomodoro</span></span>
+                <span class="tag" id="profile-streak-tag">🔥 0-day streak</span>
+              </div>
+            </div>
+            <button class="btn btn-secondary btn-sm" style="margin-left:auto;align-self:flex-start" onclick="openModal('edit-profile-modal')" aria-label="Edit profile">
+              <i class="fa-solid fa-pen" aria-hidden="true"></i> Edit
+            </button>
+          </div>
+
+          <div class="card" role="region" aria-labelledby="avail-heading">
+            <div class="card-header">
+              <span class="card-title" id="avail-heading"><i class="fa-solid fa-calendar-days" aria-hidden="true"></i> Availability</span>
+              <button class="btn btn-secondary btn-sm" onclick="saveAvailability()" aria-label="Save availability changes">Save</button>
+            </div>
+            <div class="availability-grid" id="avail-grid" role="group" aria-label="Available days">
+              <label class="avail-check"><input type="checkbox" value="Mon" aria-label="Monday available"> Mon</label>
+              <label class="avail-check"><input type="checkbox" value="Tue" aria-label="Tuesday available"> Tue</label>
+              <label class="avail-check"><input type="checkbox" value="Wed" aria-label="Wednesday available"> Wed</label>
+              <label class="avail-check"><input type="checkbox" value="Thu" aria-label="Thursday available"> Thu</label>
+              <label class="avail-check"><input type="checkbox" value="Fri" aria-label="Friday available"> Fri</label>
+              <label class="avail-check"><input type="checkbox" value="Sat" aria-label="Saturday available"> Sat</label>
+              <label class="avail-check"><input type="checkbox" value="Sun" aria-label="Sunday available"> Sun</label>
+            </div>
+          </div>
+
+          <div class="card" role="region" aria-labelledby="notif-heading">
+            <div class="card-header">
+              <span class="card-title" id="notif-heading"><i class="fa-solid fa-bell" aria-hidden="true"></i> Notifications</span>
+            </div>
+            <div class="toggle-row">
+              <div><div class="toggle-label">Session Reminders</div><div class="toggle-sub">30 min before each session</div></div>
+              <label class="toggle-switch" aria-label="Toggle session reminders">
+                <input type="checkbox" checked><span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="toggle-row">
+              <div><div class="toggle-label">Chat Messages</div><div class="toggle-sub">New messages from group</div></div>
+              <label class="toggle-switch" aria-label="Toggle chat message notifications">
+                <input type="checkbox" checked><span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="card" role="region" aria-labelledby="prefs-heading">
+            <div class="card-header">
+              <span class="card-title" id="prefs-heading"><i class="fa-solid fa-sliders" aria-hidden="true"></i> Preferences</span>
+            </div>
+            <div class="toggle-row">
+              <div><div class="toggle-label">Dark Mode</div><div class="toggle-sub">Easy on the eyes</div></div>
+              <label class="toggle-switch" aria-label="Toggle dark mode">
+                <input type="checkbox" id="dark-mode-toggle" onchange="toggleDarkMode(this)"><span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="toggle-row">
+              <div><div class="toggle-label">Do Not Disturb</div><div class="toggle-sub">Silence all notifications</div></div>
+              <label class="toggle-switch" aria-label="Toggle Do Not Disturb mode">
+                <input type="checkbox" id="dnd-toggle" onchange="toggleDND(this)"><span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="toggle-row">
+              <div><div class="toggle-label">Show in Leaderboard</div><div class="toggle-sub">Let others see your hours</div></div>
+              <label class="toggle-switch" aria-label="Toggle leaderboard visibility">
+                <input type="checkbox" checked id="lb-visibility-toggle" onchange="toggleLeaderboardVisibility(this)"><span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="card" style="border-color:var(--red)" role="region" aria-labelledby="danger-heading">
+            <div class="card-header">
+              <span class="card-title" id="danger-heading" style="color:var(--red)"><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i> Danger Zone</span>
+            </div>
+            <p style="font-size:0.88rem;color:var(--text-mid);margin-bottom:14px">These actions are permanent and cannot be undone.</p>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <button class="btn btn-secondary btn-sm" onclick="leaveCurrentGroup()" aria-label="Leave current study group">
+                <i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i> Leave Current Group
+              </button>
+              <button class="btn btn-red btn-sm" onclick="openModal('delete-account-modal')" aria-label="Delete account permanently">
+                <i class="fa-solid fa-trash" aria-hidden="true"></i> Delete Account
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODALS ===== -->
+
+<!-- Session Complete -->
+<div class="modal-overlay" id="session-complete-modal" role="dialog" aria-modal="true" aria-labelledby="sc-title">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="sc-title">Session Complete! 🎉</h3>
+      <button class="modal-close" onclick="closeModal('session-complete-modal')" aria-label="Close modal"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="session-complete-emoji" aria-hidden="true">🏆</div>
+      <p style="text-align:center;color:var(--text-mid);margin-bottom:12px">Amazing work today! Here's your session summary:</p>
+      <div class="session-stats-grid">
+        <div class="session-stat"><div class="val" id="sc-time">25m</div><div class="lbl">Study Time</div></div>
+        <div class="session-stat"><div class="val" id="sc-tasks">0</div><div class="lbl">Tasks Done</div></div>
+        <div class="session-stat"><div class="val" id="sc-members">0</div><div class="lbl">Members</div></div>
+        <div class="session-stat"><div class="val" id="sc-streak">🔥 0</div><div class="lbl">New Streak!</div></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('session-complete-modal')">Close</button>
+      <button class="btn btn-primary" onclick="closeModal('session-complete-modal');showSubPage('chat')">Share with Group</button>
+    </div>
+  </div>
+</div>
+
+<!-- Create Session -->
+<div class="modal-overlay" id="create-session-modal" role="dialog" aria-modal="true" aria-labelledby="cs-title">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="cs-title">Create Study Session</h3>
+      <button class="modal-close" onclick="closeModal('create-session-modal')" aria-label="Close modal"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="auth-form">
+        <div class="form-group">
+          <label for="cs-name">Session Name</label>
+          <input type="text" id="cs-name" placeholder="e.g. Data Structures Review" aria-required="true">
+        </div>
+        <div class="form-group">
+          <label for="cs-date">Date</label>
+          <input type="date" id="cs-date" aria-required="true">
+        </div>
+        <div class="form-group">
+          <label for="cs-time">Start Time</label>
+          <select id="cs-time" aria-required="true"></select>
+        </div>
+        <div class="form-group">
+          <label for="cs-duration">Duration</label>
+          <select id="cs-duration">
+            <option value="30">30 minutes</option>
+            <option value="60" selected>1 hour</option>
+            <option value="90">1.5 hours</option>
+            <option value="120">2 hours</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="cs-type">Session Type</label>
+          <select id="cs-type" aria-required="true">
+            <option value="focus">🎯 Solo Focus</option>
+            <option value="video">📹 Video Call</option>
+            <option value="inperson">🏢 In-Person</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('create-session-modal')">Cancel</button>
+      <button class="btn btn-primary" onclick="createCalendarSession()">Create Session</button>
+    </div>
+  </div>
+</div>
+
+<!-- Create Group -->
+<div class="modal-overlay" id="create-group-modal" role="dialog" aria-modal="true" aria-labelledby="cg-title">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="cg-title">Create New Group</h3>
+      <button class="modal-close" onclick="closeModal('create-group-modal')" aria-label="Close modal"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="auth-form">
+        <div class="form-group">
+          <label for="cg-name">Group Name</label>
+          <input type="text" id="cg-name" placeholder="e.g. CS Finals Crew" aria-required="true">
+        </div>
+        <div class="form-group">
+          <label for="cg-course">Course</label>
+          <select id="cg-course" aria-required="true">
+            <option>Computer Science</option>
+            <option>Mathematics</option>
+            <option>Physics</option>
+            <option>Engineering</option>
+            <option>Psychology</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="cg-method">Study Method</label>
+          <select id="cg-method" aria-required="true">
+            <option>Pomodoro</option>
+            <option>Active Recall</option>
+            <option>Flashcards</option>
+            <option>Revision Quizzes</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="cg-max">Max Members</label>
+          <select id="cg-max">
+            <option value="3">3 members</option>
+            <option value="4" selected>4 members</option>
+            <option value="5">5 members</option>
+            <option value="6">6 members</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('create-group-modal')">Cancel</button>
+      <button class="btn btn-primary" onclick="createGroup()">Create Group</button>
+    </div>
+  </div>
+</div>
+
+<!-- Shoutout -->
+<div class="modal-overlay" id="shoutout-modal" role="dialog" aria-modal="true" aria-labelledby="so-title-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="so-title-modal">🎉 Give a Shout-Out</h3>
+      <button class="modal-close" onclick="closeModal('shoutout-modal')" aria-label="Close modal"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+    </div>
+    <div class="modal-body">
+      <p style="color:var(--text-mid);margin-bottom:14px;font-size:0.9rem">Celebrate your teammates' hard work! 💪</p>
+      <div class="auth-form">
+        <div class="form-group">
+          <label for="so-member">Member to praise</label>
+          <select id="so-member" aria-required="true"></select>
+        </div>
+        <div class="form-group">
+          <label for="so-msg">What did they do great?</label>
+          <input type="text" id="so-msg" placeholder="e.g. Helped everyone understand recursion!" aria-required="true">
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('shoutout-modal')">Cancel</button>
+      <button class="btn btn-primary" onclick="sendShoutout()">
+        <i class="fa-solid fa-hand-holding-heart" aria-hidden="true"></i> Send Shout-Out
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Account -->
+<div class="modal-overlay" id="delete-account-modal" role="dialog" aria-modal="true" aria-labelledby="da-title">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="da-title" style="color:var(--red)">Delete Account</h3>
+      <button class="modal-close" onclick="closeModal('delete-account-modal')" aria-label="Close modal"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+    </div>
+    <div class="modal-body">
+      <p style="margin-bottom:12px">We're sorry to see you go! 😢 Deleting your account will:</p>
+      <ul style="font-size:0.9rem;color:var(--text-mid);padding-left:20px;margin-bottom:16px;line-height:2">
+        <li>Remove all your progress and badges</li>
+        <li>Remove you from all study groups</li>
+        <li>Delete your chat history permanently</li>
+      </ul>
+      <div class="form-group">
+        <label for="da-confirm">Type DELETE to confirm</label>
+        <input type="text" id="da-confirm" placeholder="DELETE" aria-required="true">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('delete-account-modal')">Cancel, Keep Account</button>
+      <button class="btn btn-red" onclick="confirmDeleteAccount()">Delete Permanently</button>
+    </div>
+  </div>
+</div>
+
+<!-- Privacy Policy -->
+<div class="modal-overlay" id="privacy-modal" role="dialog" aria-modal="true" aria-labelledby="pp-title">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="pp-title">Privacy Policy</h3>
+      <button class="modal-close" onclick="closeModal('privacy-modal')" aria-label="Close modal"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="privacy-content" tabindex="0" aria-label="Privacy policy content">
+        <h4>1. Data We Collect</h4>
+        <p>We collect your university email, name, and study preferences to match you with compatible study groups. We never sell your personal information to third parties.</p>
+        <h4>2. How We Use Your Data</h4>
+        <p>Your availability and study preferences are used solely for matching you with study groups and personalising your dashboard experience.</p>
+        <h4>3. Chat & Messages</h4>
+        <p>Messages in group chats are visible only to group members. We do not read or share your private messages.</p>
+        <h4>4. Progress Data</h4>
+        <p>Study hours and progress are stored on secure servers. You can export or delete your data at any time from your profile settings.</p>
+        <h4>5. Cookies</h4>
+        <p>We use session tokens for authentication only. No tracking or advertising cookies are used.</p>
+        <h4>6. Security</h4>
+        <p>All passwords are hashed using bcrypt. Your data is encrypted in transit via HTTPS.</p>
+        <h4>7. Contact</h4>
+        <p>For privacy concerns, contact privacy@studysync.app</p>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-primary" onclick="closeModal('privacy-modal')">Got It</button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Profile -->
+<div class="modal-overlay" id="edit-profile-modal" role="dialog" aria-modal="true" aria-labelledby="ep-title">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="ep-title">Edit Profile</h3>
+      <button class="modal-close" onclick="closeModal('edit-profile-modal')" aria-label="Close modal"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="auth-form">
+        <div class="form-group">
+          <label for="ep-name">Full Name</label>
+          <input type="text" id="ep-name" aria-required="true">
+        </div>
+        <div class="form-group">
+          <label for="ep-course">Course</label>
+          <input type="text" id="ep-course" aria-required="true">
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('edit-profile-modal')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveProfile()">Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<!-- Notifications -->
+<div class="modal-overlay" id="notif-modal" role="dialog" aria-modal="true" aria-labelledby="nm-title">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="nm-title">Notifications</h3>
+      <button class="modal-close" onclick="closeModal('notif-modal')" aria-label="Close modal"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+    </div>
+    <div class="modal-body" id="notif-list" style="display:flex;flex-direction:column;gap:12px">
+      <p style="color:var(--text-light);text-align:center">No notifications</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="markNotificationsRead()">Mark all read</button>
+      <button class="btn btn-primary" onclick="closeModal('notif-modal')">Done</button>
+    </div>
+  </div>
+</div>
+
+<!-- Pomodoro Settings -->
+<div class="modal-overlay" id="pomo-settings-modal" role="dialog" aria-modal="true" aria-labelledby="ps-title">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="ps-title">Pomodoro Settings</h3>
+      <button class="modal-close" onclick="closeModal('pomo-settings-modal')" aria-label="Close modal"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="auth-form">
+        <div class="form-group">
+          <label for="ps-focus">Focus Duration (minutes)</label>
+          <input type="number" id="ps-focus" value="25" min="5" max="60" step="5">
+        </div>
+        <div class="form-group">
+          <label for="ps-break">Short Break (minutes)</label>
+          <input type="number" id="ps-break" value="5" min="1" max="30" step="1">
+        </div>
+        <div class="form-group">
+          <label for="ps-long">Long Break (minutes)</label>
+          <input type="number" id="ps-long" value="15" min="5" max="60" step="5">
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('pomo-settings-modal')">Cancel</button>
+      <button class="btn btn-primary" onclick="savePomodoroSettings()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- StudyBot -->
+<div class="modal-overlay" id="studybot-modal" role="dialog" aria-modal="true" aria-labelledby="sb-title-modal">
+  <div class="modal" style="max-width:420px">
+    <div class="modal-header" style="background:linear-gradient(135deg,var(--green),var(--blue));color:#fff;border-radius:var(--radius) var(--radius) 0 0">
+      <h3 id="sb-title-modal" style="color:#fff"><i class="fa-solid fa-robot" aria-hidden="true"></i> StudyBot FAQ</h3>
+      <button class="modal-close" onclick="closeModal('studybot-modal')" style="color:rgba(255,255,255,0.8)" aria-label="Close StudyBot"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+    </div>
+    <div class="modal-body" style="padding:0">
+      <div class="studybot-messages" id="studybot-msgs" role="log" aria-label="StudyBot conversation" aria-live="polite">
+        <div class="bot-msg" role="note">👋 Hi! I'm StudyBot. Ask me anything about StudySync! Try: "How do I join a group?", "What is Pomodoro?", or "How do streaks work?"</div>
+      </div>
+      <div class="studybot-input">
+        <input type="text" id="studybot-input" placeholder="Ask StudyBot…" aria-label="Ask StudyBot a question" onkeydown="if(event.key==='Enter')sendBotMessage()">
+        <button onclick="sendBotMessage()" aria-label="Send message to StudyBot"><i class="fa-solid fa-paper-plane" aria-hidden="true"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Admin Modal -->
+<div class="modal-overlay" id="admin-modal" role="dialog" aria-modal="true" aria-labelledby="admin-title">
+  <div class="modal" style="max-width:800px">
+    <div class="modal-header">
+      <h3 id="admin-title"><i class="fa-solid fa-shield-halved" aria-hidden="true" style="color:var(--green)"></i> Admin Panel — User Management</h3>
+      <button class="modal-close" onclick="closeModal('admin-modal')" aria-label="Close admin panel"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+    </div>
+    <div class="modal-body" style="max-height:70vh;overflow-y:auto">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+        <span style="font-size:0.9rem;color:var(--text-light)" id="admin-count"></span>
+        <button class="btn btn-primary btn-sm" onclick="openModal('admin-create-user-modal');closeModal('admin-modal')" aria-label="Create new user">
+          <i class="fa-solid fa-user-plus" aria-hidden="true"></i> Create User
+        </button>
+      </div>
+      <div id="admin-user-list" style="display:flex;flex-direction:column;gap:8px"></div>
+      <div id="admin-pagination" style="display:flex;align-items:center;justify-content:center;margin-top:16px"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('admin-modal')">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Admin Create User Modal -->
+<div class="modal-overlay" id="admin-create-user-modal" role="dialog" aria-modal="true" aria-labelledby="acu-title">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="acu-title">Create New User</h3>
+      <button class="modal-close" onclick="closeModal('admin-create-user-modal')" aria-label="Close"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="auth-form">
+        <div class="form-group">
+          <label for="au-name">Full Name</label>
+          <input type="text" id="au-name" placeholder="e.g. Jamie K." aria-required="true">
+        </div>
+        <div class="form-group">
+          <label for="au-email">Email</label>
+          <input type="email" id="au-email" placeholder="user@university.edu" aria-required="true">
+        </div>
+        <div class="form-group">
+          <label for="au-pass">Password</label>
+          <input type="password" id="au-pass" placeholder="Min 8 characters" aria-required="true">
+        </div>
+        <div class="form-group">
+          <label for="au-course">Course (optional)</label>
+          <input type="text" id="au-course" placeholder="e.g. Computer Science">
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('admin-create-user-modal')">Cancel</button>
+      <button class="btn btn-primary" onclick="adminCreateUserSubmit()"><i class="fa-solid fa-user-plus" aria-hidden="true"></i> Create User</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast Container -->
+<div class="toast-container" id="toast-container" role="region" aria-label="Notifications" aria-live="assertive"></div>
+
+<script src="js/api.js" defer></script>
+<script src="js/app.js" defer></script>
+</body>
+</html>

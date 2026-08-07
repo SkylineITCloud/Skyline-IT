@@ -1,0 +1,1609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VALOW. — COMING SOON</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --mp: rgba(84, 44, 140, 0.52);
+    --mp-glow: rgba(105, 53, 175, 0.14);
+  }
+
+  body {
+    background: #000;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+  }
+
+  /* === SCANLINES === */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(255,255,255,0.015) 0px,
+      rgba(255,255,255,0.015) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+    pointer-events: none;
+    z-index: 999;
+  }
+
+  /* === AGED FILM GRAIN === */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 256px 256px;
+    pointer-events: none;
+    z-index: 998;
+    opacity: 0.3;
+  }
+
+  /* === GRID BG === */
+  .grid-bg {
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+    z-index: 0;
+    animation: gridPulse 8s ease-in-out infinite;
+  }
+  @keyframes gridPulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  .slide {
+    flex: 1;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: inset 0 0 0 1px var(--mp);
+  }
+  .slide.active { display: flex; }
+
+  /* === LOGO WATERMARK === */
+  .logo-bg {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 1s ease 0.5s;
+    z-index: 0;
+  }
+  .slide.active .logo-bg { opacity: 1; }
+  .logo-bg img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: brightness(1) contrast(1.1);
+    box-shadow: 0 0 0 2px var(--mp), 0 0 30px var(--mp-glow), 0 0 60px rgba(84,44,140,0.06);
+    border-radius: 4px;
+  }
+  .logo-bg.faded img { opacity: 0.15; }
+  .logo-bg.medium img { opacity: 0.25; }
+  .logo-bg.bold img { opacity: 0.4; }
+
+  /* === PLATINUM / HOPE LINES === */
+  .hope-line {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.8s ease 0.3s;
+  }
+  .slide.active .hope-line { opacity: 1; }
+
+  /* Rising dawn line — bottom edge */
+  .hope-dawn {
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(255,255,255,0.01) 10%,
+      rgba(230,230,240,0.12) 30%,
+      rgba(200,200,215,0.18) 50%,
+      rgba(230,230,240,0.12) 70%,
+      rgba(255,255,255,0.01) 90%,
+      transparent 100%
+    );
+  }
+  .hope-dawn::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    left: 20%;
+    right: 20%;
+    height: 1px;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(255,255,255,0.02) 30%,
+      rgba(200,200,215,0.06) 50%,
+      rgba(255,255,255,0.02) 70%,
+      transparent 100%
+    );
+  }
+
+  /* Platinum etched corner lines */
+  .hope-corner {
+    width: 40px;
+    height: 40px;
+  }
+  .hope-corner-tl { top: 30px; left: 30px; border-top: 1px solid rgba(200,200,215,0.1); border-left: 1px solid rgba(200,200,215,0.1); box-shadow: -1px -1px 0 0 var(--mp); }
+  .hope-corner-tr { top: 30px; right: 30px; border-top: 1px solid rgba(200,200,215,0.1); border-right: 1px solid rgba(200,200,215,0.1); box-shadow: 1px -1px 0 0 var(--mp); }
+  .hope-corner-bl { bottom: 70px; left: 30px; border-bottom: 1px solid rgba(200,200,215,0.1); border-left: 1px solid rgba(200,200,215,0.1); box-shadow: -1px 1px 0 0 var(--mp); }
+  .hope-corner-br { bottom: 70px; right: 30px; border-bottom: 1px solid rgba(200,200,215,0.1); border-right: 1px solid rgba(200,200,215,0.1); box-shadow: 1px 1px 0 0 var(--mp); }
+
+  /* Ascending dots — hope rising */
+  .hope-ascend {
+    position: absolute;
+    left: 50px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0.15;
+  }
+  .hope-ascend .dot {
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    background: rgba(200,200,215,0.3);
+    box-shadow: 0 0 0 1px var(--mp);
+    transition: all 0.5s;
+  }
+  .slide.active .hope-ascend .dot:nth-child(1) { animation: riseDot 3s ease-in-out infinite 0s; }
+  .slide.active .hope-ascend .dot:nth-child(2) { animation: riseDot 3s ease-in-out infinite 0.4s; }
+  .slide.active .hope-ascend .dot:nth-child(3) { animation: riseDot 3s ease-in-out infinite 0.8s; }
+  .slide.active .hope-ascend .dot:nth-child(4) { animation: riseDot 3s ease-in-out infinite 1.2s; }
+  .slide.active .hope-ascend .dot:nth-child(5) { animation: riseDot 3s ease-in-out infinite 1.6s; }
+  .slide.active .hope-ascend .dot:nth-child(6) { animation: riseDot 3s ease-in-out infinite 2.0s; }
+  @keyframes riseDot {
+    0%, 100% { transform: translateY(0); opacity: 0.2; background: rgba(200,200,215,0.2); box-shadow: none; }
+    50% { transform: translateY(-12px); opacity: 1; background: rgba(230,230,240,0.6); box-shadow: 0 0 8px rgba(200,200,215,0.15); }
+  }
+
+  /* Platinum horizontal rule — hope divider */
+  .hope-hr {
+    width: 80px;
+    height: 1px;
+    margin: 18px 0;
+    position: relative;
+    background: linear-gradient(90deg, transparent, rgba(200,200,215,0.15), transparent);
+  }
+  .hope-hr::after {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 4px;
+    border: 1px solid rgba(200,200,215,0.1);
+    box-shadow: 0 0 0 1px var(--mp);
+    transform: translateX(-50%) rotate(45deg);
+  }
+
+  /* Aged etched line — vertical */
+  .hope-vertical {
+    position: absolute;
+    right: 80px;
+    top: 15%;
+    bottom: 15%;
+    width: 1px;
+    background: linear-gradient(180deg,
+      transparent 0%,
+      rgba(200,200,215,0.04) 20%,
+      rgba(200,200,215,0.08) 50%,
+      rgba(200,200,215,0.04) 80%,
+      transparent 100%
+    );
+  }
+
+  /* === PURPLE LINE STREAKS === */
+  .hope-line-p {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 1s ease 0.4s;
+  }
+  .slide.active .hope-line-p { opacity: 1; }
+
+  .hope-line-p-h {
+    height: 1px;
+    left: 0;
+    right: 0;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(48, 25, 80, 0.25) 20%,
+      rgba(60, 30, 100, 0.35) 50%,
+      rgba(48, 25, 80, 0.25) 80%,
+      transparent 100%
+    );
+  }
+  .hope-line-p-h.thick { height: 2px; background: linear-gradient(90deg, transparent 0%, rgba(60, 30, 100, 0.2) 30%, rgba(80, 40, 120, 0.3) 50%, rgba(60, 30, 100, 0.2) 70%, transparent 100%); }
+  .hope-line-p-v {
+    width: 1px;
+    top: 0;
+    bottom: 0;
+    background: linear-gradient(180deg,
+      transparent 0%,
+      rgba(48, 25, 80, 0.2) 20%,
+      rgba(60, 30, 100, 0.3) 50%,
+      rgba(48, 25, 80, 0.2) 80%,
+      transparent 100%
+    );
+  }
+  .hope-line-p-d {
+    width: 1px;
+    height: 30px;
+    background: rgba(60, 30, 100, 0.2);
+    transform: rotate(-45deg);
+  }
+
+  /* === LIGHT SPLASH / HIGHLIGHT EFFECTS === */
+  .hope-splash {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 1.2s ease 0.5s;
+  }
+  .slide.active .hope-splash { opacity: 1; }
+
+  /* Soft light burst */
+  .hope-splash-burst {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 30%, transparent 70%);
+    animation: splashPulse 4s ease-in-out infinite;
+  }
+  @keyframes splashPulse {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.3); opacity: 1; }
+  }
+
+  /* Diagonal light streak */
+  .hope-streak {
+    width: 150px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+    transform: rotate(-25deg);
+    animation: streakGlide 6s ease-in-out infinite;
+  }
+  @keyframes streakGlide {
+    0%, 100% { transform: rotate(-25deg) translateX(-20px); opacity: 0.3; }
+    50% { transform: rotate(-25deg) translateX(20px); opacity: 1; }
+  }
+
+  /* Small sparkle dot */
+  .hope-sparkle {
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 6px rgba(255,255,255,0.3), 0 0 12px rgba(255,255,255,0.1);
+    animation: sparkleAnim 3s ease-in-out infinite;
+  }
+  @keyframes sparkleAnim {
+    0%, 100% { opacity: 0.1; transform: scale(0.5); }
+    50% { opacity: 1; transform: scale(1.5); box-shadow: 0 0 12px rgba(255,255,255,0.5), 0 0 24px rgba(255,255,255,0.15); }
+  }
+
+  /* Light leak — soft glow from edge */
+  .hope-leak {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 1.5s ease 0.6s;
+  }
+  .slide.active .hope-leak { opacity: 1; }
+  .hope-leak-t {
+    top: 0;
+    left: 30%;
+    right: 30%;
+    height: 60px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 100%);
+  }
+  .hope-leak-b {
+    bottom: 0;
+    left: 20%;
+    right: 20%;
+    height: 80px;
+    background: linear-gradient(0deg, rgba(255,255,255,0.02) 0%, transparent 100%);
+  }
+
+  /* === GLITCH TEXT === */
+  .glitch {
+    font-family: 'Orbitron', monospace;
+    font-weight: 900;
+    font-size: 80px;
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    position: relative;
+    color: #fff;
+  }
+  .glitch::before,
+  .glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.7;
+  }
+  .glitch::before {
+    color: rgba(255,255,255,0.3);
+    animation: glitch1 3s infinite linear alternate-reverse;
+    clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+  }
+  .glitch::after {
+    color: rgba(255,255,255,0.15);
+    animation: glitch2 2.4s infinite linear alternate-reverse;
+    clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+  }
+  @keyframes glitch1 {
+    0% { transform: translate(0); }
+    20% { transform: translate(-3px, 2px); }
+    40% { transform: translate(3px, -1px); }
+    60% { transform: translate(-1px, -2px); }
+    80% { transform: translate(2px, 1px); }
+    100% { transform: translate(-2px, -1px); }
+  }
+  @keyframes glitch2 {
+    0% { transform: translate(0); }
+    25% { transform: translate(2px, -2px); }
+    50% { transform: translate(-2px, 1px); }
+    75% { transform: translate(1px, 2px); }
+    100% { transform: translate(-1px, -2px); }
+  }
+
+  .coming-soon-sub {
+    font-family: 'Orbitron', monospace;
+    font-size: 14px;
+    letter-spacing: 12px;
+    color: #555;
+    margin-top: 12px;
+    animation: blink 2s step-end infinite;
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.2; }
+  }
+
+  /* === COUNTDOWN === */
+  .countdown-wrap {
+    display: flex;
+    gap: 30px;
+    margin-top: 30px;
+    perspective: 1000px;
+  }
+  .cd-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 100px;
+  }
+  .cd-unit .num {
+    font-family: 'Orbitron', monospace;
+    font-size: 72px;
+    font-weight: 900;
+    line-height: 1;
+    color: #fff;
+    text-shadow: 0 0 40px rgba(255,255,255,0.1), 0 0 80px rgba(255,255,255,0.05);
+    position: relative;
+    box-shadow: 0 0 0 1px var(--mp);
+    padding: 0 4px;
+    border-radius: 2px;
+  }
+  .cd-unit .num::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 10%;
+    width: 80%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  }
+  .cd-unit .label {
+    font-family: 'Orbitron', monospace;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: #555;
+    margin-top: 10px;
+    text-transform: uppercase;
+  }
+  .cd-sep {
+    font-family: 'Orbitron', monospace;
+    font-size: 64px;
+    font-weight: 900;
+    color: #333;
+    line-height: 1;
+    padding-top: 4px;
+    animation: sepPulse 1s step-end infinite;
+    text-shadow: 0 0 8px var(--mp-glow);
+  }
+  @keyframes sepPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.15; }
+  }
+
+  /* === FLOATING TIMER === */
+  .float-timer {
+    position: absolute;
+    font-family: 'Orbitron', monospace;
+    font-size: 12px;
+    letter-spacing: 3px;
+    color: rgba(255,255,255,0.08);
+    pointer-events: none;
+    white-space: nowrap;
+  }
+
+  /* === CORNER TAGS === */
+  .corner-tag {
+    position: absolute;
+    font-family: 'Orbitron', monospace;
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: #333;
+    text-transform: uppercase;
+    border: 1px solid transparent;
+    padding: 2px 6px;
+    box-shadow: 0 0 0 1px var(--mp);
+  }
+  .corner-tag.top-left { top: 20px; left: 30px; }
+  .corner-tag.top-right { top: 20px; right: 30px; }
+  .corner-tag.bottom-left { bottom: 70px; left: 30px; }
+  .corner-tag.bottom-right { bottom: 70px; right: 30px; }
+
+  /* === SLIDE NUMBER === */
+  .slide-number {
+    position: absolute;
+    bottom: 30px;
+    right: 40px;
+    font-family: 'Orbitron', monospace;
+    font-size: 13px;
+    color: #333;
+    letter-spacing: 3px;
+  }
+
+  /* === IMAGE TEASER === */
+  .img-teaser {
+    position: relative;
+    display: inline-block;
+    border: 1px solid rgba(255,255,255,0.06);
+    box-shadow: 0 0 0 1px var(--mp);
+    overflow: hidden;
+    transition: transform 0.6s cubic-bezier(0.23,1,0.32,1), border-color 0.4s;
+    transform-style: preserve-3d;
+  }
+  .img-teaser:hover {
+    transform: rotateX(-4deg) rotateY(6deg) scale(1.03);
+    border-color: rgba(255,255,255,0.15);
+    box-shadow: 0 0 0 1px var(--mp), 0 0 20px var(--mp-glow);
+  }
+  .img-teaser img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(0.6) contrast(1.2) brightness(0.5);
+    transition: filter 0.6s;
+  }
+  .img-teaser:hover img {
+    filter: grayscale(0.2) contrast(1.3) brightness(0.7);
+  }
+  .img-teaser .overlay-coming {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.5);
+    font-family: 'Orbitron', monospace;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: rgba(255,255,255,0.4);
+    text-transform: uppercase;
+    backdrop-filter: blur(1px);
+    transition: opacity 0.4s;
+  }
+  .img-teaser:hover .overlay-coming { opacity: 0; }
+  .img-teaser .glare {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .img-grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    max-width: 700px;
+    width: 100%;
+  }
+  .img-grid-3 .img-teaser img { aspect-ratio: 3/4; }
+
+  /* === CARD 3D FLIP === */
+  .card-3d {
+    perspective: 1000px;
+    width: 180px;
+    height: 240px;
+  }
+  .card-3d-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s cubic-bezier(0.23,1,0.32,1);
+    transform-style: preserve-3d;
+  }
+  .card-3d:hover .card-3d-inner { transform: rotateY(180deg); }
+  .card-3d-front, .card-3d-back {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+  .card-3d-front img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: 1px solid rgba(255,255,255,0.06);
+    box-shadow: 0 0 0 1px var(--mp);
+    filter: grayscale(0.5) brightness(0.5);
+  }
+  .card-3d-back {
+    transform: rotateY(180deg);
+    background: #0a0a0a;
+    border: 1px solid #222;
+    box-shadow: inset 0 0 0 1px var(--mp);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+    font-family: 'Orbitron', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: #555;
+  }
+
+  /* === FLOATING ANIMATION === */
+  .float-anim {
+    animation: sciFiFloat 5s ease-in-out infinite;
+  }
+  @keyframes sciFiFloat {
+    0%, 100% { transform: translateY(0px) translateX(0px); }
+    25% { transform: translateY(-8px) translateX(4px); }
+    50% { transform: translateY(0px) translateX(0px); }
+    75% { transform: translateY(6px) translateX(-3px); }
+  }
+
+  /* === NAV === */
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 40px;
+    background: #050505;
+    border-top: 1px solid #111;
+    box-shadow: 0 -1px 0 0 var(--mp);
+    flex-shrink: 0;
+  }
+  .nav button {
+    background: none;
+    border: 1px solid #222;
+    box-shadow: 0 0 0 1px var(--mp);
+    color: #fff;
+    padding: 10px 28px;
+    font-family: 'Orbitron', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+  .nav button::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: #fff;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.25s;
+    z-index: 0;
+  }
+  .nav button:hover::before { transform: scaleX(1); transform-origin: left; }
+  .nav button span { position: relative; z-index: 1; mix-blend-mode: difference; }
+  .nav button:hover { border-color: #fff; box-shadow: 0 0 0 1px var(--mp), 0 0 15px var(--mp-glow); }
+  .nav button:disabled { opacity: 0.15; cursor: default; }
+  .nav button:disabled::before { display: none; }
+  .dots { display: flex; gap: 8px; }
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #1a1a1a;
+    cursor: pointer;
+    transition: 0.3s;
+    border: 1px solid transparent;
+    box-shadow: 0 0 0 1px var(--mp);
+  }
+  .dot.active {
+    background: #fff;
+    box-shadow: 0 0 12px rgba(255,255,255,0.2), 0 0 0 1px var(--mp);
+  }
+
+  /* === STATUS LINE === */
+  .status-line {
+    font-family: 'Orbitron', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: #333;
+    margin-top: 30px;
+  }
+  .status-line span {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #222;
+    margin-right: 8px;
+    vertical-align: middle;
+    animation: statusBlink 1.4s step-end infinite;
+    box-shadow: 0 0 0 1px var(--mp);
+  }
+  @keyframes statusBlink {
+    0%, 100% { background: #222; box-shadow: none; }
+    50% { background: #555; box-shadow: 0 0 12px rgba(255,255,255,0.05); }
+  }
+
+  /* === REVEAL ANIMATION === */
+  @keyframes fadeUp {
+    0% { opacity: 0; transform: translateY(30px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  .slide.active > * {
+    animation: fadeUp 0.6s ease-out both;
+  }
+  .slide.active > :nth-child(1) { animation-delay: 0s; }
+  .slide.active > :nth-child(2) { animation-delay: 0.08s; }
+  .slide.active > :nth-child(3) { animation-delay: 0.16s; }
+  .slide.active > :nth-child(4) { animation-delay: 0.24s; }
+  .slide.active > :nth-child(5) { animation-delay: 0.32s; }
+  .slide.active > :nth-child(6) { animation-delay: 0.40s; }
+
+  /* === TEXT-ONLY SLIDES: BIGGER FONTS + HOPE LINES === */
+  .text-slide ._label {
+    font-family: 'Orbitron', monospace;
+    font-size: 16px;
+    letter-spacing: 6px;
+    color: #555;
+    margin-bottom: 6px;
+  }
+  .text-slide ._heading {
+    font-family: 'Orbitron', monospace;
+    font-size: 40px;
+    letter-spacing: 8px;
+    border: none;
+    color: #aaa;
+    font-weight: 700;
+  }
+  .text-slide ._body {
+    font-size: 18px;
+    color: #777;
+    max-width: 700px;
+    letter-spacing: 1px;
+    line-height: 2;
+  }
+  .text-slide ._box {
+    border: 1px solid #1a1a1a;
+    box-shadow: 0 0 0 1px var(--mp);
+    padding: 20px 32px;
+    background: rgba(5,5,5,0.6);
+  }
+  .text-slide ._box-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 14px;
+    letter-spacing: 4px;
+    color: #666;
+    margin-bottom: 10px;
+  }
+  .text-slide ._box-item {
+    font-family: 'Orbitron', monospace;
+    font-size: 14px;
+    letter-spacing: 2px;
+    color: #555;
+    line-height: 2.4;
+  }
+  .text-slide ._pending {
+    font-family: 'Orbitron', monospace;
+    font-size: 13px;
+    letter-spacing: 5px;
+    color: #444;
+    margin-top: 18px;
+  }
+  .text-slide ._grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    max-width: 800px;
+    width: 100%;
+    margin-top: 10px;
+  }
+  .text-slide ._grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    max-width: 850px;
+    width: 100%;
+    margin-top: 10px;
+  }
+  .text-slide ._year-num {
+    font-family: 'Orbitron', monospace;
+    font-size: 28px;
+    color: #666;
+    margin-bottom: 6px;
+  }
+  .text-slide ._year-text {
+    font-family: 'Orbitron', monospace;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: #555;
+    line-height: 2;
+  }
+  .text-slide ._hr {
+    width: 80px;
+    height: 1px;
+    margin: 16px 0;
+    background: linear-gradient(90deg, transparent, rgba(200,200,215,0.12), transparent);
+  }
+
+  /* === VOTE TO PURCHASE === */
+  .vote-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    margin-top: 14px;
+  }
+  .vote-btn {
+    font-family: 'Orbitron', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    background: none;
+    border: 1px solid #333;
+    color: #999;
+    padding: 10px 24px;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 0 0 1px var(--mp);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    overflow: hidden;
+  }
+  .vote-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(84,44,140,0.15), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .vote-btn:hover { border-color: #666; color: #fff; box-shadow: 0 0 0 1px var(--mp), 0 0 20px var(--mp-glow); }
+  .vote-btn:hover::before { opacity: 1; }
+  .vote-btn.voted { border-color: rgba(84,44,140,0.5); color: #c4a0ff; box-shadow: 0 0 0 1px var(--mp), 0 0 15px var(--mp-glow); }
+  .vote-btn .vote-icon { font-size: 14px; }
+  .vote-btn .vote-count {
+    font-family: 'Orbitron', monospace;
+    font-size: 12px;
+    color: #666;
+    margin-left: 2px;
+  }
+  .vote-btn.voted .vote-count { color: #c4a0ff; }
+  .vote-total {
+    font-family: 'Orbitron', monospace;
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: #444;
+    margin-top: 4px;
+  }
+
+  /* Product vote buttons grid */
+  .vote-grid {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  .vote-grid .vote-btn { font-size: 9px; padding: 7px 14px; letter-spacing: 2px; }
+
+  /* Nav vote button */
+  .nav-vote {
+    font-family: 'Orbitron', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background: none;
+    border: 1px solid #222;
+    color: #666;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 0 0 1px var(--mp);
+    white-space: nowrap;
+  }
+  .nav-vote:hover { border-color: #555; color: #fff; box-shadow: 0 0 0 1px var(--mp), 0 0 15px var(--mp-glow); }
+  .nav-vote .nv-count { color: #888; margin-left: 6px; }
+
+  /* === CONNECTION STATUS === */
+  .conn-status {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    font-family: 'Orbitron', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-align: center;
+    padding: 5px 0;
+    transition: all 0.4s;
+    pointer-events: none;
+  }
+  .conn-status.online { background: rgba(0,30,0,0.6); color: #4a4; border-bottom: 1px solid rgba(68,170,68,0.15); }
+  .conn-status.offline { background: rgba(30,0,0,0.6); color: #a44; border-bottom: 1px solid rgba(170,68,68,0.15); }
+  .conn-status.syncing { background: rgba(30,30,0,0.6); color: #aa4; border-bottom: 1px solid rgba(170,170,68,0.15); }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 768px) {
+    .glitch { font-size: 36px; letter-spacing: 4px; }
+    .cd-unit .num { font-size: 36px; }
+    .cd-unit { min-width: 60px; }
+    .cd-sep { font-size: 32px; }
+    .countdown-wrap { gap: 12px; }
+    .img-grid-3 { grid-template-columns: 1fr; max-width: 240px; }
+    .slide { padding: 20px; }
+    .corner-tag { display: none; }
+    .text-slide ._heading { font-size: 24px; letter-spacing: 4px; }
+    .text-slide ._body { font-size: 14px; }
+    .text-slide ._grid-2 { grid-template-columns: 1fr; gap: 20px; }
+    .text-slide ._grid-3 { grid-template-columns: 1fr; gap: 16px; }
+    .hope-ascend, .hope-vertical, .hope-corner { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="conn-status" id="connStatus">CONNECTING...</div>
+<div class="container">
+
+  <!-- SLIDE 1 — TITLE -->
+  <div class="slide active" data-index="0">
+    <div class="logo-bg faded" style="bottom:80px;right:30px;width:100px;height:100px;">
+      <img fetchpriority="high" src="assets/images/logo-1.jpeg" alt="">
+    </div>
+    <div class="hope-line hope-dawn"></div>
+    <div class="hope-line hope-vertical" style="right:60px;"></div>
+    <div class="hope-line hope-ascend" style="left:30px;"></div>
+    <div class="hope-line-p hope-line-p-h" style="top:50%;width:120px;left:30px;"></div>
+    <div class="hope-line-p hope-line-p-h" style="top:50%;width:120px;right:30px;left:auto;"></div>
+    <div class="hope-splash hope-splash-burst" style="top:10%;right:15%;width:120px;height:120px;"></div>
+    <div class="hope-splash hope-splash-burst" style="bottom:15%;left:10%;width:80px;height:80px;animation-delay:2s;"></div>
+    <div class="hope-sparkle hope-leak" style="top:25%;right:20%;"></div>
+    <div class="hope-sparkle hope-leak" style="bottom:35%;left:15%;animation-delay:1.5s;"></div>
+    <div class="hope-leak hope-leak-t"></div>
+
+    <div class="corner-tag top-left">SYS.INIT</div>
+    <div class="corner-tag top-right">STATUS: STANDBY</div>
+    <div class="corner-tag bottom-left">v1.0.0 // VALOW</div>
+
+    <div class="glitch" data-text="VALOW.">VALOW.</div>
+    <div class="coming-soon-sub">�-� COMING SOON �-�</div>
+    <div id="countdown0" class="countdown-wrap"></div>
+    <div class="status-line"><span></span> DEPLOYMENT SEQUENCE INITIALIZED</div>
+    <div class="slide-number">_SYS.01 / 12</div>
+  </div>
+
+  <!-- SLIDE 2 — EXECUTIVE SUMMARY (TEXT-ONLY) -->
+  <div class="slide text-slide" data-index="1">
+    <div class="logo-bg faded" style="top:60px;left:30px;width:90px;height:90px;">
+      <img loading="lazy" decoding="async" src="assets/images/logo-1.jpeg" alt="">
+    </div>
+    <div class="hope-line hope-dawn"></div>
+    <div class="hope-line hope-corner hope-corner-tl"></div>
+    <div class="hope-line hope-corner hope-corner-br"></div>
+    <div class="hope-line hope-ascend" style="left:40px;"></div>
+    <div class="hope-line-p hope-line-p-v" style="right:20px;height:40%;top:30%;"></div>
+    <div class="hope-line-p hope-line-p-h thick" style="bottom:40%;width:60px;left:50%;transform:translateX(-50%);"></div>
+    <div class="hope-splash hope-splash-burst" style="top:5%;right:10%;width:100px;height:100px;animation-delay:1s;"></div>
+    <div class="hope-streak hope-leak" style="top:60%;left:5%;"></div>
+    <div class="hope-sparkle hope-leak" style="top:30%;left:25%;animation-delay:0.8s;"></div>
+    <div class="hope-sparkle hope-leak" style="bottom:25%;right:30%;animation-delay:2.2s;"></div>
+
+    <div class="corner-tag top-left">FILE: EXEC_SUMMARY</div>
+    <div class="corner-tag top-right">CLASS: RESTRICTED</div>
+
+    <div class="_label">_DATAFILE</div>
+    <div class="_heading">EXECUTIVE SUMMARY</div>
+    <div class="_hr"></div>
+    <p class="_body">
+      VALOW. — A South African streetwear brand est. 2026. Data indicates confidence, ambition, faith, resilience. Premium-quality apparel. Online operation. Nationwide delivery.
+    </p>
+    <div class="_box" style="margin-top:20px;">
+      <span class="coming-soon-sub" style="font-size:13px;letter-spacing:8px;animation:none;color:#555;display:block;">[ FULL BRIEF PENDING ]</span>
+    </div>
+    <div class="status-line" style="margin-top:28px;"><span></span> LOADING ... 47%</div>
+    <div class="slide-number">_SYS.02 / 12</div>
+  </div>
+
+  <!-- SLIDE 3 — BRAND STORY (HAS IMAGE) -->
+  <div class="slide" data-index="2">
+    <div class="logo-bg faded" style="top:60px;right:30px;width:100px;height:100px;">
+      <img loading="lazy" decoding="async" src="assets/images/logo-1.jpeg" alt="">
+    </div>
+    <div class="card-3d float-anim" style="position:absolute;right:50px;bottom:80px;">
+      <div class="card-3d-inner">
+        <div class="card-3d-front">
+          <img loading="lazy" decoding="async" src="assets/images/brand-1.jpeg" alt="">
+          <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,0,0,0.6),transparent);display:flex;align-items:flex-end;padding:12px;font-family:'Orbitron',monospace;font-size:8px;letter-spacing:2px;color:rgba(255,255,255,0.2);">HOVER �-�</div>
+        </div>
+        <div class="card-3d-back">
+          <div style="font-size:16px;color:#fff;margin-bottom:8px;">VALOW.</div>
+          <p style="font-size:9px;color:#666;">"It's about who you choose to become."</p>
+          <div style="margin-top:12px;font-size:8px;color:#333;">�-� COMING SOON �-�</div>
+        </div>
+      </div>
+    </div>
+    <div class="hope-line-p hope-line-p-h" style="bottom:45%;width:80px;left:30px;"></div>
+    <div class="hope-line-p hope-line-p-v" style="left:60px;height:50%;top:25%;"></div>
+    <div class="hope-splash hope-splash-burst" style="bottom:10%;right:30%;width:90px;height:90px;animation-delay:0.5s;"></div>
+    <div class="hope-streak hope-leak" style="top:20%;right:10%;width:100px;"></div>
+    <div class="hope-sparkle hope-leak" style="top:45%;right:40%;"></div>
+    <div class="corner-tag top-left">FILE: BRAND_STORY</div>
+    <div style="font-family:'Orbitron',monospace;font-size:11px;letter-spacing:5px;color:#444;margin-bottom:6px;">_NARRATIVE</div>
+    <h2 style="font-family:'Orbitron',monospace;font-size:28px;letter-spacing:6px;border:none;color:#888;">BRAND STORY</h2>
+    <div style="width:60px;height:1px;background:linear-gradient(90deg,transparent,#555,transparent);margin:16px 0;"></div>
+    <p style="font-size:13px;color:#555;max-width:600px;letter-spacing:1px;line-height:2;">
+      For a generation facing pressure, uncertainty, and everyday struggles. Strength. Movement. Purpose. Perseverance for dreamers, risk takers, survivors.
+    </p>
+    <div style="border:1px solid #111;padding:14px 24px;margin-top:18px;background:#050505;box-shadow:0 0 0 1px var(--mp);">
+      <span class="coming-soon-sub" style="font-size:10px;letter-spacing:5px;animation:none;color:#444;">[ FULL STORY PENDING ]</span>
+    </div>
+    <div class="slide-number">_SYS.03 / 12</div>
+  </div>
+
+  <!-- SLIDE 4 — PROBLEM & SOLUTION (TEXT-ONLY) -->
+  <div class="slide text-slide" data-index="3">
+    <div class="logo-bg faded" style="bottom:80px;left:30px;width:110px;height:110px;">
+      <img loading="lazy" decoding="async" src="assets/images/logo-1.jpeg" alt="">
+    </div>
+    <div class="hope-line hope-dawn"></div>
+    <div class="hope-line hope-corner hope-corner-tr"></div>
+    <div class="hope-line hope-corner hope-corner-bl"></div>
+    <div class="hope-line hope-vertical" style="left:60px;"></div>
+    <div class="hope-line-p hope-line-p-h" style="top:30%;width:50px;left:20%;"></div>
+    <div class="hope-line-p hope-line-p-h" style="bottom:30%;width:50px;right:20%;left:auto;"></div>
+    <div class="hope-line-p hope-line-p-d hope-leak" style="bottom:20%;left:15%;"></div>
+    <div class="hope-line-p hope-line-p-d hope-leak" style="top:25%;right:20%;transform:rotate(135deg);"></div>
+    <div class="hope-splash hope-splash-burst" style="top:15%;left:50%;transform:translateX(-50%);width:140px;height:140px;"></div>
+    <div class="hope-streak hope-leak" style="bottom:35%;right:8%;width:80px;animation-delay:1s;"></div>
+    <div class="hope-sparkle hope-leak" style="top:20%;right:15%;animation-delay:0.5s;"></div>
+    <div class="hope-sparkle hope-leak" style="bottom:40%;left:10%;animation-delay:1.8s;"></div>
+
+    <div class="corner-tag top-left">FILE: GAP_ANALYSIS</div>
+    <div class="_label">_ANALYSIS</div>
+    <div class="_heading">PROBLEM &amp; SOLUTION</div>
+    <div class="_hr"></div>
+    <div class="_grid-2">
+      <div class="_box" style="padding:24px;">
+        <div class="_box-title">// ERRORS</div>
+        <div class="_box-item">
+          �-� Generic designs<br>
+          �-� No community<br>
+          �-� Inaccessible pricing
+        </div>
+      </div>
+      <div class="_box" style="padding:24px;">
+        <div class="_box-title">// FIXES</div>
+        <div class="_box-item">
+          �-� Unique designs<br>
+          �-� Community focus<br>
+          �-� Competitive pricing
+        </div>
+      </div>
+    </div>
+    <div class="_pending">[ DATA INCOMPLETE ]</div>
+    <div class="slide-number">_SYS.04 / 12</div>
+  </div>
+
+  <!-- SLIDE 5 — MARKET ANALYSIS (HAS IMAGE) -->
+  <div class="slide" data-index="4">
+    <div class="logo-bg faded" style="top:60px;left:30px;width:80px;height:80px;">
+      <img loading="lazy" decoding="async" src="assets/images/logo-1.jpeg" alt="">
+    </div>
+    <div class="hope-line-p hope-line-p-v" style="right:10px;height:60%;top:20%;"></div>
+    <div class="hope-line-p hope-line-p-h thick" style="top:25%;width:40px;left:20px;"></div>
+    <div class="hope-splash hope-splash-burst" style="top:10%;left:10%;width:100px;height:100px;"></div>
+    <div class="hope-sparkle hope-leak" style="top:15%;left:40%;"></div>
+    <div class="hope-sparkle hope-leak" style="bottom:20%;right:10%;animation-delay:1.2s;"></div>
+    <div class="corner-tag top-left">FILE: MARKET_ANALYSIS</div>
+    <div style="font-family:'Orbitron',monospace;font-size:11px;letter-spacing:5px;color:#444;margin-bottom:6px;">_MARKET</div>
+    <h2 style="font-family:'Orbitron',monospace;font-size:28px;letter-spacing:6px;border:none;color:#888;">MARKET ANALYSIS</h2>
+    <div style="width:60px;height:1px;background:linear-gradient(90deg,transparent,#555,transparent);margin:16px 0;"></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:30px;max-width:800px;width:100%;align-items:center;">
+      <div class="img-teaser" style="width:100%;aspect-ratio:4/3;">
+        <img loading="lazy" decoding="async" src="assets/images/product-1.jpeg" alt="" style="width:100%;height:100%;">
+        <div class="overlay-coming">�-� COMING SOON �-�</div>
+        <div class="glare"></div>
+      </div>
+      <div style="text-align:left;">
+        <p style="font-size:13px;color:#555;line-height:2;letter-spacing:1px;">
+          South African clothing industry growing. Online shopping rising. Local brand support increasing.
+        </p>
+        <p style="font-size:13px;color:#555;line-height:2;letter-spacing:1px;margin-top:12px;">
+          <span style="color:#666;">Competitive advantage:</span> Brand storytelling + quality at accessible price.
+        </p>
+        <div style="margin-top:16px;font-family:'Orbitron',monospace;font-size:9px;letter-spacing:3px;color:#444;">
+          �-� FULL ANALYSIS LOADING
+        </div>
+      </div>
+    </div>
+    <div class="slide-number">_SYS.05 / 12</div>
+  </div>
+
+  <!-- SLIDE 6 — PRODUCTS (HAS IMAGES) -->
+  <div class="slide" data-index="5">
+    <div class="logo-bg faded" style="bottom:80px;right:30px;width:120px;height:120px;">
+      <img loading="lazy" decoding="async" src="assets/images/logo-1.jpeg" alt="">
+    </div>
+    <div class="hope-line-p hope-line-p-h" style="bottom:40%;width:60px;right:15%;left:auto;"></div>
+    <div class="hope-line-p hope-line-p-v" style="left:40px;height:40%;top:30%;"></div>
+    <div class="hope-splash hope-splash-burst" style="bottom:10%;left:50%;transform:translateX(-50%);width:120px;height:120px;animation-delay:0.7s;"></div>
+    <div class="hope-streak hope-leak" style="top:15%;left:20%;width:120px;animation-delay:0.3s;"></div>
+    <div class="hope-sparkle hope-leak" style="top:30%;right:10%;"></div>
+    <div class="hope-sparkle hope-leak" style="bottom:30%;left:5%;animation-delay:2s;"></div>
+    <div class="corner-tag top-left">FILE: PRODUCT_CATALOG</div>
+    <div style="font-family:'Orbitron',monospace;font-size:11px;letter-spacing:5px;color:#444;margin-bottom:6px;">_CATALOG</div>
+    <h2 style="font-family:'Orbitron',monospace;font-size:28px;letter-spacing:6px;border:none;color:#888;">PRODUCTS</h2>
+    <div style="width:60px;height:1px;background:linear-gradient(90deg,transparent,#555,transparent);margin:12px 0;"></div>
+    <div class="img-grid-3">
+      <div class="img-teaser">
+        <img loading="lazy" decoding="async" src="assets/images/brand-1.jpeg" alt="">
+        <div class="overlay-coming">�-�</div>
+        <div class="glare"></div>
+        <p style="font-size:10px;color:#444;font-family:'Orbitron',monospace;letter-spacing:2px;margin-top:6px;">STREETWEAR</p>
+      </div>
+      <div class="img-teaser">
+        <img loading="lazy" decoding="async" src="assets/images/product-1.jpeg" alt="">
+        <div class="overlay-coming">�-�</div>
+        <div class="glare"></div>
+        <p style="font-size:10px;color:#444;font-family:'Orbitron',monospace;letter-spacing:2px;margin-top:6px;">DESIGNS</p>
+      </div>
+      <div class="img-teaser">
+        <img loading="lazy" decoding="async" src="assets/images/product-2.jpeg" alt="">
+        <div class="overlay-coming">�-�</div>
+        <div class="glare"></div>
+        <p style="font-size:10px;color:#444;font-family:'Orbitron',monospace;letter-spacing:2px;margin-top:6px;">QUALITY</p>
+      </div>
+    </div>
+    <div style="font-family:'Orbitron',monospace;font-size:10px;letter-spacing:4px;color:#444;margin-top:14px;">
+      T-Shirts / Hoodies / Sweaters / Trackpants
+    </div>
+    <div class="vote-section">
+      <div class="vote-grid">
+        <button class="vote-btn" data-product="T-Shirts" onclick="vote(this)"><span class="vote-icon">�-�</span> T-Shirts <span class="vote-count" id="vc-tshirts">0</span></button>
+        <button class="vote-btn" data-product="Hoodies" onclick="vote(this)"><span class="vote-icon">�-�</span> Hoodies <span class="vote-count" id="vc-hoodies">0</span></button>
+        <button class="vote-btn" data-product="Sweaters" onclick="vote(this)"><span class="vote-icon">�-�</span> Sweaters <span class="vote-count" id="vc-sweaters">0</span></button>
+        <button class="vote-btn" data-product="Trackpants" onclick="vote(this)"><span class="vote-icon">�-�</span> Trackpants <span class="vote-count" id="vc-trackpants">0</span></button>
+      </div>
+      <div class="vote-total">⟡ TOTAL DEMAND: <span id="vote-total-display">0</span> VOTES ⟡</div>
+    </div>
+    <div class="slide-number">_SYS.06 / 12</div>
+  </div>
+
+  <!-- SLIDE 7 — BUSINESS MODEL (TEXT-ONLY) -->
+  <div class="slide text-slide" data-index="6">
+    <div class="logo-bg faded" style="bottom:80px;left:30px;width:100px;height:100px;">
+      <img loading="lazy" decoding="async" src="assets/images/logo-1.jpeg" alt="">
+    </div>
+    <div class="hope-line hope-dawn"></div>
+    <div class="hope-line hope-corner hope-corner-tl"></div>
+    <div class="hope-line hope-corner hope-corner-br"></div>
+    <div class="hope-line-p hope-line-p-h thick" style="top:35%;width:40px;right:30px;left:auto;"></div>
+    <div class="hope-line-p hope-line-p-v" style="left:15px;height:50%;top:25%;"></div>
+    <div class="hope-splash hope-splash-burst" style="top:5%;right:5%;width:70px;height:70px;"></div>
+    <div class="hope-streak hope-leak" style="bottom:20%;left:10%;width:60px;animation-delay:1.5s;"></div>
+    <div class="hope-sparkle hope-leak" style="top:40%;left:20%;"></div>
+    <div class="hope-leak hope-leak-b"></div>
+
+    <div class="corner-tag top-left">FILE: BUSINESS_MODEL</div>
+    <div class="_label">_REVENUE</div>
+    <div class="_heading">BUSINESS MODEL</div>
+    <div class="_hr"></div>
+    <div class="_grid-2" style="max-width:700px;">
+      <div class="_box" style="padding:24px;">
+        <div class="_box-title">CHANNELS</div>
+        <div class="_box-item">
+          �-� Social media sales<br>
+          �-� Pop-up shops<br>
+          �-� WhatsApp direct
+        </div>
+      </div>
+      <div class="_box" style="padding:24px;">
+        <div class="_box-title">PRODUCTS</div>
+        <div class="_box-item">
+          �-� T-shirts<br>
+          �-� Hoodies<br>
+          �-� Sweaters<br>
+          �-� Trackpants
+        </div>
+      </div>
+    </div>
+    <div class="_pending">[ MODEL PENDING ]</div>
+    <div class="slide-number">_SYS.07 / 12</div>
+  </div>
+
+  <!-- SLIDE 8 — MARKETING 1 (TEXT-ONLY) -->
+  <div class="slide text-slide" data-index="7">
+    <div class="logo-bg faded" style="top:60px;right:30px;width:90px;height:90px;">
+      <img loading="lazy" decoding="async" src="assets/images/logo-1.jpeg" alt="">
+    </div>
+    <div class="hope-line hope-dawn"></div>
+    <div class="hope-line hope-ascend" style="left:auto;right:40px;"></div>
+    <div class="hope-line-p hope-line-p-h" style="top:40%;width:50px;left:15%;"></div>
+    <div class="hope-line-p hope-line-p-v" style="right:10px;height:60%;top:20%;"></div>
+    <div class="hope-splash hope-splash-burst" style="bottom:5%;left:20%;width:100px;height:100px;animation-delay:0.3s;"></div>
+    <div class="hope-streak hope-leak" style="top:10%;right:15%;width:90px;"></div>
+    <div class="hope-sparkle hope-leak" style="bottom:30%;right:25%;animation-delay:1s;"></div>
+    <div class="hope-leak hope-leak-t"></div>
+
+    <div class="corner-tag top-left">FILE: MARKETING_1</div>
+    <div class="float-timer float-anim" style="left:40px;bottom:100px;animation-delay:0.5s;">
+      �-� T-MINUS <span class="ft8"></span>
+    </div>
+    <div class="_label">_MARKETING</div>
+    <div class="_heading">SOCIAL MEDIA</div>
+    <div class="_hr"></div>
+    <div class="_grid-2" style="max-width:700px;">
+      <div class="_box" style="padding:24px;">
+        <div class="_box-title">PLATFORMS</div>
+        <div class="_box-item">
+          �-� TikTok<br>
+          �-� Instagram<br>
+          �-� Facebook
+        </div>
+      </div>
+      <div class="_box" style="padding:24px;">
+        <div class="_box-title">CONTENT</div>
+        <div class="_box-item">
+          �-� Product launches<br>
+          �-� Reviews<br>
+          �-� Styling videos
+        </div>
+      </div>
+    </div>
+    <div class="_pending">[ STRATEGY LOCKED ]</div>
+    <div class="slide-number">_SYS.08 / 12</div>
+  </div>
+
+  <!-- SLIDE 9 — MARKETING 2 (TEXT-ONLY) -->
+  <div class="slide text-slide" data-index="8">
+    <div class="logo-bg faded" style="bottom:80px;left:30px;width:130px;height:130px;">
+      <img loading="lazy" decoding="async" src="assets/images/logo-1.jpeg" alt="">
+    </div>
+    <div class="hope-line hope-dawn"></div>
+    <div class="hope-line hope-vertical" style="right:50px;"></div>
+    <div class="hope-line-p hope-line-p-h thick" style="bottom:35%;width:50px;left:50%;transform:translateX(-50%);"></div>
+    <div class="hope-line-p hope-line-p-d hope-leak" style="bottom:15%;right:25%;"></div>
+    <div class="hope-splash hope-splash-burst" style="top:10%;left:50%;transform:translateX(-50%);width:130px;height:130px;animation-delay:0.8s;"></div>
+    <div class="hope-streak hope-leak" style="bottom:25%;left:5%;width:70px;animation-delay:2s;"></div>
+    <div class="hope-sparkle hope-leak" style="top:35%;left:10%;"></div>
+    <div class="hope-leak hope-leak-t"></div>
+
+    <div class="corner-tag top-left">FILE: PROMOTIONS</div>
+    <div class="float-timer float-anim" style="right:50px;top:80px;animation-delay:1.2s;">
+      �-� LAUNCH <span class="ft9"></span>
+    </div>
+    <div class="_label">_PROMOTIONS</div>
+    <div class="_heading">PROMOTIONS</div>
+    <div class="_hr"></div>
+    <div class="_box" style="padding:20px 40px;display:inline-block;">
+      <div class="_box-item" style="text-align:left;">
+        �-� Launch Discounts<br>
+        �-� Referral Rewards<br>
+        �-� Seasonal Sales
+      </div>
+    </div>
+    <div class="_pending">[ CAMPAIGNS PENDING ]</div>
+    <div class="slide-number">_SYS.09 / 12</div>
+  </div>
+
+  <!-- SLIDE 10 — OPERATIONS (TEXT-ONLY) -->
+  <div class="slide text-slide" data-index="9">
+    <div class="logo-bg faded" style="top:60px;left:30px;width:100px;height:100px;">
+      <img loading="lazy" decoding="async" src="assets/images/logo-1.jpeg" alt="">
+    </div>
+    <div class="hope-line hope-dawn"></div>
+    <div class="hope-line hope-corner hope-corner-tl"></div>
+    <div class="hope-line hope-corner hope-corner-tr"></div>
+    <div class="hope-line hope-ascend" style="left:40px;"></div>
+    <div class="hope-line-p hope-line-p-h" style="top:25%;width:80px;right:20px;left:auto;"></div>
+    <div class="hope-line-p hope-line-p-v" style="right:20px;height:30%;top:35%;"></div>
+    <div class="hope-splash hope-splash-burst" style="bottom:5%;right:10%;width:110px;height:110px;animation-delay:1.2s;"></div>
+    <div class="hope-streak hope-leak" style="top:30%;left:5%;width:100px;animation-delay:0.5s;"></div>
+    <div class="hope-sparkle hope-leak" style="top:15%;right:30%;animation-delay:1.5s;"></div>
+    <div class="hope-sparkle hope-leak" style="bottom:45%;left:15%;"></div>
+
+    <div class="corner-tag top-left">FILE: OPERATIONS</div>
+    <div class="_label">_OPS</div>
+    <div class="_heading">OPERATIONS</div>
+    <div class="_hr"></div>
+    <p class="_body" style="font-size:16px;max-width:800px;">
+      Online streetwear. Limited drops. Made-to-order. 100% cotton sourcing. Design → Print → Inspect → Package → Deliver.
+    </p>
+    <div class="_grid-2" style="margin-top:16px;max-width:750px;">
+      <div class="_box" style="padding:20px;">
+        <div class="_box-title">CORE</div>
+        <div class="_box-item">
+          �-� QC on every item<br>
+          �-� Demand-based restock<br>
+          �-� Digital management
+        </div>
+      </div>
+      <div class="_box" style="padding:20px;">
+        <div class="_box-title">DELIVERY</div>
+        <div class="_box-item">
+          �-� Nationwide couriers<br>
+          �-� Fast support<br>
+          �-� Returns handled
+        </div>
+      </div>
+    </div>
+    <div class="_pending">[ OPS PLAN PENDING ]</div>
+    <div class="slide-number">_SYS.10 / 12</div>
+  </div>
+
+  <!-- SLIDE 11 — GROWTH (TEXT-ONLY) -->
+  <div class="slide text-slide" data-index="10">
+    <div class="logo-bg faded" style="bottom:80px;right:30px;width:90px;height:90px;">
+      <img loading="lazy" decoding="async" src="assets/images/logo-1.jpeg" alt="">
+    </div>
+    <div class="hope-line hope-dawn"></div>
+    <div class="hope-line hope-corner hope-corner-bl"></div>
+    <div class="hope-line hope-corner hope-corner-br"></div>
+    <div class="hope-line hope-vertical" style="left:60px;"></div>
+    <div class="hope-line-p hope-line-p-h thick" style="top:30%;width:60px;left:15%;"></div>
+    <div class="hope-line-p hope-line-p-v" style="right:30px;height:40%;top:30%;"></div>
+    <div class="hope-line-p hope-line-p-d hope-leak" style="top:20%;left:30%;"></div>
+    <div class="hope-splash hope-splash-burst" style="top:5%;left:50%;transform:translateX(-50%);width:160px;height:160px;"></div>
+    <div class="hope-streak hope-leak" style="bottom:20%;right:5%;width:80px;animation-delay:1.8s;"></div>
+    <div class="hope-sparkle hope-leak" style="bottom:30%;left:25%;animation-delay:0.6s;"></div>
+    <div class="hope-leak hope-leak-b"></div>
+
+    <div class="corner-tag top-left">FILE: GROWTH_VISION</div>
+    <div class="_label">_ROADMAP</div>
+    <div class="_heading">GROWTH STRATEGY</div>
+    <div class="_hr"></div>
+    <div class="_grid-3">
+      <div class="_box" style="padding:20px;">
+        <div class="_year-num">01</div>
+        <div class="_year-text">Brand awareness. Sell out drops. Build community.</div>
+      </div>
+      <div class="_box" style="padding:20px;">
+        <div class="_year-num">02</div>
+        <div class="_year-text">Full collection. SA creator collabs. Pop-up store.</div>
+      </div>
+      <div class="_box" style="padding:20px;">
+        <div class="_year-num">03</div>
+        <div class="_year-text">Online store. Expand to neighboring countries. Boutique placements.</div>
+      </div>
+    </div>
+    <div class="_pending">[ ROADMAP CLASSIFIED ]</div>
+    <div class="slide-number">_SYS.11 / 12</div>
+  </div>
+
+  <!-- SLIDE 12 — CONCLUSION (TEXT-ONLY) -->
+  <div class="slide text-slide" data-index="11">
+    <div class="logo-bg faded" style="top:60px;right:30px;width:110px;height:110px;">
+      <img loading="lazy" decoding="async" src="assets/images/logo-1.jpeg" alt="">
+    </div>
+    <div class="hope-line hope-dawn"></div>
+    <div class="hope-line hope-corner hope-corner-tl"></div>
+    <div class="hope-line hope-corner hope-corner-tr"></div>
+    <div class="hope-line hope-corner hope-corner-bl"></div>
+    <div class="hope-line hope-corner hope-corner-br"></div>
+    <div class="hope-line hope-ascend" style="left:40px;"></div>
+    <div class="hope-line hope-ascend" style="left:auto;right:40px;"></div>
+    <div class="hope-line hope-vertical" style="left:50%;transform:translateX(-50%);"></div>
+    <div class="hope-line-p hope-line-p-h thick" style="top:20%;width:100px;left:50%;transform:translateX(-50%);"></div>
+    <div class="hope-line-p hope-line-p-h" style="bottom:45%;width:80px;right:20px;left:auto;"></div>
+    <div class="hope-line-p hope-line-p-v" style="left:20px;height:70%;top:15%;"></div>
+    <div class="hope-splash hope-splash-burst" style="top:10%;left:10%;width:100px;height:100px;"></div>
+    <div class="hope-splash hope-splash-burst" style="bottom:10%;right:10%;width:100px;height:100px;animation-delay:1.5s;"></div>
+    <div class="hope-streak hope-leak" style="top:40%;left:5%;width:120px;"></div>
+    <div class="hope-streak hope-leak" style="bottom:30%;right:5%;width:80px;animation-delay:2.5s;"></div>
+    <div class="hope-sparkle hope-leak" style="top:25%;left:30%;animation-delay:0.4s;"></div>
+    <div class="hope-sparkle hope-leak" style="bottom:35%;right:20%;animation-delay:1.2s;"></div>
+    <div class="hope-sparkle hope-leak" style="top:50%;left:50%;animation-delay:2s;"></div>
+    <div class="hope-leak hope-leak-t"></div>
+    <div class="hope-leak hope-leak-b"></div>
+
+    <div class="corner-tag top-left">FILE: CONCLUSION</div>
+    <div class="corner-tag top-right">SYS.STATUS: DEPLOY</div>
+    <div id="countdown11" class="countdown-wrap" style="margin-bottom:16px;"></div>
+    <div class="_hr" style="width:120px;"></div>
+    <p class="_body" style="font-size:17px;">
+      VALOW. aims to become a trusted South African streetwear brand. High-quality, stylish, affordable. Limited drops reduce risk, build demand.
+    </p>
+    <p class="_body" style="font-size:17px;margin-top:8px;">
+      Growth through marketing, quality, satisfaction. Strong potential for long-term success.
+    </p>
+    <div style="margin-top:28px;font-family:'Orbitron',monospace;font-size:22px;letter-spacing:10px;color:#fff;text-shadow:0 0 40px rgba(255,255,255,0.05);">
+      VALOW.
+    </div>
+    <div class="coming-soon-sub" style="margin-top:8px;">�-� THE JOURNEY BEGINS �-�</div>
+    <div style="margin-top:24px;font-size:9px;color:#333;letter-spacing:3px;font-family:'Inter',sans-serif;">
+      <span style="color:#444;">A SKYLINE IT CLIENT &nbsp;·&nbsp; </span>
+      <a href="https://skylineit.site" style="color:#555;text-decoration:none;" target="_blank">skylineit.site</a>
+    </div>
+    <div class="slide-number">_SYS.12 / 12</div>
+  </div>
+
+  <!-- NAV -->
+  <div class="nav">
+    <button id="prevBtn" disabled><span>← PREV</span></button>
+    <div style="display:flex;align-items:center;gap:16px;">
+      <div class="dots" id="dots"></div>
+      <button class="nav-vote" id="navVoteBtn" onclick="scrollToProducts()">⟡ WANT TO BUY <span class="nv-count" id="nav-vote-count">0</span></button>
+    </div>
+    <button id="nextBtn"><span>NEXT →</span></button>
+  </div>
+</div>
+
+<script>
+  // === COUNTDOWN TO INFINITY ===
+  (function() {
+    const TARGET = new Date();
+    TARGET.setFullYear(TARGET.getFullYear() + 100);
+
+    function pad(n) { return String(n).padStart(2, '0'); }
+
+    function calc() {
+      const diff = Math.max(0, TARGET - new Date());
+      const totalSec = Math.floor(diff / 1000);
+      const d = Math.floor(totalSec / 86400);
+      const h = Math.floor((totalSec % 86400) / 3600);
+      const m = Math.floor((totalSec % 3600) / 60);
+      const s = totalSec % 60;
+      return { d, h, m, s, str: `${pad(d)}:${pad(h)}:${pad(m)}:${pad(s)}` };
+    }
+
+    function render(containerId) {
+      const wrap = document.getElementById(containerId);
+      if (!wrap) return;
+      const { d, h, m, s } = calc();
+      wrap.innerHTML = `
+        <div class="cd-unit"><div class="num">${pad(d)}</div><div class="label">Days</div></div>
+        <div class="cd-sep">:</div>
+        <div class="cd-unit"><div class="num">${pad(h)}</div><div class="label">Hours</div></div>
+        <div class="cd-sep">:</div>
+        <div class="cd-unit"><div class="num">${pad(m)}</div><div class="label">Mins</div></div>
+        <div class="cd-sep">:</div>
+        <div class="cd-unit"><div class="num">${pad(s)}</div><div class="label">Secs</div></div>
+      `;
+    }
+
+    function renderFloat(className) {
+      const { d, h, m, s } = calc();
+      const str = `${pad(d)}:${pad(h)}:${pad(m)}:${pad(s)}`;
+      document.querySelectorAll('.' + className).forEach(el => el.textContent = str);
+    }
+
+    setInterval(() => {
+      render('countdown0');
+      render('countdown11');
+      renderFloat('ft8');
+      renderFloat('ft9');
+    }, 1000);
+
+    render('countdown0');
+    render('countdown11');
+    renderFloat('ft8');
+    renderFloat('ft9');
+  })();
+
+  // === SLIDE NAVIGATION ===
+  (function() {
+    const slides = document.querySelectorAll('.slide');
+    const dotsContainer = document.getElementById('dots');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    let current = 0;
+
+    slides.forEach((_, i) => {
+      const dot = document.createElement('div');
+      dot.className = 'dot' + (i === 0 ? ' active' : '');
+      dot.addEventListener('click', () => goTo(i));
+      dotsContainer.appendChild(dot);
+    });
+
+    function goTo(index) {
+      slides.forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.dot').forEach(d => d.classList.remove('active'));
+      current = index;
+      slides[current].classList.add('active');
+      dotsContainer.children[current].classList.add('active');
+      prevBtn.disabled = current === 0;
+      nextBtn.disabled = current === slides.length - 1;
+    }
+
+    prevBtn.addEventListener('click', () => { if (current > 0) goTo(current - 1); });
+    nextBtn.addEventListener('click', () => { if (current < slides.length - 1) goTo(current + 1); });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { if (current < slides.length - 1) goTo(current + 1); }
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { if (current > 0) goTo(current - 1); }
+    });
+  })();
+
+  // === VOTE TO PURCHASE ===
+  const API = window.location.origin.startsWith('http') ? window.location.origin : 'http://localhost:3456';
+  const VOTE_KEY = 'valow_votes_offline';
+  const cs = document.getElementById('connStatus');
+
+  function setConn(status) {
+    cs.className = 'conn-status ' + status;
+    if (status === 'online') cs.textContent = '�-� SERVER CONNECTED — VOTES SYNCED �-�';
+    else if (status === 'offline') cs.textContent = '�-� OFFLINE MODE — VOTES SAVED LOCALLY �-�  Open http://localhost:3456/site/index.html to sync';
+    else cs.textContent = '�-� CONNECTING... �-�';
+  }
+
+  function getLocalVotes() {
+    try { return JSON.parse(localStorage.getItem(VOTE_KEY)) || {}; } catch { return {}; }
+  }
+  function saveLocalVotes(v) { localStorage.setItem(VOTE_KEY, JSON.stringify(v)); }
+
+  async function syncLocalToServer() {
+    const local = getLocalVotes();
+    const keys = Object.keys(local);
+    if (keys.length === 0) return true;
+    setConn('syncing');
+    for (const p of keys) {
+      const count = local[p];
+      for (let i = 0; i < count; i++) {
+        try {
+          await fetch(API + '/api/vote', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ product: p })
+          });
+        } catch { return false; }
+      }
+    }
+    localStorage.removeItem(VOTE_KEY);
+    return true;
+  }
+
+  async function fetchVotes() {
+    try {
+      const r = await fetch(API + '/api/votes');
+      if (!r.ok) throw new Error();
+      const d = await r.json();
+      if (d.success) {
+        updateVoteUI(d.votes);
+        setConn('online');
+        // Try to push any local votes to server
+        syncLocalToServer().then(synced => {
+          if (synced) fetchVotes();
+        });
+        return;
+      }
+    } catch {}
+    // Fallback to localStorage
+    const local = getLocalVotes();
+    if (Object.keys(local).length > 0) {
+      updateVoteUI(local);
+      setConn('offline');
+    } else {
+      setConn('offline');
+    }
+  }
+
+  function updateVoteUI(votes) {
+    let total = 0;
+    document.querySelectorAll('.vote-btn[data-product]').forEach(btn => {
+      const p = btn.dataset.product;
+      const c = (votes && votes[p]) || 0;
+      total += c;
+      const id = 'vc-' + p.toLowerCase().replace(/[^a-z]/g, '');
+      const el = document.getElementById(id);
+      if (el) el.textContent = c;
+      btn.classList.toggle('voted', c > 0);
+    });
+    const td = document.getElementById('vote-total-display');
+    if (td) td.textContent = total;
+    const nv = document.getElementById('nav-vote-count');
+    if (nv) nv.textContent = total;
+  }
+
+  window.vote = async function(btn) {
+    const p = btn.dataset.product;
+    btn.style.transform = 'scale(0.95)';
+    setTimeout(() => { btn.style.transform = ''; }, 150);
+    try {
+      const r = await fetch(API + '/api/vote', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ product: p })
+      });
+      const d = await r.json();
+      if (d.success) { updateVoteUI(d.votes); setConn('online'); return; }
+    } catch {}
+    // Fallback: save locally
+    const votes = getLocalVotes();
+    votes[p] = (votes[p] || 0) + 1;
+    saveLocalVotes(votes);
+    updateVoteUI(votes);
+    setConn('offline');
+  };
+
+  window.scrollToProducts = function() {
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.dot');
+    slides.forEach(s => s.classList.remove('active'));
+    dots.forEach(d => d.classList.remove('active'));
+    slides[5].classList.add('active');
+    dots[5].classList.add('active');
+    document.getElementById('prevBtn').disabled = false;
+    document.getElementById('nextBtn').disabled = 5 === slides.length - 1;
+  };
+
+  fetchVotes();
+  // Retry connection every 10s
+  setInterval(() => {
+    if (cs.classList.contains('offline')) fetchVotes();
+  }, 10000);
+</script>
+</body>
+</html>
