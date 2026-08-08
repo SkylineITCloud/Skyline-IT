@@ -12,7 +12,7 @@ router.post('/contact', strict, contactRules, handleValidationErrors, (req, res)
   res.status(201).json({ id: entry.id, message: "Message received. We'll be in touch." });
 });
 
-router.get('/contact', (req, res) => {
+router.get('/contact', requireApiKey, (req, res) => {
   res.json(db.getContacts());
 });
 
@@ -25,7 +25,7 @@ router.post('/subscribe', strict, subscribeRules, handleValidationErrors, (req, 
   res.status(201).json({ id: entry.id, message: 'Subscribed successfully.' });
 });
 
-router.get('/subscribe', (req, res) => {
+router.get('/subscribe', requireApiKey, (req, res) => {
   res.json(db.getSubscribers());
 });
 

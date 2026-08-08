@@ -12,7 +12,7 @@ router.post('/contact', strict, contactRules, handleValidationErrors, (req, res)
   res.status(201).json({ id: entry.id, message: "Message received. We'll be in touch." });
 });
 
-router.get('/contact', (req, res) => {
+router.get('/contact', requireApiKey, (req, res) => {
   res.json(db.getContacts());
 });
 
@@ -22,7 +22,7 @@ router.post('/inquiry', strict, inquiryRules, handleValidationErrors, (req, res)
   res.status(201).json({ id: entry.id, message: 'Inquiry received. We will review and respond shortly.' });
 });
 
-router.get('/inquiry', (req, res) => {
+router.get('/inquiry', requireApiKey, (req, res) => {
   res.json(db.getInquiries());
 });
 

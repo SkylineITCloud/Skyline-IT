@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const { strict } = require('../middleware/rateLimiter');
+const { requireApiKey } = require('../middleware/auth');
 const db = require('../services/valowDb');
 
 const router = Router();
@@ -30,7 +31,7 @@ router.post('/vote', strict, (req, res) => {
 });
 
 // GET /api/valow/admin/stats
-router.get('/admin/stats', (req, res) => {
+router.get('/admin/stats', requireApiKey, (req, res) => {
   const votes = db.getVotes();
   const total = Object.values(votes).reduce((a, b) => a + b, 0);
   const products = Object.entries(votes).map(([name, count]) => ({
@@ -43,7 +44,7 @@ router.get('/admin/stats', (req, res) => {
 });
 
 // GET /api/valow/admin/history
-router.get('/admin/history', (req, res) => {
+router.get('/admin/history', requireApiKey, (req, res) => {
   res.json({ success: true, history: db.getHistory().slice(-200) });
 });
 
