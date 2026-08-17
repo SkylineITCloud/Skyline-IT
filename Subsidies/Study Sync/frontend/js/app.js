@@ -17,7 +17,7 @@ const hours = Array.from({length: 15}, (_, i) => i + 8);
 
 const botFAQ = [
   { q: ['join', 'group'], a: 'To join a group, go to <strong>Find Groups</strong> in the sidebar, browse available groups, and click <strong>Join</strong> on any that match your course and style! 🎯' },
-  { q: ['pomodoro', 'timer', 'technique'], a: 'The Pomodoro Technique breaks study time into 25-minute focus sessions with 5-minute breaks. After 4 sessions, take a longer 15-minute break. It boosts focus and prevents burnout! 🍅' },
+  { q: ['pomodoro', 'timer', 'technique'], a: 'The focus timer breaks study time into 25-minute focus sessions with 5-minute breaks. After 4 sessions, take a longer 15-minute break. It boosts focus and prevents burnout! 🍅' },
   { q: ['streak', 'streaks', 'fire'], a: 'Streaks count consecutive days your group studies together. Keep your streak going by attending sessions regularly – even 30 minutes counts! 🔥' },
   { q: ['badge', 'badges', 'earn'], a: 'Badges are earned by reaching milestones: attending your first session, maintaining streaks, studying 20+ hours/week, and more! Check your Progress card on the dashboard. 🏅' },
   { q: ['schedule', 'session', 'calendar'], a: 'Go to <strong>Calendar</strong> in the sidebar and click <strong>Create Session</strong>. Set the date, time (15-min increments), and type (Video or In-Person). Your group will be notified! 📅' },
@@ -352,7 +352,7 @@ function togglePomodoro() {
         document.getElementById('pomo-label').textContent = 'Session complete! 🎉';
         document.getElementById('pomo-phase').textContent = 'Done';
         btn.innerHTML = '<i class="fa-solid fa-play" aria-hidden="true"></i> Start';
-        showToast('Pomodoro complete! Time for a break 🎉', 'success');
+        showToast('Focus time complete! Time for a break 🎉', 'success');
         fireConfetti();
         openModal('session-complete-modal');
         completePomodoro(pomodoroSettings.focus).catch(() => {});
@@ -396,7 +396,7 @@ function startPomodoroFromGroup() {
   showSubPage('dashboard');
   setTimeout(() => {
     if (!pomodoroRunning) togglePomodoro();
-    showToast('Pomodoro started with your group! 🍅', 'success');
+    showToast('Focus timer started with your group! 🍅', 'success');
   }, 100);
 }
 
@@ -406,7 +406,7 @@ function savePomodoroSettings() {
   pomodoroSettings.longBreak = parseInt(document.getElementById('ps-long').value) || 15;
   resetPomodoro();
   closeModal('pomo-settings-modal');
-  showToast('Pomodoro settings saved!', 'success');
+  showToast('Focus timer settings saved!', 'success');
 }
 
 // ====================================================
@@ -809,7 +809,7 @@ function sendBotMessage() {
 
   setTimeout(() => {
     const lower = text.toLowerCase();
-    let reply = 'Hmm, I\'m not sure about that one! Try asking about: joining groups, Pomodoro, streaks, badges, scheduling sessions, shout-outs, or dark mode 😊';
+    let reply = 'Hmm, I\'m not sure about that one! Try asking about: joining groups, focus timer, streaks, badges, scheduling sessions, shout-outs, or dark mode 😊';
     for (const faq of botFAQ) {
       if (faq.q.some(kw => lower.includes(kw))) {
         reply = faq.a;

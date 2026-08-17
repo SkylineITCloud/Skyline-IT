@@ -84,8 +84,8 @@
             <label for="su-method">Preferred Study Method</label>
             <select id="su-method" aria-required="true">
               <option value="">Select a method...</option>
-              <option value="Pomodoro">Pomodoro Technique</option>
-              <option value="Active Recall">Active Recall</option>
+              <option value="Pomodoro">🍅 Focus Timer</option>
+              <option value="Active Recall">🧠 Quiz Yourself</option>
               <option value="Flashcards">Flashcards</option>
               <option value="Revision Quizzes">Revision Quizzes</option>
             </select>
@@ -236,7 +236,7 @@
               <button class="btn btn-primary btn-sm" onclick="showSubPage('calendar')" data-tooltip="Schedule a group session" aria-label="Schedule a study session">
                 <i class="fa-solid fa-calendar-plus" aria-hidden="true"></i> Schedule
               </button>
-              <button class="btn btn-secondary btn-sm" onclick="startPomodoroFromGroup()" data-tooltip="Start a Pomodoro timer" aria-label="Start Pomodoro timer">
+              <button class="btn btn-secondary btn-sm" onclick="startPomodoroFromGroup()" data-tooltip="Start a focus timer" aria-label="Start focus timer">
                 <i class="fa-solid fa-clock" aria-hidden="true"></i> Timer
               </button>
               <button class="btn btn-outline btn-sm" onclick="showSubPage('chat')" aria-label="Go to group chat">
@@ -248,7 +248,7 @@
           <!-- Pomodoro -->
           <div class="card" role="region" aria-labelledby="pomo-title">
             <div class="card-header">
-              <span class="card-title" id="pomo-title"><i class="fa-solid fa-clock" aria-hidden="true"></i> Pomodoro Timer</span>
+              <span class="card-title" id="pomo-title"><i class="fa-solid fa-clock" aria-hidden="true"></i> Focus Timer</span>
               <span class="card-badge" id="pomo-phase">Focus</span>
             </div>
             <div class="pomodoro-display">
@@ -259,13 +259,13 @@
               <div class="pomodoro-bar" id="pomo-bar"></div>
             </div>
             <div class="pomodoro-controls">
-              <button class="btn btn-primary btn-sm" id="pomo-start-btn" onclick="togglePomodoro()" aria-label="Start Pomodoro timer">
+              <button class="btn btn-primary btn-sm" id="pomo-start-btn" onclick="togglePomodoro()" aria-label="Start focus timer">
                 <i class="fa-solid fa-play" aria-hidden="true"></i> Start
               </button>
               <button class="btn btn-secondary btn-sm" onclick="resetPomodoro()" aria-label="Reset Pomodoro timer">
                 <i class="fa-solid fa-rotate-left" aria-hidden="true"></i> Reset
               </button>
-              <button class="btn btn-secondary btn-sm" onclick="openModal('pomo-settings-modal')" aria-label="Pomodoro settings">
+              <button class="btn btn-secondary btn-sm" onclick="openModal('pomo-settings-modal')" aria-label="Timer settings">
                 <i class="fa-solid fa-gear" aria-hidden="true"></i>
               </button>
             </div>
@@ -369,8 +369,8 @@
           </select>
           <select aria-label="Filter by study method" onchange="filterGroups()">
             <option value="">All Methods</option>
-            <option>Pomodoro</option>
-            <option>Active Recall</option>
+            <option>Focus Timer</option>
+            <option>Quiz Yourself</option>
             <option>Flashcards</option>
             <option>Revision Quizzes</option>
           </select>
@@ -454,7 +454,7 @@
               <p style="color:var(--text-mid);font-size:0.88rem" id="profile-email-display">user@studysync.edu</p>
               <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
                 <span class="tag"><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i> <span id="profile-course">Computer Science</span></span>
-                <span class="tag"><i class="fa-solid fa-clock" aria-hidden="true"></i> <span id="profile-method">Pomodoro</span></span>
+                <span class="tag"><i class="fa-solid fa-clock" aria-hidden="true"></i> <span id="profile-method">Focus Timer</span></span>
                 <span class="tag" id="profile-streak-tag">🔥 0-day streak</span>
               </div>
             </div>
@@ -641,8 +641,8 @@
         <div class="form-group">
           <label for="cg-method">Study Method</label>
           <select id="cg-method" aria-required="true">
-            <option>Pomodoro</option>
-            <option>Active Recall</option>
+            <option>Focus Timer</option>
+            <option>Quiz Yourself</option>
             <option>Flashcards</option>
             <option>Revision Quizzes</option>
           </select>
@@ -798,7 +798,7 @@
 <div class="modal-overlay" id="pomo-settings-modal" role="dialog" aria-modal="true" aria-labelledby="ps-title">
   <div class="modal">
     <div class="modal-header">
-      <h3 id="ps-title">Pomodoro Settings</h3>
+      <h3 id="ps-title">Focus Timer Settings</h3>
       <button class="modal-close" onclick="closeModal('pomo-settings-modal')" aria-label="Close modal"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
     </div>
     <div class="modal-body">
@@ -833,7 +833,7 @@
     </div>
     <div class="modal-body" style="padding:0">
       <div class="studybot-messages" id="studybot-msgs" role="log" aria-label="StudyBot conversation" aria-live="polite">
-        <div class="bot-msg" role="note">👋 Hi! I'm StudyBot. Ask me anything about StudySync! Try: "How do I join a group?", "What is Pomodoro?", or "How do streaks work?"</div>
+        <div class="bot-msg" role="note">👋 Hi! I'm StudyBot. Ask me anything about StudySync! Try: "How do I join a group?", "What is the focus timer?", or "How do streaks work?"</div>
       </div>
       <div class="studybot-input">
         <input type="text" id="studybot-input" placeholder="Ask StudyBot…" aria-label="Ask StudyBot a question" onkeydown="if(event.key==='Enter')sendBotMessage()">
