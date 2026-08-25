@@ -3,6 +3,11 @@
 //
 // POPIA: Client-side only; no PII stored in browser.
 // ECTA:  Electronic transactions facilitated via server API.
+//
+// Telemetry path: tracker → cellular network → backend/API → this dashboard.
+// Hardware: ESP32-C3 + NEO-6M GPS + SIM800L (prototype 2G GSM/GPRS).
+// Power: Solar panel → CN3065 charger → Li-ion battery → regulated rails
+//        → ESP32-C3 / NEO-6M / SIM800L + bulk capacitors at SIM800L VCC.
 
 const API = "/api/mzansi/livestock";
 
