@@ -220,29 +220,34 @@ html:not(.js) .site{opacity:1;visibility:visible}
         <div class="icon"><img loading="lazy" decoding="async" src="images/mzansi-logo.png" alt="Mzansi Connect" style="width:80px;height:80px;object-fit:contain;"></div>
         <h3>Mzansi Connect Smart Device Range</h3>
         <div class="sub">Complete Smart Device Range</div>
-        <p class="desc">Smart devices at fair prices designed for South African realities — security, water monitoring, electricity tracking, vehicle tracking, and livestock tracking with online dashboards.</p>
+        <p class="desc">Smart devices at fair prices designed for South African realities — security, water monitoring, electricity tracking, vehicle tracking, and solar-powered livestock tracking with online dashboards.</p>
         <div class="features">
           <span>Smart Spaza Shop Security — motion, door alerts, SMS, panic button</span>
           <span>Smart Water Tank Monitor — water level, leaks, overflow alerts</span>
           <span>Kasi Smart Electricity Monitor — usage, prepaid, what each appliance uses</span>
           <span>Taxi Fleet Tracker — GPS, driver behavior, fuel monitoring</span>
+          <span>Solar-powered Livestock GPS Tracker — ESP32-C3, NEO-6M, regulated power</span>
         </div>
-        <div class="tags"><span>Smart Devices</span><span>ESP32</span><span>LoRa</span><span>GSM</span><span>Web & App</span></div>
+        <div class="tags"><span>Smart Devices</span><span>ESP32-C3</span><span>Solar</span><span>GPS</span><span>Web & App</span></div>
       </div>
 
       <div class="portfolio-card">
         <div class="icon"><img loading="lazy" decoding="async" src="images/livestock-tracker-logo.png" alt="Livestock GPS Tracker" style="width:80px;height:80px;object-fit:cover;border-radius:8px;"></div>
         <h3>Livestock GPS Tracker</h3>
         <div class="sub">Circuit Forge - Mzansi Connect</div>
-        <p class="desc">GPS tracking collar for livestock with live location, safe-zone alerts, and an Android companion app for farmers.</p>
+        <p class="desc">Solar-powered GPS/GSM IoT tracking collar for livestock — ESP32-C3 controller, NEO-6M GPS, SIM800L modem (prototype 2G), CN3065 solar charger, regulated power architecture with bulk capacitors, and live web dashboard. Telemetry path: tracker → cellular network → backend/API → dashboard.</p>
         <div class="features">
-          <span>GPS collar with live tracking</span>
-          <span>Safe-zone alerts & movement alarms</span>
-          <span>Secure data service for storage & retrieval</span>
-          <span>Android companion app for farmers</span>
+          <span>ESP32-C3 controller with low-power modes</span>
+          <span>NEO-6M GPS for location acquisition</span>
+          <span>SIM800L 2G GSM/GPRS modem (prototype connectivity)</span>
+          <span>Solar panel + CN3065 charger + Li-ion battery</span>
+          <span>Regulated power rails with bulk capacitors at SIM800L VCC</span>
+          <span>Live web dashboard with Leaflet map</span>
+          <span>Safe-zone alerts & panic alarms</span>
         </div>
-        <div class="tags"><span>ESP32</span><span>GPS</span><span>Smart Devices</span><span>Android</span><span>Farming Tech</span></div>
-        <p style="margin-top:12px;"><a href="/store/" target="_blank" rel="noopener" style="color:#c4b5fd;text-decoration:none;font-weight:600;font-size:0.88rem;"> Shop Circuit Forge Electronics &rarr;</a></p>
+        <div class="tags"><span>ESP32-C3</span><span>GPS</span><span>Solar</span><span>2G Prototype</span><span>IoT</span><span>Farming Tech</span></div>
+        <p style="margin-top:12px;font-size:0.78rem;color:var(--text-dim);line-height:1.6;"><strong style="color:var(--mp-300);">Note:</strong> SIM800L is a 2G module used for prototype demonstration. Commercial deployment will use a currently supported South African cellular technology selected after coverage, certification, and cost testing.</p>
+        <p style="margin-top:12px;"><a href="/livestock/" target="_blank" rel="noopener" style="color:#c4b5fd;text-decoration:none;font-weight:600;font-size:0.88rem;"> Open Dashboard &rarr;</a></p>
       </div>
 
       <div class="portfolio-card">
@@ -259,7 +264,7 @@ html:not(.js) .site{opacity:1;visibility:visible}
         </div>
         <div class="tags"><span>Android</span><span>Live Alerts</span><span>Energy Tracking</span><span>Secure Data</span></div>
         <div style="margin-top:16px;">
-          <a href="https://www.mzansiconnect.store" target="_blank" rel="noopener" class="btn btn-amber btn-sm">Download the App</a>
+          <a href="/app/" target="_blank" rel="noopener" class="btn btn-amber btn-sm">Open the App</a>
         </div>
       </div>
 
@@ -277,7 +282,7 @@ html:not(.js) .site{opacity:1;visibility:visible}
         </div>
         <div class="tags"><span>Web & App</span><span>Data Reports</span><span>Secure Data</span><span>Android</span></div>
         <div style="margin-top:16px;">
-          <a href="https://www.mzansiconnect.store" target="_blank" rel="noopener" class="btn btn-amber btn-sm">Download the App</a>
+          <a href="/cloud/" target="_blank" rel="noopener" class="btn btn-amber btn-sm">Open the Dashboard</a>
         </div>
       </div>
 
@@ -295,7 +300,7 @@ html:not(.js) .site{opacity:1;visibility:visible}
         </div>
         <div class="tags"><span>Marketplace</span><span>Local Jobs</span><span>Secure Data</span><span>Android</span></div>
         <div style="margin-top:16px;">
-          <a href="https://www.mzansiconnect.store" target="_blank" rel="noopener" class="btn btn-amber btn-sm">Download the App</a>
+          <a href="/marketplace/" target="_blank" rel="noopener" class="btn btn-amber btn-sm">Open the Marketplace</a>
         </div>
       </div>
 
