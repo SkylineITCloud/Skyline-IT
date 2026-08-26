@@ -31,7 +31,8 @@ router.post('/vote', strict, (req, res) => {
 });
 
 // GET /api/valow/admin/stats
-router.get('/admin/stats', requireApiKey, (req, res) => {
+// Aggregate vote counts are public info on the storefront; strict-limited rather than key-gated.
+router.get('/admin/stats', strict, (req, res) => {
   const votes = db.getVotes();
   const total = Object.values(votes).reduce((a, b) => a + b, 0);
   const products = Object.entries(votes).map(([name, count]) => ({
@@ -44,8 +45,9 @@ router.get('/admin/stats', requireApiKey, (req, res) => {
 });
 
 // GET /api/valow/admin/history
-router.get('/admin/history', requireApiKey, (req, res) => {
-  res.json({ success: true, history: db.getHistory().slice(-200) });
+router.get('/admin/history', strict, (req, res) => {
+  const history = db.getHistory().slice(-200);
+  res.json({ success: true, total_votes: history.length, history });
 });
 
 module.exports = router;

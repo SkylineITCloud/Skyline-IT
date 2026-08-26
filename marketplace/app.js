@@ -80,13 +80,45 @@ function renderJobs(jobs) {
   if (!filtered.length) grid.innerHTML = '<div class="empty">No jobs match your search.</div>';
 
   grid.querySelectorAll(".apply-btn").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const job = jobsCache.find((j) => j.id === btn.dataset.id);
+    btn.addEventListener("click", async () => {
+      const jobId = btn.dataset.id;
+      const job = jobsCache.find((j) => j.id === jobId);
       if (!job) return;
-      btn.textContent = "Applied ✓";
+      const name = prompt(`Apply for "${job.title}"\nEnter your full name:`);
+      if (!name || name.trim().length < 2) return;
+      const phone = prompt("Enter your contact number:");
+      if (!phone || !phone.trim()) return;
       btn.disabled = true;
-      btn.style.background = "var(--sa-green)";
-      btn.style.color = "#fff";
+      btn.textContent = "Sending…";
+      if (DEMO) {
+        btn.textContent = "Applied ✓";
+        btn.style.background = "var(--sa-green)";
+        btn.style.color = "#fff";
+        return;
+      }
+      try {
+        const r = await fetch(`${API}/jobs/${jobId}/apply`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name: name.trim(), phone: phone.trim(), town: job.town, province: job.province }),
+        });
+        if (!r.ok) {
+          const e = await r.json().catch(() => ({}));
+          throw new Error(e.error || `HTTP ${r.status}`);
+        }
+        btn.textContent = "Applied ✓";
+        btn.style.background = "var(--sa-green)";
+        btn.style.color = "#fff";
+      } catch (err) {
+        if (err.message === "Already applied" || err.message === "Job is no longer open") {
+          btn.textContent = "Applied ✓";
+          btn.style.background = "var(--sa-green)";
+          btn.style.color = "#fff";
+        } else {
+          btn.disabled = false;
+          btn.textContent = err.message === "Failed to fetch" ? "Offline — Retry" : "Retry";
+        }
+      }
     });
   });
 }

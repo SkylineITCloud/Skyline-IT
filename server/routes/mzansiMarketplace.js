@@ -16,6 +16,7 @@ const installs = createStore(DATA_DIR, 'installs.json');
 const payouts = createStore(DATA_DIR, 'payouts.json');
 
 const { requireApiKey } = require('../middleware/auth');
+const { strict } = require('../middleware/rateLimiter');
 const router = express.Router();
 
 const nextId = (prefix, store) => {
@@ -50,6 +51,7 @@ router.get('/jobs', (req, res) => {
 });
 
 router.get('/jobs/:id', (req, res) => {
+  if (!/^j\d+$/.test(String(req.params.id))) return res.status(404).json({ error: 'Job not found' });
   const job = jobs.find((j) => String(j.id) === String(req.params.id));
   if (!job) return res.status(404).json({ error: 'Job not found' });
   res.json(enrichJob(job));
@@ -60,14 +62,23 @@ router.post('/jobs', requireApiKey, (req, res) => {
   if (!title || pay_rand == null) {
     return res.status(400).json({ error: 'title and pay_rand are required' });
   }
+  const t = String(title).trim();
+  const pay = Number(pay_rand);
+  if (t.length > 120) return res.status(400).json({ error: 'title too long' });
+  if (!Number.isFinite(pay) || pay < 0 || pay > 1000000) {
+    return res.status(400).json({ error: 'pay_rand out of range' });
+  }
+  if (customer_id && !/^c\d+$/.test(String(customer_id))) {
+    return res.status(400).json({ error: 'Invalid customer id' });
+  }
   const job = jobs.insert({
     id: nextId('j', jobs),
-    title: String(title),
-    description: description || null,
-    device_type: device_type || 'general',
-    town: town || null,
-    province: province || null,
-    pay_rand: Number(pay_rand),
+    title: t,
+    description: description ? String(description).slice(0, 2000) : null,
+    device_type: device_type ? String(device_type).slice(0, 40) : 'general',
+    town: town ? String(town).slice(0, 80) : null,
+    province: province ? String(province).slice(0, 80) : null,
+    pay_rand: pay,
     status: 'open',
     created_at: new Date().toISOString(),
     customer_id: customer_id || null,
@@ -75,11 +86,40 @@ router.post('/jobs', requireApiKey, (req, res) => {
   res.status(201).json(enrichJob(job));
 });
 
-router.post('/jobs/:id/apply', requireApiKey, (req, res) => {
+router.post('/jobs/:id/apply', strict, (req, res) => {
+  if (!/^j\d+$/.test(String(req.params.id))) return res.status(404).json({ error: 'Job not found' });
   const job = jobs.find((j) => String(j.id) === String(req.params.id));
   if (!job) return res.status(404).json({ error: 'Job not found' });
-  const techId = req.body.technician_id;
-  if (!techId) return res.status(400).json({ error: 'technician_id is required' });
+  if (job.status !== 'open') return res.status(409).json({ error: 'Job is no longer open' });
+
+  let techId = req.body.technician_id || null;
+  // Public applicant flow — create an unverified technician profile on first apply
+  if (!techId && req.body.name && req.body.phone) {
+    const name = String(req.body.name).trim();
+    const phone = String(req.body.phone).trim();
+    if (name.length < 2 || name.length > 80) return res.status(400).json({ error: 'name must be 2-80 characters' });
+    if (!/^[+0-9()\s-]{7,20}$/.test(phone)) return res.status(400).json({ error: 'phone looks invalid' });
+    const existing = technicians.find((t) => t.phone === phone);
+    if (existing) {
+      techId = existing.id;
+    } else {
+      techId = technicians.insert({
+        id: nextId('t', technicians),
+        full_name: name,
+        phone,
+        town: String(req.body.town || '').trim() || job.town,
+        province: req.body.province || job.province || null,
+        rating_avg: 0,
+        jobs_done: 0,
+        skills: [],
+        verified: false,
+        created_at: new Date().toISOString(),
+      }).id;
+    }
+  }
+  if (!techId) return res.status(400).json({ error: 'technician_id or name + phone are required' });
+  const tech = technicians.find((t) => t.id === techId);
+  if (!tech) return res.status(400).json({ error: 'Unknown technician' });
   if (applications.find((a) => a.job_id === job.id && a.technician_id === techId)) {
     return res.status(409).json({ error: 'Already applied' });
   }
@@ -89,15 +129,17 @@ router.post('/jobs/:id/apply', requireApiKey, (req, res) => {
     technician_id: String(techId),
     created_at: new Date().toISOString(),
   });
-  res.status(201).json(app);
+  res.status(201).json({ success: true, application: app, technician: { id: tech.id, full_name: tech.full_name } });
 });
 
 router.put('/jobs/:id/assign', requireApiKey, (req, res) => {
+  if (!/^j\d+$/.test(String(req.params.id))) return res.status(404).json({ error: 'Job not found' });
   const list = jobs.all();
   const job = list.find((j) => String(j.id) === String(req.params.id));
   if (!job) return res.status(404).json({ error: 'Job not found' });
   const techId = req.body.technician_id;
   if (!techId) return res.status(400).json({ error: 'technician_id is required' });
+  if (!/^t\d+$/.test(String(techId))) return res.status(400).json({ error: 'Invalid technician id' });
   job.status = 'assigned';
   job.technician_id = String(techId);
   jobs.save(list);
@@ -105,6 +147,7 @@ router.put('/jobs/:id/assign', requireApiKey, (req, res) => {
 });
 
 router.put('/jobs/:id/status', requireApiKey, (req, res) => {
+  if (!/^j\d+$/.test(String(req.params.id))) return res.status(404).json({ error: 'Job not found' });
   const list = jobs.all();
   const job = list.find((j) => String(j.id) === String(req.params.id));
   if (!job) return res.status(404).json({ error: 'Job not found' });
@@ -151,6 +194,7 @@ router.get('/technicians', (req, res) => {
 });
 
 router.get('/technicians/:id', (req, res) => {
+  if (!/^t\d+$/.test(String(req.params.id))) return res.status(404).json({ error: 'Technician not found' });
   const tech = technicians.find((t) => String(t.id) === String(req.params.id));
   if (!tech) return res.status(404).json({ error: 'Technician not found' });
   res.json(tech);
@@ -159,16 +203,21 @@ router.get('/technicians/:id', (req, res) => {
 router.post('/technicians', requireApiKey, (req, res) => {
   const { full_name, email, town, province, skills } = req.body;
   if (!full_name) return res.status(400).json({ error: 'full_name is required' });
+  const name = String(full_name).trim();
+  if (name.length > 120) return res.status(400).json({ error: 'full_name too long' });
+  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email))) {
+    return res.status(400).json({ error: 'Invalid email' });
+  }
   if (email && technicians.find((t) => t.email === email)) {
     return res.status(409).json({ error: 'Email already registered' });
   }
   const tech = technicians.insert({
     id: nextId('t', technicians),
-    full_name: String(full_name),
-    email: email || null,
-    town: town || null,
-    province: province || null,
-    skills: Array.isArray(skills) ? skills : [],
+    full_name: name,
+    email: email ? String(email).toLowerCase() : null,
+    town: town ? String(town).slice(0, 80) : null,
+    province: province ? String(province).slice(0, 80) : null,
+    skills: Array.isArray(skills) ? skills.map(s => String(s).slice(0, 40)).slice(0, 20) : [],
     rating_avg: 0,
     jobs_done: 0,
     verified: false,
@@ -179,6 +228,8 @@ router.post('/technicians', requireApiKey, (req, res) => {
 
 // ─── Earnings ───────────────────────────────────────────────
 router.get('/earnings/:technicianId', (req, res) => {
+  const tech = technicians.find((t) => t.id === req.params.technicianId);
+  if (!tech) return res.status(404).json({ error: 'Technician not found' });
   const pay = payouts.where((p) => p.technician_id === req.params.technicianId);
   const total = pay.reduce((s, p) => s + Number(p.amount_rand || 0), 0);
   const paid = pay.filter((p) => p.status === 'paid').reduce((s, p) => s + Number(p.amount_rand || 0), 0);

@@ -65,12 +65,17 @@ router.get('/analytics/devices-by-type', (_req, res) => {
 router.get('/analytics/summaries', (req, res) => {
   const metric = req.query.metric || 'power_w';
   const days = Math.min(parseInt(req.query.days) || 14, 90);
-  const cutoff = new Date();
-  cutoff.setHours(0, 0, 0, 0);
-  cutoff.setDate(cutoff.getDate() - days);
-  const rows = summaries
-    .where((s) => s.metric === metric && new Date(s.day) >= cutoff)
-    .sort((a, b) => (a.day < b.day ? -1 : 1))
+  const all = summaries
+    .where((s) => s.metric === metric)
+    .sort((a, b) => (a.day < b.day ? -1 : 1));
+  if (!all.length) return res.json([]);
+  // Anchor the window to the newest recorded day so charts stay meaningful between telemetry batches
+  const newest = new Date(all[all.length - 1].day);
+  newest.setHours(0, 0, 0, 0);
+  const cutoff = new Date(newest);
+  cutoff.setDate(cutoff.getDate() - (days - 1));
+  const rows = all
+    .filter((s) => new Date(s.day) >= cutoff)
     .map((s) => ({ day: s.day, avg_value: s.avg_value, total_value: s.total_value, samples: s.samples }));
   res.json(rows);
 });
