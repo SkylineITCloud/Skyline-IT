@@ -1,0 +1,9 @@
+(version 1)
+(rule "Reference carrier clearance"
+  (constraint clearance (min 0.15mm)))
+(rule "Battery positive and run copper"
+  (condition "A.NetName == '/PACK_POS' || A.NetName == '/RUN_BAT'")
+  (constraint track_width (min 2mm)))
+(rule "Modem feed copper"
+  (condition "A.NetName == '/MODEM_4V0'")
+  (constraint track_width (min 1.5mm)))

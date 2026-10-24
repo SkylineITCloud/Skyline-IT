@@ -1,4 +1,6 @@
-# Wearable hardware decision brief
+# Historical wearable hardware candidate brief
+
+**Superseded:** the user selected SIM800L, NEO-6, ESP32-C3, TP4056 USB-C and lithium power. See [the selected module prototype](../sim800l-module-prototype/README.md). Nordic and BLE candidates below are preserved research history, not the current architecture.
 
 24 October 2026. Confirmed target: women's safety **Pendant, Wristband and Clip**. This proposal is for review, not an approved BOM, electrical design or purchase list.
 

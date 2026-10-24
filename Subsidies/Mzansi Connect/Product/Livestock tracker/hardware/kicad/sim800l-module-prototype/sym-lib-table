@@ -1,0 +1,1 @@
+(sym_lib_table (version 7) (lib (name "MzansiPrototype") (type "KiCad") (uri "${KIPRJMOD}/MzansiPrototype.kicad_sym") (options "") (descr "Project-specific named harness contracts and verified IC pin functions")))

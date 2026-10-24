@@ -12,7 +12,7 @@
 | Firmware pin assignment needs reconciliation | Main config uses GPIO19 as `BATTERY_PIN` and GPIO18 as strap input while describing native USB programming. ESP32-C3 USB uses GPIO18/19; ADC suitability must be checked against the actual module pinout. | Create one validated pin map for schematic, PCB and firmware, accounting for USB, ADC, boot straps and voltage domains. |
 | Product scope differs | Legacy board is an 85x55mm collar input with a 5000mAh cell and external solar concept; web now describes wearable safety products. | Define a separate wearable mechanical/power architecture; do not assume the collar fits Pendant/Wristband/Clip. |
 
-All legacy KiCad S-expressions passed a parenthesis/quoted-string structural scan. This does not validate KiCad schema, library resolution, electrical connections, RF behavior or battery safety. No KiCad CLI was found on PATH or under the standard Program Files/KiCad directory. No ERC, DRC, electrical simulation or physical test was run.
+All legacy KiCad S-expressions passed a parenthesis/quoted-string structural scan. This does not validate KiCad schema, library resolution, electrical connections, RF behavior or battery safety. Initial discovery found no KiCad CLI on PATH or under standard Program Files. A per-user KiCad 10.0.6 installation was subsequently found. No ERC/DRC or physical test was run on these historical collar inputs; native tests for the new selected module carrier are recorded separately in `../sim800l-module-prototype/VALIDATION.md`.
 
 ## Primary references checked
 

@@ -1,0 +1,294 @@
+[
+  {
+    "ref": "J1",
+    "value": "PROTECTED_1S_PACK",
+    "pins": {
+      "1": "PACK_POS",
+      "2": "GND"
+    },
+    "footprint": "TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-2-5.08_1x02_P5.08mm_Horizontal",
+    "datasheet": ""
+  },
+  {
+    "ref": "J2",
+    "value": "TP4056_USB-C_BOARD",
+    "pins": {
+      "1": "CHARGE_POS",
+      "2": "GND"
+    },
+    "footprint": "TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-2-5.08_1x02_P5.08mm_Horizontal",
+    "datasheet": ""
+  },
+  {
+    "ref": "J3",
+    "value": "S13V25F3_3V3_MODULE",
+    "pins": {
+      "1": "RUN_BAT",
+      "2": "GND",
+      "3": "+3V3"
+    },
+    "footprint": "TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-3-5.08_1x03_P5.08mm_Horizontal",
+    "datasheet": ""
+  },
+  {
+    "ref": "J4",
+    "value": "S18V20ALV_SET_4V0",
+    "pins": {
+      "1": "RUN_BAT",
+      "2": "GND",
+      "3": "MODEM_4V0"
+    },
+    "footprint": "TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-3-5.08_1x03_P5.08mm_Horizontal",
+    "datasheet": ""
+  },
+  {
+    "ref": "J5",
+    "value": "CHARGE_OFF_RUN_SWITCH",
+    "pins": {
+      "1": "PACK_POS",
+      "2": "CHARGE_POS",
+      "3": "RUN_BAT"
+    },
+    "footprint": "TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-3-5.08_1x03_P5.08mm_Horizontal",
+    "datasheet": ""
+  },
+  {
+    "ref": "J6",
+    "value": "SIM800L_4_PIN",
+    "pins": {
+      "1": "MODEM_4V0",
+      "2": "GND",
+      "3": "SIM_RX_2V8",
+      "4": "SIM_TX_2V8"
+    },
+    "footprint": "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical",
+    "datasheet": ""
+  },
+  {
+    "ref": "U1",
+    "value": "TXU0202DCUR",
+    "pins": {
+      "1": "SIM_TX_2V8",
+      "2": "GND",
+      "3": "+3V3",
+      "4": "MCU_SIM_RX",
+      "5": "MCU_SIM_TX",
+      "6": "UART_OE",
+      "7": "+2V8",
+      "8": "SIM_RX_2V8"
+    },
+    "footprint": "Package_SO:VSSOP-8_2.3x2mm_P0.5mm",
+    "datasheet": "https://www.ti.com/lit/ds/symlink/txu0202.pdf"
+  },
+  {
+    "ref": "U2",
+    "value": "TLV75528PDBVR",
+    "pins": {
+      "1": "+3V3",
+      "2": "GND",
+      "3": "+3V3",
+      "4": null,
+      "5": "+2V8"
+    },
+    "footprint": "Package_TO_SOT_SMD:SOT-23-5",
+    "datasheet": "https://www.ti.com/lit/ds/symlink/tlv755p.pdf"
+  },
+  {
+    "ref": "J7",
+    "value": "DEVKITM1_J1_15PIN",
+    "pins": {
+      "1": "GND",
+      "2": "+3V3",
+      "3": "+3V3",
+      "4": null,
+      "5": "SOS_N",
+      "6": "GND",
+      "7": null,
+      "8": "GND",
+      "9": "BAT_ADC",
+      "10": "UART_OE",
+      "11": "LED_DRIVE",
+      "12": "GND",
+      "13": null,
+      "14": null,
+      "15": "GND"
+    },
+    "footprint": "Connector_PinHeader_2.54mm:PinHeader_1x15_P2.54mm_Vertical",
+    "datasheet": ""
+  },
+  {
+    "ref": "J11",
+    "value": "DEVKITM1_J3_15PIN",
+    "pins": {
+      "1": "GND",
+      "2": null,
+      "3": null,
+      "4": "GND",
+      "5": null,
+      "6": null,
+      "7": "GND",
+      "8": "MCU_SIM_TX",
+      "9": "MCU_SIM_RX",
+      "10": "GPS_RX_3V3",
+      "11": "GPS_TX_3V3",
+      "12": "GND",
+      "13": null,
+      "14": null,
+      "15": "GND"
+    },
+    "footprint": "Connector_PinHeader_2.54mm:PinHeader_1x15_P2.54mm_Vertical",
+    "datasheet": ""
+  },
+  {
+    "ref": "J8",
+    "value": "NEO6_4_PIN_3V3_UART",
+    "pins": {
+      "1": "+3V3",
+      "2": "GND",
+      "3": "GPS_TX_3V3",
+      "4": "GPS_RX_3V3"
+    },
+    "footprint": "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical",
+    "datasheet": ""
+  },
+  {
+    "ref": "R1",
+    "value": "200k_1%",
+    "pins": {
+      "1": "RUN_BAT",
+      "2": "BAT_ADC"
+    },
+    "footprint": "Resistor_SMD:R_0603_1608Metric",
+    "datasheet": ""
+  },
+  {
+    "ref": "R2",
+    "value": "100k_1%",
+    "pins": {
+      "1": "BAT_ADC",
+      "2": "GND"
+    },
+    "footprint": "Resistor_SMD:R_0603_1608Metric",
+    "datasheet": ""
+  },
+  {
+    "ref": "C1",
+    "value": "100nF_10V",
+    "pins": {
+      "1": "BAT_ADC",
+      "2": "GND"
+    },
+    "footprint": "Capacitor_SMD:C_0603_1608Metric",
+    "datasheet": ""
+  },
+  {
+    "ref": "R3",
+    "value": "10k",
+    "pins": {
+      "1": "+3V3",
+      "2": "SOS_N"
+    },
+    "footprint": "Resistor_SMD:R_0603_1608Metric",
+    "datasheet": ""
+  },
+  {
+    "ref": "J9",
+    "value": "SOS_NO_BUTTON",
+    "pins": {
+      "1": "SOS_N",
+      "2": "GND"
+    },
+    "footprint": "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical",
+    "datasheet": ""
+  },
+  {
+    "ref": "C2",
+    "value": "100uF_LOW_ESR_10V",
+    "pins": {
+      "1": "MODEM_4V0",
+      "2": "GND"
+    },
+    "footprint": "Capacitor_SMD:CP_Elec_6.3x5.8",
+    "datasheet": ""
+  },
+  {
+    "ref": "C3",
+    "value": "1uF_10V",
+    "pins": {
+      "1": "MODEM_4V0",
+      "2": "GND"
+    },
+    "footprint": "Capacitor_SMD:C_0603_1608Metric",
+    "datasheet": ""
+  },
+  {
+    "ref": "C4",
+    "value": "1uF_10V",
+    "pins": {
+      "1": "+3V3",
+      "2": "GND"
+    },
+    "footprint": "Capacitor_SMD:C_0603_1608Metric",
+    "datasheet": ""
+  },
+  {
+    "ref": "C5",
+    "value": "1uF_10V",
+    "pins": {
+      "1": "+2V8",
+      "2": "GND"
+    },
+    "footprint": "Capacitor_SMD:C_0603_1608Metric",
+    "datasheet": ""
+  },
+  {
+    "ref": "C6",
+    "value": "100nF_10V",
+    "pins": {
+      "1": "+3V3",
+      "2": "GND"
+    },
+    "footprint": "Capacitor_SMD:C_0603_1608Metric",
+    "datasheet": ""
+  },
+  {
+    "ref": "C7",
+    "value": "100nF_10V",
+    "pins": {
+      "1": "+2V8",
+      "2": "GND"
+    },
+    "footprint": "Capacitor_SMD:C_0603_1608Metric",
+    "datasheet": ""
+  },
+  {
+    "ref": "R4",
+    "value": "1k",
+    "pins": {
+      "1": "LED_DRIVE",
+      "2": "LED_ANODE"
+    },
+    "footprint": "Resistor_SMD:R_0603_1608Metric",
+    "datasheet": ""
+  },
+  {
+    "ref": "D1",
+    "value": "PURPLE_LED",
+    "pins": {
+      "1": "GND",
+      "2": "LED_ANODE"
+    },
+    "footprint": "LED_SMD:LED_0603_1608Metric",
+    "datasheet": ""
+  },
+  {
+    "ref": "R5",
+    "value": "100k_OE_DEFAULT_OFF",
+    "pins": {
+      "1": "UART_OE",
+      "2": "GND"
+    },
+    "footprint": "Resistor_SMD:R_0603_1608Metric",
+    "datasheet": ""
+  }
+]
