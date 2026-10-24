@@ -1284,5 +1284,12 @@
     })();
   </script>
 
+<script>
+if (['127.0.0.1', 'localhost'].includes(location.hostname)) {
+ const link = document.createElement('a'); link.href = 'http://127.0.0.1:8800/'; link.className = 'btn btn-outline'; link.textContent = 'Test PayPal sandbox checkout';
+ const note = document.createElement('p'); note.textContent = 'Local test only: start paypal-sandbox/server.py first. USD test conversion is shown before approval. No real money or subscription.';
+ document.getElementById('shop').append(link, note);
+}
+</script>
 </body>
 </html>
