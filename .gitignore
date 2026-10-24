@@ -27,3 +27,10 @@ CNAME.txt
 .gitattributes
 gitattributes
 agent-records/
+
+**/server/safety/runtime/
+**/__pycache__/
+**/.edge-render-profile/
+**/web/config.js
+**/web/config.example.js
+**/.ctx/

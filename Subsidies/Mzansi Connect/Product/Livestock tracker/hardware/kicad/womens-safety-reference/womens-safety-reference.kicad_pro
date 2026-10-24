@@ -1,0 +1,17 @@
+{
+  "meta": {
+    "filename": "womens-safety-reference.kicad_pro",
+    "version": 1
+  },
+  "board": {},
+  "schematic": {},
+  "net_settings": {
+    "classes": [],
+    "meta": {
+      "version": 3
+    }
+  },
+  "text_variables": {
+    "DESIGN_STATUS": "ARCHITECTURE ONLY - NOT FOR FABRICATION"
+  }
+}

@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Mzansi Connect is creating personal safety wearables for women in South Africa. Meet the Pendant, Wristband and Clip designs, choose people you trust and try the demo.">
+  <meta name="keywords" content="Mzansi Connect, women personal safety South Africa, safety pendant, safety wristband, safety clip, trusted contacts, location sharing you control">
+  <meta property="og:title" content="Mzansi Connect — Personal Safety, On Your Terms">
+  <meta property="og:description" content="Three wearable ideas for women’s everyday lives. You choose who you trust and who can see your location. Meet the designs and try the demo.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="images/Logo.png">
+  <title>Purple · Mzansi Connect — Personal Safety, On Your Terms</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;900&family=Archivo+Black&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="images/Logo.png">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --sa-green: #007A4B;
+      --sa-gold: #FFB612;
+      --sa-red: #DE3831;
+      --sa-blue: #002395;
+      --sa-black: #000000;
+      --sa-white: #FFFFFF;
+      --black: #0A0A0A;
+      --dark: #1A1A1A;
+      --gray-900: #2A2A2A;
+      --gray-700: #555;
+      --gray-300: #CCC;
+      --gray-100: #F5F5F5;
+      --brutal-border: 4px solid var(--black);
+      --brutal-border-white: 4px solid var(--sa-white);
+    }
+
+    html { scroll-behavior: smooth; scroll-padding-top: 96px; }
+
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background: var(--sa-white);
+      color: var(--black);
+      line-height: 1.4;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 { font-family: 'Archivo Black', sans-serif; text-transform: uppercase; letter-spacing: -0.02em; }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+    /* ─── BRUTALIST BADGE ─── */
+    .badge {
+      display: inline-block;
+      padding: 6px 16px;
+      border: var(--brutal-border);
+      background: var(--sa-gold);
+      color: var(--black);
+      font-weight: 700;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 16px;
+    }
+
+    .badge-green { background: var(--sa-green); color: var(--sa-white); }
+    .badge-red { background: var(--sa-red); color: var(--sa-white); }
+    .badge-blue { background: var(--sa-blue); color: var(--sa-white); }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: var(--sa-white);
+      border-bottom: var(--brutal-border);
+      padding: 12px 0;
+    }
+
+    nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--black);
+    }
+
+    .nav-logo img, .nav-logo svg {
+      width: 42px;
+      height: 42px;
+      flex-shrink: 0;
+    }
+
+    .nav-logo span {
+      font-family: 'Archivo Black', sans-serif;
+      font-size: 1.2rem;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+
+    .nav-logo small {
+      display: block;
+      font-size: 0.55rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 500;
+      text-transform: none;
+      letter-spacing: 0.05em;
+      color: var(--gray-700);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      padding: 8px 14px;
+      border: 2px solid transparent;
+      color: var(--black);
+      transition: 0.15s;
+    }
+
+    .nav-links a:hover { border-color: var(--black); }
+
+    .nav-cta {
+      background: var(--sa-black) !important;
+      color: var(--sa-white) !important;
+      border-color: var(--sa-black) !important;
+    }
+
+    .nav-cta:hover { background: var(--sa-green) !important; border-color: var(--sa-green) !important; }
+
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .hamburger span { display: block; width: 28px; height: 3px; background: var(--black); }
+
+    /* ─── HERO ─── */
+    .hero {
+      padding: 140px 0 80px;
+      background: var(--sa-black);
+      color: var(--sa-white);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 40px,
+        rgba(255,255,255,0.02) 40px,
+        rgba(255,255,255,0.02) 80px
+      );
+      pointer-events: none;
+    }
+
+    .hero .container { position: relative; z-index: 1; }
+
+    .hero-badge {
+      display: inline-block;
+      padding: 8px 20px;
+      background: var(--sa-green);
+      color: var(--sa-white);
+      border: 3px solid var(--sa-white);
+      font-weight: 700;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 9vw, 7rem);
+      line-height: 0.95;
+      margin-bottom: 8px;
+    }
+
+    .hero h1 .highlight { color: var(--sa-gold); }
+
+    .hero-sub {
+      font-size: clamp(1.2rem, 3vw, 2rem);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--sa-gold);
+      margin-bottom: 24px;
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      max-width: 680px;
+      color: rgba(255,255,255,0.8);
+      line-height: 1.6;
+      margin-bottom: 32px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 36px;
+      font-family: 'Archivo Black', sans-serif;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 3px solid var(--black);
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .btn-white { background: var(--sa-white); color: var(--black); }
+    .btn-white:hover { background: var(--sa-gold); transform: translate(-3px, -3px); }
+
+    .btn-gold { background: var(--sa-gold); color: var(--black); }
+    .btn-gold:hover { background: var(--sa-green); color: var(--sa-white); transform: translate(-3px, -3px); }
+
+    .btn-outline-white { background: transparent; color: var(--sa-white); border-color: var(--sa-white); }
+    .btn-outline-white:hover { background: var(--sa-white); color: var(--black); transform: translate(-3px, -3px); }
+
+    .hero-stat {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border: 2px solid rgba(255,255,255,0.3);
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .hero-stat strong {
+      font-family: 'Archivo Black', sans-serif;
+      font-size: 1.4rem;
+      color: var(--sa-gold);
+    }
+
+    /* ─── FLAG STRIP ─── */
+    .flag-strip {
+      display: flex;
+      height: 8px;
+      width: 100%;
+    }
+    .flag-strip span { flex: 1; }
+    .flag-strip span:nth-child(1) { background: var(--sa-green); }
+    .flag-strip span:nth-child(2) { background: var(--sa-gold); }
+    .flag-strip span:nth-child(3) { background: var(--sa-red); }
+    .flag-strip span:nth-child(4) { background: var(--sa-blue); }
+    .flag-strip span:nth-child(5) { background: var(--sa-black); }
+    .flag-strip span:nth-child(6) { background: var(--sa-white); }
+
+    /* ─── SECTION BASE ─── */
+    section { padding: 80px 0; border-bottom: var(--brutal-border); }
+
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .section-label .line {
+      flex: 1;
+      height: 4px;
+      background: var(--black);
+    }
+
+    .section-label span {
+      font-family: 'Archivo Black', sans-serif;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      white-space: nowrap;
+    }
+
+    section h2 {
+      font-size: clamp(1.7rem, 4.5vw, 3.5rem);
+      line-height: 1;
+      margin-bottom: 20px;
+      max-width: 800px;
+    }
+
+    section h2 .highlight-green { color: var(--sa-green); }
+    section h2 .highlight-gold { color: var(--sa-gold); }
+    section h2 .highlight-red { color: var(--sa-red); }
+    section h2 .highlight-blue { color: var(--sa-blue); }
+
+    .section-desc {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      max-width: 680px;
+      color: var(--gray-700);
+      margin-bottom: 40px;
+    }
+
+    /* ─── PROBLEM / SOLUTION ─── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+
+    .problem-box {
+      border: var(--brutal-border);
+      background: var(--sa-white);
+      padding: 36px;
+    }
+
+    .problem-box.red { border-color: var(--sa-red); background: #FFF5F5; }
+    .problem-box.green { border-color: var(--sa-green); background: #F0FFF5; }
+    .problem-box.blue { border-color: var(--sa-blue); background: #F0F5FF; }
+    .problem-box.gold { border-color: var(--sa-gold); background: #FFFEF0; }
+
+    .problem-box h3 {
+      font-size: 1.4rem;
+      margin-bottom: 16px;
+    }
+
+    .problem-box ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .problem-box ul li {
+      padding-left: 24px;
+      position: relative;
+      font-weight: 500;
+    }
+
+    .problem-box ul li::before {
+      content: '› ';
+      position: absolute;
+      left: 0;
+      font-weight: 900;
+    }
+
+    .problem-box.red ul li::before { color: var(--sa-red); }
+    .problem-box.green ul li::before { color: var(--sa-green); }
+
+    /* ─── PRODUCT GRID ─── */
+    .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+
+    .product-card {
+      border: var(--brutal-border);
+      background: var(--sa-white);
+      padding: 32px;
+      transition: 0.2s;
+      position: relative;
+    }
+
+    .product-card:hover { transform: translate(-4px, -4px); box-shadow: 8px 8px 0 var(--black); }
+
+    .product-card .card-icon {
+      font-size: 2.5rem;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .product-card h3 {
+      font-size: 1.15rem;
+      margin-bottom: 12px;
+    }
+
+    .product-card .card-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      border: 2px solid var(--black);
+      margin-bottom: 12px;
+    }
+
+    .product-card .card-badge.green { background: var(--sa-green); color: var(--sa-white); border-color: var(--sa-green); }
+    .product-card .card-badge.gold { background: var(--sa-gold); }
+    .product-card .card-badge.red { background: var(--sa-red); color: var(--sa-white); border-color: var(--sa-red); }
+    .product-card .card-badge.blue { background: var(--sa-blue); color: var(--sa-white); border-color: var(--sa-blue); }
+
+    .product-card ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .product-card ul li {
+      font-size: 0.88rem;
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .product-card ul li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      font-weight: 900;
+      color: var(--sa-green);
+    }
+
+    .product-card .benefits {
+      border-top: 2px solid var(--gray-300);
+      padding-top: 12px;
+      margin-top: 12px;
+    }
+
+    .product-card .benefits strong {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .product-card .benefits ul li::before { content: '→'; color: var(--sa-gold); }
+
+    /* ─── GROUNDBREAKING ─── */
+    .ground-section {
+      background: var(--sa-black);
+      color: var(--sa-white);
+      border-bottom: var(--brutal-border);
+    }
+
+    .ground-section h2 { color: var(--sa-white); }
+    .ground-section .section-desc { color: rgba(255,255,255,0.7); }
+    .ground-section .section-label span { color: var(--sa-white); }
+    .ground-section .section-label .line { background: var(--sa-white); }
+
+    .idea-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+
+    .idea-card {
+      border: 3px solid rgba(255,255,255,0.2);
+      padding: 32px;
+      transition: 0.2s;
+    }
+
+    .idea-card:hover { border-color: var(--sa-gold); background: rgba(255,182,18,0.05); }
+
+    .idea-card .idea-icon { font-size: 2rem; margin-bottom: 12px; display: block; }
+    .idea-card h3 { font-size: 1.1rem; margin-bottom: 8px; color: var(--sa-gold); }
+
+    .idea-card .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 12px 0;
+    }
+
+    .idea-card .tags span {
+      padding: 3px 10px;
+      border: 1px solid rgba(255,255,255,0.3);
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .idea-card p { font-size: 0.9rem; color: rgba(255,255,255,0.7); line-height: 1.5; }
+
+    /* ─── ECOSYSTEM ─── */
+    .eco-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+
+    .eco-card {
+      border: var(--brutal-border);
+      background: var(--sa-white);
+      padding: 36px;
+      text-align: center;
+      transition: 0.2s;
+    }
+
+    .eco-card:hover { transform: scale(1.02); }
+
+    .eco-card .eco-icon {
+      font-size: 3rem;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .eco-card h3 { font-size: 1.3rem; margin-bottom: 8px; }
+
+    .eco-card p { font-size: 0.95rem; color: var(--gray-700); line-height: 1.5; }
+
+    .eco-card .eco-logo {
+      width: 84px;
+      height: 84px;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto 16px;
+    }
+
+    /* ─── IMPACT ─── */
+    .impact-strip {
+      background: var(--sa-green);
+      color: var(--sa-white);
+      border-bottom: var(--brutal-border);
+    }
+
+    .impact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; }
+
+    .impact-item {
+      border: 3px solid var(--sa-white);
+      padding: 32px 24px;
+      text-align: center;
+    }
+
+    .impact-item .impact-num {
+      font-family: 'Archivo Black', sans-serif;
+      font-size: 3rem;
+      color: var(--sa-gold);
+      margin-bottom: 4px;
+    }
+
+    .impact-item p {
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+    }
+
+    /* ─── VISION ─── */
+    .vision-section {
+      background: var(--sa-blue);
+      color: var(--sa-white);
+    }
+
+    .vision-section h2 { color: var(--sa-white); }
+    .vision-section .section-desc { color: rgba(255,255,255,0.7); }
+
+    .vision-block {
+      border: 3px solid rgba(255,255,255,0.3);
+      padding: 40px;
+      margin-top: 36px;
+      position: relative;
+    }
+
+    .vision-block::before {
+      content: '"';
+      font-family: 'Archivo Black', sans-serif;
+      font-size: 6rem;
+      position: absolute;
+      top: -10px;
+      left: 16px;
+      color: var(--sa-gold);
+      opacity: 0.5;
+      line-height: 1;
+    }
+
+    .vision-block p {
+      font-size: 1.3rem;
+      line-height: 1.5;
+      max-width: 700px;
+      font-weight: 500;
+    }
+
+    .vision-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-top: 36px;
+    }
+
+    .vision-item {
+      border: 3px solid rgba(255,255,255,0.2);
+      padding: 20px;
+      text-align: center;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      letter-spacing: 0.03em;
+    }
+
+    .vision-item:hover { border-color: var(--sa-gold); background: rgba(255,182,18,0.08); }
+
+    /* ─── CTA ─── */
+    .cta-section {
+      background: var(--sa-gold);
+      text-align: center;
+      border-bottom: var(--brutal-border);
+    }
+
+    .cta-section h2 { max-width: 100%; }
+    .cta-section p { font-size: 1.1rem; max-width: 600px; margin: 0 auto 32px; }
+
+    .cta-actions { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; }
+
+    .btn-cta-black { background: var(--sa-black); color: var(--sa-white); border-color: var(--sa-black); }
+    .btn-cta-black:hover { background: var(--sa-green); border-color: var(--sa-green); transform: translate(-3px, -3px); }
+
+    .btn-cta-outline { background: transparent; color: var(--sa-black); border-color: var(--sa-black); }
+    .btn-cta-outline:hover { background: var(--sa-black); color: var(--sa-white); transform: translate(-3px, -3px); }
+
+    .contact-form { max-width: 640px; margin: 32px auto 0; text-align: left; }
+    .contact-form .form-row { display: flex; gap: 16px; }
+    .contact-form .form-row input { flex: 1; }
+    .contact-form input, .contact-form textarea {
+      width: 100%;
+      padding: 14px 18px;
+      border: 3px solid var(--black);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.95rem;
+      background: var(--sa-white);
+      color: var(--black);
+      margin-bottom: 16px;
+      box-sizing: border-box;
+    }
+    .contact-form input:focus, .contact-form textarea:focus {
+      outline: none;
+      border-color: var(--sa-green);
+    }
+    .contact-form .form-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+    .contact-form .form-status {
+      margin-top: 12px;
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+    .contact-form .form-status.success { color: var(--sa-green); }
+    .contact-form .form-status.error { color: var(--sa-red); }
+
+    .prototype-spotlight {
+      background: var(--sa-black);
+      border-bottom: var(--brutal-border);
+      padding: 80px 0;
+    }
+    .proto-specs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 32px;
+      margin: 36px 0;
+    }
+    .proto-col {
+      border: 3px solid rgba(255,255,255,0.2);
+      padding: 28px;
+    }
+    .proto-col h4 {
+      font-size: 0.85rem;
+      color: var(--sa-gold);
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .proto-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .proto-col ul li {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.8);
+      padding-left: 20px;
+      position: relative;
+    }
+    .proto-col ul li::before {
+      content: '› ';
+      position: absolute;
+      left: 0;
+      color: var(--sa-gold);
+    }
+    .proto-gallery {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 36px 0;
+    }
+    .gallery-item {
+      border: 3px solid rgba(255,255,255,0.2);
+      overflow: hidden;
+      background: rgba(255,255,255,0.05);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      background: rgba(255,255,255,0.05);
+    }
+    @media (max-width: 600px) {
+      .proto-gallery { grid-template-columns: 1fr; }
+    }
+    .proto-gallery { content-visibility: auto; contain-intrinsic-size: auto 800px; }
+
+    .proto-arch {
+      margin: 36px 0;
+      padding: 32px;
+      border: 3px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.03);
+    }
+    .proto-arch h4 {
+      font-size: 0.75rem;
+      color: var(--sa-gold);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 20px;
+    }
+    .arch-diagram {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      text-align: center;
+    }
+    .arch-node {
+      display: inline-block;
+      border: 2px solid var(--sa-gold);
+      padding: 12px 20px;
+      font-weight: 700;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      color: var(--sa-white);
+      background: rgba(255,182,18,0.08);
+    }
+    .arch-node small {
+      display: block;
+      font-weight: 400;
+      font-size: 0.65rem;
+      color: rgba(255,255,255,0.6);
+      text-transform: none;
+      margin-top: 4px;
+    }
+    .arch-node.small {
+      font-size: 0.7rem;
+      padding: 8px 14px;
+      border-color: rgba(255,255,255,0.3);
+    }
+    .arch-arrow {
+      color: var(--sa-gold);
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+    .arch-arrow small {
+      display: block;
+      font-size: 0.55rem;
+      color: rgba(255,255,255,0.5);
+      text-transform: none;
+    }
+    .arch-arrow.branch {
+      display: none;
+    }
+    .proto-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 32px;
+    }
+
+    @media (max-width: 768px) {
+      .proto-specs { grid-template-columns: 1fr 1fr; }
+      .arch-diagram { flex-direction: column; }
+    }
+
+    @media (max-width: 480px) {
+      .proto-specs { grid-template-columns: 1fr; }
+      .contact-form .form-row { flex-direction: column; gap: 0; }
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--sa-black);
+      color: var(--sa-white);
+      padding: 48px 0 24px;
+    }
+
+    footer .container {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 48px;
+    }
+
+    footer h4 { font-size: 0.85rem; margin-bottom: 16px; color: var(--sa-gold); }
+
+    footer p, footer a {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      display: block;
+      line-height: 1.8;
+    }
+
+    footer a:hover { color: var(--sa-gold); }
+
+    footer .footer-brand {
+      font-family: 'Archivo Black', sans-serif;
+      font-size: 1.3rem;
+      text-transform: uppercase;
+      color: var(--sa-white);
+      margin-bottom: 8px;
+    }
+
+    footer .footer-subsidiary {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--sa-gold);
+      margin-bottom: 12px;
+    }
+
+    footer .footer-bottom {
+      grid-column: 1 / -1;
+      border-top: 2px solid rgba(255,255,255,0.15);
+      padding-top: 20px;
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    footer .footer-bottom p { font-size: 0.75rem; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      .hamburger { display: flex; }
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--sa-white); border-bottom: var(--brutal-border); padding: 16px 24px; }
+      .nav-links.open { display: flex; }
+      .two-col { grid-template-columns: 1fr; gap: 24px; }
+      footer .container { grid-template-columns: 1fr; }
+      .hero { padding: 112px 0 56px; }
+      section { padding: 48px 0; }
+      .problem-box { padding: 28px; }
+      .vision-block { padding: 28px; }
+      .proto-gallery { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 480px) {
+      .container { padding: 0 16px; }
+      .nav-logo img { width: 44px !important; height: 44px !important; }
+      .nav-logo span { font-size: 1rem; }
+      .nav-logo small { font-size: 0.5rem; }
+      nav { padding: 8px 0; }
+      .hero { padding: 108px 0 40px; }
+      .hero h1 { font-size: 1.9rem; line-height: 1.05; }
+      .hero-sub { font-size: 1rem; }
+      .hero p { font-size: 0.95rem; margin-bottom: 24px; }
+      .hero-badge { font-size: 0.65rem; padding: 6px 12px; }
+      .hero-stat { font-size: 0.7rem; padding: 8px 12px; }
+      .hero-stat strong { font-size: 1.05rem; }
+      .hero-actions { flex-direction: column; align-items: stretch; margin-bottom: 24px; }
+      .hero-actions .btn { width: 100%; text-align: center; padding: 13px 20px; }
+      section { padding: 40px 0; }
+      section h2 { font-size: 1.5rem; }
+      .section-desc { font-size: 0.95rem; margin-bottom: 28px; }
+      .section-label { margin-bottom: 16px; }
+      .product-grid { grid-template-columns: 1fr; }
+      .product-card { padding: 24px; }
+      .idea-grid { grid-template-columns: 1fr; }
+      .idea-card { padding: 24px; }
+      .eco-grid { grid-template-columns: 1fr; }
+      .eco-card { padding: 24px; }
+      .eco-card .eco-logo { width: 64px; height: 64px; }
+      .impact-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+      .impact-item { padding: 20px 12px; }
+      .impact-item .impact-num { font-size: 2rem; }
+      .impact-item p { font-size: 0.7rem; }
+      .vision-block { padding: 24px; margin-top: 24px; }
+      .vision-block::before { font-size: 4rem; top: -8px; left: 12px; }
+      .vision-block p { font-size: 1.05rem; }
+      .vision-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+      .vision-item { padding: 14px; font-size: 0.75rem; }
+      .cta-section p { font-size: 0.95rem; }
+      .btn { padding: 12px 20px; font-size: 0.8rem; }
+      .contact-form input, .contact-form textarea { padding: 12px 14px; font-size: 0.9rem; }
+      .proto-col { padding: 20px; }
+      .proto-arch { padding: 20px; }
+      .proto-actions { flex-direction: column; align-items: stretch; }
+      .proto-actions .btn { width: 100%; text-align: center; }
+      .cta-actions { flex-direction: column; align-items: stretch; }
+      .cta-actions .btn { width: 100%; text-align: center; }
+      footer { padding: 32px 0 16px; }
+      footer .container { gap: 24px; }
+      footer .footer-brand { font-size: 1.1rem; }
+      .product-card > div[style*="grid-template-columns:auto 1fr"] { grid-template-columns: 1fr !important; gap: 12px !important; }
+      .product-card .card-icon { font-size: 2.5rem; }
+      .product-card > div[style*="grid-template-columns:auto 1fr"] > div > div[style*="grid-template-columns:1fr 1fr 1fr"] { grid-template-columns: 1fr 1fr 1fr !important; gap: 8px !important; }
+      .product-card .benefits ul[style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; }
+    }
+
+    /* Personal safety content, within the existing Mzansi Connect layout. */
+    .safety-hero-grid { display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center; }
+    .safety-hero-grid h1 { font-size:clamp(2.5rem,5.2vw,4.6rem);line-height:1.03; }
+    .safety-hero-grid .hero-sub { font-size:1rem;line-height:1.5;margin:20px 0; }
+    .safety-figure { margin:0;min-width:0;border:3px solid rgba(255,255,255,.3);background:#f6f4ec; }
+    .safety-figure img { display:block;width:100%;height:auto; }
+    .concept-note { padding:16px 20px;background:#f7f3e7;color:#292a24;font-size:.85rem;line-height:1.6;margin:0; }
+    .hero .concept-note { max-width:none;margin:0;color:#292a24;font-size:.82rem; }
+    .safety-gallery-note { color:rgba(255,255,255,.8);max-width:800px;line-height:1.7; }
+    .gallery-item figcaption { display:block; }
+    .safety-intent { padding:18px 22px;border-left:5px solid var(--sa-green);background:#eef7f1;line-height:1.7;margin:24px 0; }
+    .safety-status { color:var(--sa-gold);font-size:.9rem;line-height:1.7;margin:24px 0;max-width:850px; }
+    .safety-origin { border:var(--brutal-border);padding:28px;margin-top:36px;background:var(--gray-100); }
+    .safety-origin h3 { font-size:1.05rem;margin-bottom:12px; }
+    .safety-origin p { color:var(--gray-700);line-height:1.7; }
+    .contact-form label { display:block;font-weight:700;font-size:.85rem;flex:1;min-width:0; }
+    .contact-form label input { margin-top:6px; }
+    .contact-form label textarea { margin-top:6px; }
+    .privacy-note { font-size:.85rem!important;line-height:1.6;max-width:640px!important; }
+    .eco-card .btn-outline-white { color:var(--black);border-color:var(--black); }
+    a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible { outline:3px solid var(--sa-blue);outline-offset:4px; }
+    @media(max-width:900px) { .safety-hero-grid { grid-template-columns:1fr;gap:28px; } .safety-hero-grid h1 { font-size:clamp(2.2rem,7vw,4.6rem); } .safety-figure { max-width:680px; } }
+    @media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } * { transition:none!important; } }
+    .product-visual { margin:18px 0 24px; }
+    .product-visual img { display:block;width:100%;height:270px;min-height:220px;object-fit:contain;background:#eeeeeb;border:2px solid #deded7; }
+    .product-visual figcaption { padding:10px 2px;color:var(--gray-700);font-size:.78rem;line-height:1.5; }
+    .product-card { display:flex;flex-direction:column; }
+    .product-card .card-badge { align-self:flex-start; }
+    .product-card .benefits { margin-top:auto;padding-top:16px; }
+    .theme-switch { color:var(--sa-gold);font-size:.9rem;font-weight:700;text-underline-offset:4px;display:inline-block;margin:0 0 26px; }
+    .theme-switch:hover { color:var(--sa-white); }
+    @media(max-width:480px) { .product-visual img { height:250px; } }
+
+    .look-picker{display:inline-flex;flex-wrap:wrap;gap:6px;padding:5px;border:1px solid currentColor;border-radius:999px;margin:0 0 20px;color:var(--sa-gold)}
+    .look-picker a{font-size:.9rem;font-weight:700;padding:9px 16px;border-radius:999px;text-decoration:none;color:inherit}
+    .look-picker .theme-switch{margin:0}
+    .look-picker a[aria-current="page"]{background:var(--sa-gold);color:#130d20}
+    .safety-shop{background:#f7f6f2;padding:76px 0;color:#172c25}
+    .shop-heading{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:30px}
+    .shop-heading p{max-width:560px;font-size:1rem;line-height:1.7}
+    .shop-kicker{font-size:.88rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px;color:#476b5b}
+    .shop-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+    .shop-card{border:1px solid #cdd8d1;border-radius:24px;overflow:hidden;background:#fff;display:flex;flex-direction:column}
+    .shop-card img{display:block;width:100%;height:240px;object-fit:cover;background:#ece9f0}
+    .shop-card-copy{padding:24px;flex:1;display:flex;flex-direction:column;align-items:start;gap:12px}
+    .shop-card h3{font:700 1.5rem 'Space Grotesk',sans-serif;letter-spacing:-.03em;color:inherit;margin:0}
+    .shop-card p{font-size:.95rem;line-height:1.7;color:inherit;margin:0}
+    .shop-price{font-size:2.1rem;font-weight:700;letter-spacing:-.06em}.shop-price small{font-size:.95rem;letter-spacing:0;font-weight:400}
+    .shop-card .btn{margin-top:auto;border-radius:12px;font-size:.9rem;letter-spacing:0;text-transform:none;padding:13px 18px}
+    .shop-calculator{margin-top:24px;padding:28px;border:1px solid #cdd8d1;background:#eaf0eb;border-radius:24px;display:grid;grid-template-columns:1fr 1.2fr;gap:28px}
+    .shop-calculator h3{font:700 1.3rem 'Space Grotesk',sans-serif;margin-bottom:16px;color:inherit}
+    .shop-calculator label{font-weight:600;font-size:.95rem;display:block;margin-bottom:8px}
+    .shop-calculator select{font:inherit;background:#fff;color:#172c25;border:1px solid #8a9f92;border-radius:10px;padding:12px;width:100%;max-width:240px}
+    .shop-totals{display:grid;grid-template-columns:1fr 1fr;gap:20px}.shop-totals dt{font-size:.9rem;margin-bottom:6px}.shop-totals dd{font-size:2rem;font-weight:700;margin:0;letter-spacing:-.04em}.shop-totals dd small{font-size:.95rem;font-weight:400;letter-spacing:0}
+    .shop-details{grid-column:1/-1;font-size:.95rem;line-height:1.8}.shop-details p{margin:0 0 10px}.shop-details strong{color:inherit}
+    .purple-story{display:grid;grid-template-columns:.7fr 1.3fr;gap:36px;align-items:start;margin-top:42px;padding-top:32px;border-top:1px solid #cdd8d1;font-size:1rem;line-height:1.8}.purple-story h3{font:700 1.8rem 'Space Grotesk',sans-serif;letter-spacing:-.04em}.purple-story a{color:inherit;text-decoration:underline;text-underline-offset:4px}
+    @media(max-width:760px){.shop-heading{display:block}.shop-grid{grid-template-columns:1fr}.shop-card{display:grid;grid-template-columns:.8fr 1fr}.shop-card img{height:100%;min-height:260px}.shop-card-copy{padding:20px}.shop-calculator,.purple-story{grid-template-columns:1fr}.shop-heading h2{margin-bottom:18px}.shop-totals dd{font-size:1.65rem}}
+    @media(max-width:440px){.shop-card{display:flex}.shop-card img{height:230px;min-height:0}.shop-calculator{padding:20px}.shop-totals{grid-template-columns:1fr}.look-picker a{padding:8px 12px}}
+  </style>
+  <link rel="stylesheet" href="purple.css">
+</head>
+<body>
+
+  <!-- ─── FLAG STRIP TOP ─── -->
+  <div class="flag-strip" style="position:fixed;top:0;left:0;right:0;z-index:1001;">
+    <span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>
+
+  <!-- ─── NAV ─── -->
+  <nav style="top:8px;">
+    <div class="container">
+      <a href="#" class="nav-logo">
+        <img src="images/Logo.png" alt="Mzansi Connect" style="width:83px;height:83px;object-fit:contain;flex-shrink:0;" fetchpriority="high" width="1536" height="1024">
+        <div>
+          <span>Mzansi<br>Connect</span>
+          <small>Skyline IT Company</small>
+        </div>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#prototype" class="nav-cta">Try the demo</a></li>
+        <li><a href="#products">Our products</a></li>
+        <li><a href="#shop">Shop</a></li>
+        <li><a href="#ecosystem">Our apps</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-controls="navLinks" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ─── HERO ─── -->
+  <section class="hero" id="home">
+    <div class="container safety-hero-grid">
+      <div>
+        <div class="hero-badge">Purple · Stand together against GBV</div>
+        <h1>Your life.<br><span class="highlight">Your choice.</span></h1>
+        <div class="hero-sub">Designed around women’s everyday lives in South Africa.</div>
+        <p>A pendant, a wristband and a clip, all with one simple aim: to help you reach people you trust. You choose who can see your location and when to share it.</p>
+        <div class="hero-actions">
+          <a href="#products" class="btn btn-gold">Meet our three designs</a>
+          <a href="Product/Livestock tracker/web/?theme=purple" class="btn btn-outline-white">Try the safety demo</a>
+        </div>
+        <div class="look-picker" aria-label="Website appearance"><a class="theme-switch" href="../index.html">Original look</a><a href="index.html" aria-current="page">Purple look</a></div><br>
+        <div class="hero-stat"><strong>3 ways to wear it</strong> · Your contacts. Your choice.</div>
+      </div>
+      <figure class="safety-figure">
+        <img src="images/safety/purple-community.png" alt="Two women together in a South African city, with a proposed safety pendant" fetchpriority="high" decoding="async" width="1672" height="941">
+        <figcaption class="concept-note"><strong>Early design image.</strong> Features shown are ideas, not tested promises. Battery life, water protection, mobile signal and calls still need testing.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+
+  <section class="safety-shop" id="shop" aria-labelledby="shop-title">
+    <div class="container">
+      <div class="shop-heading"><div><div class="shop-kicker">The Mzansi collection</div><h2 id="shop-title">Your day.<br>Your way to wear it.</h2></div><p>Three personal safety designs. One clear payment plan. Choose the style that fits your routine and explore the proposed cost for your household.</p></div>
+      <div class="shop-grid">
+        <article class="shop-card"><img src="images/safety/pendant-product.png" alt="Mzansi Connect Pendant concept design" loading="lazy" width="1024" height="1024"><div class="shop-card-copy"><h3>Pendant</h3><p>A discreet design to wear close, from your morning commute to your evening plans.</p><div class="shop-price">R350 <small>/ month</small></div><p>First device · first 6 months<br>Then R50 / month for service</p><a class="btn btn-gold shop-enquire" href="mailto:projectpstg@gmail.com?subject=Mzansi%20Connect%20Pendant%20enquiry" data-design="Pendant">Email an enquiry</a></div></article>
+        <article class="shop-card"><img src="images/safety/wristband-product.png" alt="Mzansi Connect Wristband concept design" loading="lazy" width="1024" height="1024"><div class="shop-card-copy"><h3>Wristband</h3><p>An everyday design for your wrist, with your chosen people in mind.</p><div class="shop-price">R350 <small>/ month</small></div><p>First device · first 6 months<br>Then R50 / month for service</p><a class="btn btn-gold shop-enquire" href="mailto:projectpstg@gmail.com?subject=Mzansi%20Connect%20Wristband%20enquiry" data-design="Wristband">Email an enquiry</a></div></article>
+        <article class="shop-card"><img src="images/safety/clip-product.png" alt="Mzansi Connect Clip concept design" loading="lazy" width="1024" height="1024"><div class="shop-card-copy"><h3>Clip</h3><p>A flexible design for a bag or clothing, made to fit into your day.</p><div class="shop-price">R350 <small>/ month</small></div><p>First device · first 6 months<br>Then R50 / month for service</p><a class="btn btn-gold shop-enquire" href="mailto:projectpstg@gmail.com?subject=Mzansi%20Connect%20Clip%20enquiry" data-design="Clip">Email an enquiry</a></div></article>
+      </div>
+      <div class="shop-calculator">
+        <div><h3>A plan that adds up.</h3><label for="shop-quantity">Devices on your account</label><select id="shop-quantity"><option value="1">1 device</option><option value="2">2 devices</option><option value="3">3 devices</option><option value="4">4 devices</option><option value="5">5 devices</option><option value="6">6 devices</option><option value="7">7 devices</option><option value="8">8 devices</option><option value="9">9 devices</option><option value="10">10 devices</option></select></div>
+        <dl class="shop-totals" aria-live="polite" aria-atomic="true"><div><dt>Months 1–6 · all devices</dt><dd><span id="shop-initial">R350</span> <small>/ month</small></dd></div><div><dt>From month 7 · service only</dt><dd><span id="shop-ongoing">R50</span> <small>/ month</small></dd></div></dl>
+        <div class="shop-details"><p><strong>How the price works:</strong> R300 per device per month for 6 months (R1,800 per device). Service is R50 per month for your first device, plus R25 per month for each additional device on the same account.</p><p id="shop-breakdown">For 1 device: R300 device payment + R50 service = R350 per month for 6 months.</p><p><strong>Concept collection · enquiries open.</strong> These devices are still in development. No payment is taken here. Email an enquiry opens your email app with a draft; you choose whether to send it. Availability, delivery and final service terms will be confirmed before an order.</p></div>
+      </div>
+      <div class="purple-story"><h3>Purple with purpose.</h3><div><p>In South Africa, Women For Change’s Purple Movement uses purple as a visible act of solidarity against gender-based violence and femicide. People changed their profile pictures to purple to bring attention to the crisis.</p><p>Our Purple look carries that spirit of solidarity into this design: women’s choices, dignity and the people they trust. Mzansi Connect is independent and is not affiliated with or endorsed by Women For Change.</p><a href="https://womenforchange.co.za/project/purple-movement/" target="_blank" rel="noopener noreferrer">Read about the Purple Movement at Women For Change ↗</a></div></div>
+    </div>
+  </section>
+
+  <!-- ─── FLAG STRIP ─── -->
+  <div class="flag-strip"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+
+  <!-- ─── PROBLEM + SOLUTION ─── -->
+  <section id="about">
+    <div class="container">
+      <div class="section-label"><span>The Challenge</span><div class="line"></div></div>
+      <h2>Built around <span class="highlight-green">women’s choices</span></h2>
+      <p class="section-desc">You deserve to work, study, travel and spend time with others on your own terms. Violence and harassment are never your fault. Our aim is to make reaching people you trust easier.</p>
+      <div class="two-col">
+        <div class="problem-box red"><h3>What matters</h3><ul>
+          <li>A button you can find by touch</li><li>Clear signs that your button press was noticed</li><li>Knowing when location or mobile signal is missing</li><li>Working with affordable phones and less mobile data</li><li>Sharing without unwanted tracking</li>
+        </ul></div>
+        <div class="problem-box green"><h3>What guides our design</h3><ul>
+          <li>You choose the people you trust</li><li>You decide who can see your location and can stop future sharing</li><li>No public location pages or hidden tracking</li><li>Know the difference between an alert being sent and a person seeing it</li><li>Comfort, easy-to-use controls and clear messages</li>
+        </ul></div>
+      </div>
+      <p class="safety-intent">We are designing for women’s everyday safety, including those affected by gender-based violence. We still need to listen to users and test the devices. Whether you wear one is always your choice. You deserve support either way.</p>
+    </div>
+  </section>
+
+  <!-- ─── PROTOTYPE SPOTLIGHT ─── -->
+  <section class="prototype-spotlight" id="prototype">
+    <div class="container">
+      <div class="section-label"><span style="color:var(--sa-white);">A First Look</span><div class="line" style="background:var(--sa-white);"></div></div>
+      <h2 style="color:var(--sa-white);">One family. <span style="color:var(--sa-gold);">People you trust.</span></h2>
+      <p class="section-desc" style="color:rgba(255,255,255,.8);max-width:850px;">Our plan is simple: press for help, share what is available and keep your chosen people informed. Try the demo to explore the app with made-up details and practice alerts.</p>
+      <div class="proto-specs">
+        <div class="proto-col"><h4>01 · Press for help</h4><ul><li>We are exploring an SOS button you can find by touch</li><li>An alert should start with a clear choice to ask for help</li><li>A sign that the button was pressed must not mean an alert was delivered</li></ul></div>
+        <div class="proto-col"><h4>02 · Share where you are</h4><ul><li>Show when your location was recorded</li><li>Make old or uncertain locations clear</li><li>Say clearly when your location is not available</li></ul></div>
+        <div class="proto-col"><h4>03 · Choose your people</h4><ul><li>Invite someone you trust and let them accept</li><li>Choose who can see a particular alert</li><li>Stop future sharing when you choose</li></ul></div>
+        <div class="proto-col"><h4>04 · Know what happened</h4><ul><li>An alert being recorded does not mean help is on the way</li><li>See when a chosen person says they have seen it</li><li>Your alert should not close just because you stop moving</li></ul></div>
+      </div>
+      <p class="safety-status"><strong>This is a demo, not a live safety service.</strong> Practice alerts do not send texts, phone notifications or messages to emergency services. The devices still need tests for mobile signal, charging, comfort and the SOS button.</p>
+      <div class="proto-gallery">
+        <figure class="gallery-item"><img src="images/safety/safer-tomorrow.png" alt="Design idea showing women using Mzansi Connect in everyday life" loading="lazy" decoding="async" width="1536" height="1024"><figcaption class="concept-note"><strong>Early design image.</strong> Features shown are ideas, not tested promises. Battery life, water protection, mobile signal and calls still need testing.</figcaption></figure>
+        <figure class="gallery-item"><img src="images/safety/tracker-family.png" alt="Early product ideas for the Pendant, Wristband and Clip" loading="lazy" decoding="async" width="1536" height="1024"><figcaption class="concept-note"><strong>Early design image.</strong> Features shown are ideas, not tested promises. Battery life, water protection, mobile signal and calls still need testing.</figcaption></figure>
+        <figure class="gallery-item" style="grid-column:1/-1;"><img src="images/safety/family-five-views.png" alt="Early designs showing how the three products might look, be worn and charge" loading="lazy" decoding="async" width="1536" height="1024"><figcaption class="concept-note"><strong>Early design image.</strong> Features shown are ideas, not tested promises. Battery life, water protection, mobile signal and calls still need testing. These pictures show the design idea; they are not plans for making a finished product.</figcaption></figure>
+      </div>
+      <div class="proto-arch"><h4>How we want it to work</h4><div class="arch-diagram">
+        <span class="arch-node">Press for help<small>A clear action from you</small></span><span class="arch-arrow" aria-hidden="true">→</span><span class="arch-node">Try to send the alert<small>Location may not be available</small></span><span class="arch-arrow" aria-hidden="true">→</span><span class="arch-node">Alert is recorded<small>Someone may not have seen it yet</small></span><span class="arch-arrow" aria-hidden="true">→</span><span class="arch-node">Your chosen person responds<small>They tell you what they can do</small></span>
+      </div></div>
+      <div class="proto-actions"><a href="Product/Livestock tracker/web/?theme=purple" class="btn btn-gold" style="border-color:var(--sa-white);">Try the safety demo</a><a href="#contact" class="btn btn-outline-white">Help shape the design</a></div>
+    </div>
+  </section>
+
+  <!-- ─── PRODUCTS ─── -->
+  <section id="products">
+    <div class="container">
+      <div class="section-label"><span>Our Product Family</span><div class="line"></div></div>
+      <h2>Three ways to <span class="highlight-green">make it yours</span></h2>
+      <p class="section-desc">Choose a style that suits your day: around your neck, on your wrist or clipped to what you wear. These are early designs, not products for sale yet. The final size, features and price may change.</p>
+      <div class="product-grid">
+        <article class="product-card">
+          <span class="card-badge green">Pendant · early design</span>
+          <figure class="product-visual"><img src="images/safety/pendant-product.png" alt="Charcoal Mzansi Connect Pendant product design" loading="lazy" decoding="async" width="1254" height="1254"><figcaption>Design image only. Final fit and features may change.</figcaption></figure>
+          <h3>Mzansi Connect Pendant</h3><p>A pendant design to keep close at hand, with a button you could find by touch.</p>
+          <div class="benefits"><strong>What we’re exploring</strong><ul><li>A comfortable way to wear it</li><li>A button that is easy to find</li><li>Simple, protected charging</li></ul></div>
+        </article>
+        <article class="product-card">
+          <span class="card-badge gold">Wristband · early design</span>
+          <figure class="product-visual"><img src="images/safety/wristband-product.png" alt="Charcoal Mzansi Connect Wristband product design" loading="lazy" decoding="async" width="1254" height="1254"><figcaption>Design image only. Final fit and features may change.</figcaption></figure>
+          <h3>Mzansi Connect Wristband</h3><p>A wrist-worn design that aims to put a clear, simple SOS control within reach.</p>
+          <div class="benefits"><strong>What we’re exploring</strong><ul><li>A fit for different wrist sizes</li><li>Clear signs when you press</li><li>Comfort throughout the day</li></ul></div>
+        </article>
+        <article class="product-card">
+          <span class="card-badge green">Clip · early design</span>
+          <figure class="product-visual"><img src="images/safety/clip-product.png" alt="Charcoal Mzansi Connect Clip product design" loading="lazy" decoding="async" width="1254" height="1254"><figcaption>Design image only. Final fit and features may change.</figcaption></figure>
+          <h3>Mzansi Connect Clip</h3><p>A small clip design for suitable clothes, a bag or a belt, with its button close at hand.</p>
+          <div class="benefits"><strong>What we’re exploring</strong><ul><li>A clip that stays in place</li><li>A button you can reach while wearing it</li><li>Comfort in everyday use</li></ul></div>
+        </article>
+      </div>
+      <aside class="safety-origin" id="livestock"><h3>Where we started</h3><p>Mzansi Connect began with a tracker for livestock. That work helped us learn, but a device for an animal is not ready to be worn by a person. Our personal-safety designs need their own fit, comfort, privacy and safety tests.</p></aside>
+    </div>
+  </section>
+  <!-- ─── GROUNDBREAKING IDEAS / ROADMAP ─── -->
+  <section class="ground-section" id="ideas">
+    <div class="container"><div class="section-label"><span>What’s Next</span><div class="line" style="background:var(--sa-white);"></div></div>
+      <h2>Build with care. <span style="color:var(--sa-gold);">Prove each step.</span></h2>
+      <p class="section-desc">We still have ideas for useful technology across our communities. First, we want to understand what women need and test the basics of these three designs.</p>
+      <div class="idea-grid">
+        <article class="idea-card"><span class="idea-icon" aria-hidden="true">01</span><h3>Listen to women</h3><div class="tags"><span>Comfort</span><span>Easy to use</span><span>Thoughtful research</span></div><p>Invite women to share what feels comfortable, what is easy to use and who they would want to contact. Taking part will always be their choice.</p></article>
+        <article class="idea-card"><span class="idea-icon" aria-hidden="true">02</span><h3>Test the essentials</h3><div class="tags"><span>Power</span><span>Location</span><span>Mobile signal</span></div><p>Test charging, battery life, location accuracy and what happens when signal is lost. Share the results before promising how the products will perform.</p></article>
+        <article class="idea-card"><span class="idea-icon" aria-hidden="true">03</span><h3>Support local skills</h3><div class="tags"><span>Repairs</span><span>Training</span><span>Fair costs</span></div><p>Explore local repair and support jobs, including opportunities for women starting out in technology. This support network is still an idea.</p></article>
+        <article class="idea-card"><span class="idea-icon" aria-hidden="true">04</span><h3>Ideas for our communities</h3><div class="tags"><span>Community internet</span><span>Connected spaces</span><span>Smart devices</span></div><p>Our earlier ideas include community internet, connected schools and shared spaces for small businesses. Each needs careful planning and testing before it becomes a service.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── ECOSYSTEM ─── -->
+  <section id="ecosystem">
+    <div class="container"><div class="section-label"><span>Our Apps</span><div class="line"></div></div>
+      <h2>You choose <span class="highlight-green">who stays connected</span></h2>
+      <p class="section-desc">See how the app and your chosen people could work together. These pages are demos with made-up information, not services that respond to emergencies.</p>
+      <div class="eco-grid">
+        <article class="eco-card"><img src="images/Logo.png" alt="" class="eco-logo" loading="lazy" width="1536" height="1024"><h3>Mzansi Connect App</h3><p>See your devices, choose who you share with and follow what happens to an alert. Try it with made-up details.</p><div class="proto-actions" style="justify-content:center;"><a href="Product/Mzansi Connect App/web/" class="btn btn-gold">Try the app demo</a></div></article>
+        <article class="eco-card"><img src="images/Logo.png" alt="" class="eco-logo" loading="lazy" width="1536" height="1024"><h3>Mzansi Cloud</h3><p>An early look at tools for checking whether a device needs attention. Support teams should not be able to track anyone freely.</p><div class="proto-actions" style="justify-content:center;"><a href="Product/Mzansi Cloud/web/" class="btn btn-gold">See support tools</a></div></article>
+        <article class="eco-card"><img src="images/Logo.png" alt="" class="eco-logo" loading="lazy" width="1536" height="1024"><h3>Personal Safety Tracker</h3><p>Try creating an account, inviting someone you trust and sharing a practice alert. No real alert messages are sent.</p><div class="proto-actions" style="justify-content:center;"><a href="Product/Livestock tracker/web/?theme=purple" class="btn btn-gold">Try the safety demo</a></div></article>
+        <article class="eco-card"><img src="images/Logo.png" alt="" class="eco-logo" loading="lazy" width="1536" height="1024"><h3>Mzansi Marketplace</h3><p>Our idea for connecting people with local product help and repair skills. The demo does not offer emergency responders or real bookings.</p><div class="proto-actions" style="justify-content:center;"><a href="Product/Mzansi Marketplace/web/" class="btn btn-gold">See the support idea</a></div></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── IMPACT ─── -->
+  <section class="impact-strip">
+    <div class="container">
+      <div class="section-label">
+        <span style="color:var(--sa-white);">What We Hope to Build</span>
+        <div class="line" style="background:var(--sa-white);"></div>
+      </div>
+      <h2>Building a <span style="color:var(--sa-gold);">Digital Economy</span></h2>
+      <p class="section-desc" style="color:rgba(255,255,255,0.8);">
+        We hope to grow useful skills and local work as the products develop. These are goals for the future, not jobs we have already created.
+      </p>
+      <div class="impact-grid">
+        <div class="impact-item">
+          <div class="impact-num">01</div>
+          <p>Help Women Build Tech Skills</p>
+        </div>
+        <div class="impact-item">
+          <div class="impact-num">02</div>
+          <p>Explore Local Support Jobs</p>
+        </div>
+        <div class="impact-item">
+          <div class="impact-num">03</div>
+          <p>Make More Products Locally</p>
+        </div>
+        <div class="impact-item">
+          <div class="impact-num">04</div>
+          <p>Make Technology Easier to Access</p>
+        </div>
+        <div class="impact-item">
+          <div class="impact-num">05</div>
+          <p>Grow South African Tech Skills</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── VISION ─── -->
+  <section class="vision-section" id="vision">
+    <div class="container"><div class="section-label"><span>Long-Term Vision</span><div class="line" style="background:var(--sa-white);"></div></div>
+      <h2>Useful technology. <span style="color:var(--sa-gold);">More choice.</span></h2>
+      <p class="section-desc">We want to build useful South African technology with the people who will use it. Women’s safety, privacy and freedom to choose come first.</p>
+      <div class="vision-block"><p><strong style="color:var(--sa-gold);">“Technology built by Africans for Africans.”</strong><br><br>We want products that are easy to understand, easier to look after and built around your choices. A personal-safety device can be one part of a plan for getting help. It cannot prevent every crime, promise rescue or replace emergency services.</p></div>
+      <div class="vision-grid"><div class="vision-item">Your choice</div><div class="vision-item">You control sharing</div><div class="vision-item">Easy to use</div><div class="vision-item">Local skills</div></div>
+    </div>
+  </section>
+
+  <!-- ─── CTA / CONTACT ─── -->
+  <section class="cta-section" id="contact">
+    <div class="container"><h2>Help shape <span class="highlight-green">what comes next</span></h2>
+      <p>What would make these designs useful for you? Try the demo and think about the fit, the button and the people you would choose to contact.</p>
+      <p class="privacy-note"><strong>Demo form only.</strong> Nothing entered here is sent or saved. This is not a place to ask for emergency help. Please leave out private details.</p>
+      <form id="contactForm" class="contact-form">
+        <div class="form-row"><label>Your name<input type="text" name="name" autocomplete="name" placeholder="Your name" required maxlength="100"></label><label>Email address<input type="email" name="email" autocomplete="email" placeholder="Your email" required maxlength="254"></label></div>
+        <label>Group or company (optional)<input type="text" name="company" placeholder="Group or company" maxlength="200"></label>
+        <label>Your thoughts on the design<textarea name="message" placeholder="Tell us what you think about the design. Please leave out private details." required maxlength="2000" rows="4"></textarea></label>
+        <div class="form-actions"><button type="submit" class="btn btn-cta-black">Try the demo form</button><a href="Product/Livestock tracker/web/?theme=purple" class="btn btn-cta-outline">Try the demo</a></div>
+        <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─── -->
+  <footer>
+    <div class="container">
+      <div>
+        <div class="footer-logo-wrap" style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+          <img src="images/Logo.png" alt="Mzansi Connect" style="width:52px;height:52px;object-fit:contain;flex-shrink:0;" loading="lazy" decoding="async" width="1536" height="1024">
+          <div>
+            <div class="footer-brand">Mzansi Connect</div>
+            <div class="footer-subsidiary">A Skyline IT &amp; Cloud Company</div>
+          </div>
+        </div>
+        <p style="max-width:320px;">
+          Personal safety, on your terms. Three wearable ideas for women’s everyday lives, with people you choose and sharing you control.
+        </p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <a href="#products">Our products</a>
+        <a href="#ideas">What’s next</a>
+        <a href="#ecosystem">Our apps</a>
+        <a href="#vision">Vision</a>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <a href="mailto:projectpstg@gmail.com">projectpstg@gmail.com</a>
+        <a href="https://skylineit.site" target="_blank">Skyline IT &amp; Cloud</a>
+        <p>Durban, South Africa</p>
+      </div>
+      <div>
+        <h4>Stay in the Loop</h4><p>Try the sign-up design. This demo will not add you to a mailing list.</p>
+        <form id="subscribeForm" style="display:flex;gap:8px;flex-wrap:wrap;">
+          <input type="email" name="email" aria-label="Email for the demo sign-up" placeholder="Your email" required style="flex:1;min-width:160px;padding:10px 14px;border:2px solid rgba(255,255,255,0.3);background:transparent;color:var(--sa-white);font-family:'Space Grotesk',sans-serif;font-size:0.85rem;">
+          <button type="submit" style="padding:10px 18px;border:2px solid var(--sa-gold);background:var(--sa-gold);color:var(--black);font-family:'Archivo Black',sans-serif;font-size:0.7rem;text-transform:uppercase;cursor:pointer;">Try the sign-up</button>
+        </form>
+        <p id="subscribeStatus" role="status" aria-live="polite" style="font-size:0.75rem;margin-top:8px;"></p>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Mzansi Connect. A division of Skyline IT &amp; Cloud.</p>
+        <p>Motto: <em>"Connecting Every South African to the Future."</em></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ─── MOBILE MENU ─── -->
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+
+    hamburger.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('open');
+      hamburger.setAttribute('aria-expanded', String(open));
+    });
+
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // Local preview: no request, email launch, storage or claim of delivery.
+    document.getElementById('contactForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const status = document.getElementById('formStatus');
+      status.className = 'form-status';
+      status.textContent = 'Demo complete. Nothing was sent or saved. You can review or clear your text.';
+    });
+    document.getElementById('subscribeForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const status = document.getElementById('subscribeStatus');
+      status.style.color = 'var(--sa-gold)';
+      status.textContent = 'Demo only. You have not joined a mailing list. No email was sent or saved.';
+    });
+  </script>
+
+  <script src="purple.js" defer></script>
+
+  <script>
+    (() => {
+      const quantity = document.getElementById('shop-quantity');
+      quantity.addEventListener('change', () => {
+        const count = Number(quantity.value);
+        const service = 50 + (count - 1) * 25;
+        const currency = value => 'R' + value.toLocaleString('en-ZA');
+        document.getElementById('shop-initial').textContent = currency(count * 300 + service);
+        document.getElementById('shop-ongoing').textContent = currency(service);
+        document.getElementById('shop-breakdown').textContent = 'For ' + count + ' device' + (count > 1 ? 's' : '') + ': ' + currency(count * 300) + ' device payments + ' + currency(service) + ' service = ' + currency(count * 300 + service) + ' per month for 6 months.';
+      });
+      document.querySelectorAll('.shop-enquire').forEach(link => link.addEventListener('click', () => {
+        const count = Number(quantity.value);
+        const service = 50 + (count - 1) * 25;
+        const subject = 'Mzansi Connect ' + link.dataset.design + ' enquiry';
+        const body = 'Hello Mzansi Connect,\n\nI am interested in the ' + link.dataset.design + ' concept for ' + count + ' device' + (count > 1 ? 's' : '') + '.\n\nThe website estimate is R' + (count * 300 + service) + ' per month for 6 months, then R' + service + ' per month for service. This includes R300 per device per month for the first 6 months.\n\nPlease confirm availability, delivery and final service terms before any order.\n\nThank you.';
+        link.href = 'mailto:projectpstg@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+      }));
+    })();
+  </script>
+
+</body>
+</html>

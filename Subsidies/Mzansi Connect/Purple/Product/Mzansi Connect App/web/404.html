@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>404 - Signal Lost | Mzansi Connect</title>
+<meta name="description" content="This Mzansi Connect page could not be found. Reconnect to your smart devices and dashboard.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --sa-green:#007A4B;--sa-gold:#FFB612;--sa-red:#DE3831;--sa-blue:#002395;
+  --black:#0A0A0A;--dark:#141414;--panel:#1B1B1B;--line:#2E2E2E;
+  --text:#ECECEC;--muted:#9A9A9A;
+}
+html,body{height:100%}
+body{
+  font-family:'Space Grotesk',system-ui,sans-serif;background:var(--black);color:var(--text);
+  display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px;text-align:center;
+}
+body::before{content:'';position:fixed;left:0;right:0;top:0;height:3px;z-index:5;
+  background:linear-gradient(90deg,var(--sa-green) 0 25%,var(--sa-gold) 25% 50%,var(--sa-red) 50% 75%,var(--sa-blue) 75% 100%);}
+.wrap{max-width:600px}
+.chip{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:8px 18px;font-size:0.78rem;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:26px}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--sa-red);box-shadow:0 0 12px rgba(222,56,49,0.7);animation:pulse 1.6s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.35}}
+.code{
+  font-weight:900;font-size:clamp(4.5rem,16vw,8rem);line-height:1;letter-spacing:-0.04em;
+  background:linear-gradient(135deg,var(--sa-green),var(--sa-gold));
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+}
+h1{font-size:1.35rem;font-weight:700;margin:18px 0 10px}
+.desc{color:var(--muted);font-size:0.95rem;line-height:1.75;margin-bottom:36px}
+.desc code{color:var(--sa-gold);background:var(--panel);border:1px solid var(--line);padding:2px 8px;border-radius:6px;font-size:0.82rem;word-break:break-all}
+.actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:38px}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;text-decoration:none;cursor:pointer;border:none;
+  font-family:inherit;font-size:0.9rem;font-weight:600;padding:13px 28px;border-radius:10px;
+  transition:all 0.2s;
+}
+.btn-primary{background:var(--sa-green);color:#fff;box-shadow:0 6px 20px rgba(0,122,75,0.35)}
+.btn-primary:hover{background:#00955c;transform:translateY(-2px)}
+.btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--line)}
+.btn-ghost:hover{color:var(--text);border-color:var(--sa-gold);transform:translateY(-2px)}
+.quicklinks{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:26px}
+.quicklinks a{color:var(--muted);text-decoration:none;font-size:0.8rem;letter-spacing:0.6px;text-transform:uppercase;transition:color 0.2s}
+.quicklinks a:hover{color:var(--sa-gold)}
+@media(max-width:480px){.actions{flex-direction:column;align-items:stretch}.btn{justify-content:center}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="chip"><span class="dot"></span> Connection status: offline</div>
+  <div class="code">404</div>
+  <h1>Signal lost.</h1>
+  <p class="desc">The device at <code id="badPath">this address</code> is not responding on the network.<br>Your smart devices are fine - this route just doesn't exist.</p>
+  <div class="actions">
+    <a class="btn btn-primary" href="index.html">Reconnect</a>
+    <button class="btn btn-ghost" onclick="goBack()">&larr; Go Back</button>
+  </div>
+  <nav class="quicklinks" aria-label="Popular pages">
+    <a href="../../../../../index.html">Skyline IT Group</a>
+    <a href="mailto:projectpstg@gmail.com">Support</a>
+  </nav>
+</div>
+<script>
+  const pathEl = document.getElementById('badPath');
+  try { if (window.location.pathname) pathEl.textContent = window.location.pathname; } catch (e) {}
+  function goBack() {
+    if (window.history.length > 1) { window.history.back(); setTimeout(() => { window.location.href = 'index.html'; }, 1200); }
+    else { window.location.href = 'index.html'; }
+  }
+</script>
+</body>
+</html>

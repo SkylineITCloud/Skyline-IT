@@ -1,0 +1,16 @@
+'use strict';
+const assert = require('node:assert/strict');
+const {locationLabel,listFrom} = require('../../web/app.js');
+const now=Date.parse('2026-10-24T10:00:00Z');
+const base={captured_at:'2026-10-24T10:00:00Z',location:{latitude:-29.86,longitude:31.02,accuracy_m:20,source:'GNSS'}};
+assert.match(locationLabel({location:null},now),/No location sent/);
+assert.match(locationLabel(base,now),/recent/);
+assert.match(locationLabel({...base,captured_at:'2026-10-24T09:55:00Z'},now),/older reading/);
+assert.match(locationLabel({...base,captured_at:'2026-10-24T09:00:00Z'},now),/old reading/);
+assert.match(locationLabel({...base,captured_at:'2026-10-24T10:10:00Z'},now),/device time may be wrong/);
+assert.match(locationLabel({...base,captured_at:null},now),/time not known/);
+assert.match(locationLabel({...base,location:{...base.location,latitude:0,longitude:0}},now),/0\.00000, 0\.00000/);
+assert.match(locationLabel({...base,location:{latitude:NaN,longitude:31.02}},now),/not valid/);
+assert.deepEqual(listFrom({events:[1,2]},'events'),[1,2]);
+assert.deepEqual(listFrom({events:null},'events'),[]);
+console.log('10 adapted-dashboard freshness/envelope assertions passed');
