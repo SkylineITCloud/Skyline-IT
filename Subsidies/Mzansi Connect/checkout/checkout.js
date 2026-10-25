@@ -1,0 +1,4 @@
+"use strict";
+const quantity=document.getElementById('quantity'),design=document.getElementById('design');
+function update(){const count=Number(quantity.value),service=50+25*(count-1);document.getElementById('price').textContent='R'+(count*350+service)+' per month for the first six months, then R'+service+' per month for service. Total device instalments: R'+(count*2100)+'.';document.getElementById('enquiry').href='mailto:projectpstg@gmail.com?subject='+encodeURIComponent('Mzansi Connect '+design.value+' pre-order enquiry')+'&body='+encodeURIComponent('I am interested in '+count+' '+design.value+' pre-order device(s). Please confirm delivery, shipping, refund terms and the USD PayPal amount before payment.');}
+quantity.addEventListener('change',update);design.addEventListener('change',update);update();
