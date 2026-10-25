@@ -52,3 +52,18 @@ body[data-theme="purple"] :is(.preview-button,.download-btn,.refresh-btn,.apply-
 body[data-theme="purple"] :is(button,a){transition:background .2s,box-shadow .2s,border-color .2s}
 body[data-theme="purple"] :is(button,a):focus-visible{outline:3px solid #e1bbff;outline-offset:4px}
 @media(prefers-reduced-motion:reduce){body[data-theme="purple"] :is(button,a){transition:none}}
+
+body .safety-hero,body .demo-intro{position:relative;isolation:isolate;overflow:hidden;border-radius:24px;border:1px solid var(--line);padding:clamp(22px,4vw,46px);background:radial-gradient(ellipse at 100% 0,var(--glow),transparent 70%),var(--dark);box-shadow:0 18px 60px #0002}
+body[data-theme="purple"] :is(.safety-hero,.demo-intro){background:radial-gradient(ellipse at 90% 10%,#a152d849,transparent 65%),linear-gradient(130deg,#321a45,#160e23);border-color:#9363b4}
+body :is(.safety-hero h2,.demo-intro h1){letter-spacing:-.045em;line-height:1.08}
+body[data-theme="purple"] :is(.safety-hero h2,.demo-intro h1){color:#eed9ff;text-shadow:0 4px 35px #b66ee12b}
+body :is(.safety-hero figure,.demo-seal){border-radius:20px;overflow:hidden;box-shadow:0 15px 40px #0003}
+body :is(.stat-card,.chart-card,.demo-device,.card){transition:transform .22s,border-color .22s,box-shadow .22s}
+body[data-theme="purple"] :is(.chart-card,.demo-device){background:linear-gradient(145deg,#30203f,#1a1126);border:1px solid #704b8b;border-radius:18px}
+body[data-theme="purple"] .stat-card{border-top:3px solid #cd9bff}
+body[data-theme="purple"] .demo-device[aria-pressed="true"]{border-color:#dbb6ff;box-shadow:0 0 0 2px #bd86ec55,0 15px 40px #8d3dbc22}
+body[data-theme="purple"] .device-art{background:radial-gradient(ellipse,#efe2fc,#d5bbe9);border-radius:14px}
+body[data-theme="purple"] .tabs button[aria-selected="true"],body[data-theme="purple"] .tab-bar button.active{background:#39234d;color:#f4e6ff;border-radius:10px 10px 0 0}
+@media(hover:hover) and (prefers-reduced-motion:no-preference){body :is(.stat-card,.chart-card,.demo-device):hover{transform:translateY(-4px);box-shadow:0 18px 40px #0003}body :is(.preview-button,.download-btn,.refresh-btn,.apply-btn):hover{transform:translateY(-2px);box-shadow:0 8px 25px var(--glow)}}
+@media(prefers-reduced-motion:no-preference){body .safety-hero,body .demo-intro{animation:app-arrive .6s ease-out both}@keyframes app-arrive{from{opacity:.5;transform:translateY(10px)}to{opacity:1;transform:none}}}
+@media(max-width:600px){body .safety-hero,body .demo-intro{border-radius:18px;padding:22px}body .safety-hero h2{font-size:2rem}}
