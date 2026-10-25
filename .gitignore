@@ -34,3 +34,5 @@ agent-records/
 **/web/config.js
 **/web/config.example.js
 **/.ctx/
+
+_pages/

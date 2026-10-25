@@ -33,17 +33,13 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup Pages
         uses: actions/configure-pages@v5
-      - name: Prune server/runtime/secret files from the artifact
-        run: |
-          rm -rf server data .ctx .gitignore
-          find . -type d -name node_modules -prune -exec rm -rf {} +
-          find . -type f -name '.env*' -delete
-          find . -type d -name .git -prune -exec rm -rf {} +
+      - name: Package public website assets
+        run: python3 .github/scripts/package_pages.py
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload the site (excludes server code, runtime data and secrets)
-          path: '.'
+          path: '_pages'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
