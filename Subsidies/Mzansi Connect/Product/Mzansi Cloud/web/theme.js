@@ -7,6 +7,7 @@
   function applyTheme(value) {
     const theme = value === 'purple' ? 'purple' : 'original';
     document.body.dataset.theme = theme;
+    document.title = (theme === 'purple' ? 'Purple · ' : '') + document.title.replace(/^Purple · /, '');
     buttons.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.appearance === theme)));
     document.getElementById('companionThemeStatus').textContent = theme === 'purple' ? 'Purple appearance selected' : 'Mzansi appearance selected';
     links.forEach(link => {
