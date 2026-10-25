@@ -4,7 +4,7 @@
 
 ## Purpose
 
-This completed internal specification identifies the requirements for customer terms covering Pendant, Wristband and Clip pre-orders. Confirm the legal seller, dispatch dates, shipping charges and USD schedule before issuing a customer agreement. Statutory rights prevail. This specification does not activate payments.
+This completed internal specification identifies the requirements for customer terms covering Pendant, Wristband and Clip pre-orders. Confirm the legal seller, dispatch dates, shipping charges and rand billing schedule before issuing a customer agreement. Statutory rights prevail. This specification does not activate payments.
 
 ## Seller and preorder details
 
@@ -16,9 +16,9 @@ A pre-order is not ready for immediate dispatch. Each confirmation must specify 
 
 Device instalments are R350 per device per month for six months, totalling R2100 per device. Service is R50 per month for the first device plus R25 for each additional device on the same account. One device totals R400 per month for six months, then R50. Two total R775, then R75. Shipping and taxes must be disclosed before approval.
 
-## PayPal in USD
+## Payfast in rand
 
-Before consent, show the rand reference price, USD per rand rate, source and timestamp, rounding, each USD charge and billing dates. Explain any bank or PayPal conversion charges separately. Do not use a sandbox example rate for live billing. The live conversion policy remains to be approved.
+Before consent, show the exact ZAR amount, device and service components, first debit date, six-month device instalment duration, service renewal and cancellation terms. Payfast is selected. No foreign-exchange conversion is required for this rand checkout.
 
 ## Automatic monthly billing
 
@@ -46,11 +46,11 @@ Customers should contact support with their order reference and problem descript
 
 ## Refund handling
 
-Use the original payment channel where possible and record USD paid and refunded. Bank or PayPal conversion can change the rand amount credited. Do not promise an exchange-rate outcome outside seller control. Confirm refund initiation and processing expectations while preserving mandatory deadlines.
+Use the original payment channel where possible and record rand amounts paid and refunded. Confirm refund initiation and provider processing expectations while preserving mandatory deadlines.
 
 ## Complete before publication
 
-Confirm legal seller/address; dispatch window; shipping rates; return address; first charge and activation dates; cancellation obligations; device ownership; USD conversion policy; tax treatment; support availability and tested claims. Obtain South African review of the instalment and subscription arrangement before issuing final contracts.
+Confirm legal seller/address; dispatch window; shipping rates; return address; first charge and activation dates; cancellation obligations; device ownership; rand recurring billing schedule; tax treatment; support availability and tested claims. Obtain South African review of the instalment and subscription arrangement before issuing final contracts.
 
 ## Legal references
 
