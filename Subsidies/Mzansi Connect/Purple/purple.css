@@ -1,4 +1,4 @@
-/* Purple — a separate Mzansi Connect design direction. Local preview only. */
+/* Purple - a separate Mzansi Connect design direction. Local preview only. */
 body:not([data-theme="original"]) {
   color-scheme:dark;
   --purple-black:#09080c; --purple-surface:#15101c; --purple-soft:#201629;
