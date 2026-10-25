@@ -14,7 +14,7 @@
       const target = link.dataset.themeLink;
       const themeHome = new URL(baseHome);
       if (theme === 'purple') themeHome.pathname = themeHome.pathname.replace(/index\.html$/, 'Purple/index.html');
-      const url = target === 'home' ? themeHome : new URL('Product/' + target + '/web/' + (link.dataset.themeFile || 'index.html'), themeHome);
+      const url = target === 'checkout' ? new URL('checkout/index.html', baseHome) : target === 'home' ? themeHome : new URL('Product/' + target + '/web/' + (link.dataset.themeFile || 'index.html'), themeHome);
       url.searchParams.set('theme', theme);
       link.href = url.href;
     });

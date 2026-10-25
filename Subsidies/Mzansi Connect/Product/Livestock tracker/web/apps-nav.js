@@ -7,7 +7,7 @@
   const home = new URL(base);
   if (theme === 'purple') home.pathname = home.pathname.replace(/index\.html$/, 'Purple/index.html');
   document.querySelectorAll('.companion-nav a').forEach(link => {
-   const target = link.dataset.app === 'home' ? new URL(home) : new URL('Product/' + link.dataset.app + '/web/' + (link.dataset.file || 'index.html'), home);
+   const target = link.dataset.app === 'checkout' ? new URL('checkout/index.html', base) : link.dataset.app === 'home' ? new URL(home) : new URL('Product/' + link.dataset.app + '/web/' + (link.dataset.file || 'index.html'), home);
    target.searchParams.set('theme', theme);
    link.href = target.href;
    if (target.pathname.replace('/Purple/', '/') === location.pathname.replace('/Purple/', '/')) link.setAttribute('aria-current', 'page');
