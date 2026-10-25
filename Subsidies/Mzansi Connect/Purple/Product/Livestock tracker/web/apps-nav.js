@@ -6,11 +6,11 @@
   const theme = document.body.dataset.theme === 'purple' ? 'purple' : 'original';
   const home = new URL(base);
   if (theme === 'purple') home.pathname = home.pathname.replace(/index\.html$/, 'Purple/index.html');
-  document.querySelectorAll('.mzansi-app-nav a').forEach(link => {
+  document.querySelectorAll('.companion-nav a').forEach(link => {
    const target = link.dataset.app === 'home' ? new URL(home) : new URL('Product/' + link.dataset.app + '/web/' + (link.dataset.file || 'index.html'), home);
    target.searchParams.set('theme', theme);
    link.href = target.href;
-   if (target.pathname === location.pathname) link.setAttribute('aria-current', 'page');
+   if (target.pathname.replace('/Purple/', '/') === location.pathname.replace('/Purple/', '/')) link.setAttribute('aria-current', 'page');
    else link.removeAttribute('aria-current');
   });
  }
