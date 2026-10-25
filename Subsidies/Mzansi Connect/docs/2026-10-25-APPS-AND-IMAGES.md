@@ -1,0 +1,9 @@
+# Mzansi apps and visual consistency — 25 October 2026
+
+The three existing Our Product Family photos define the intended prototype appearance. Their bytes are unchanged. Five conflicting hero/showcase assets were remade from those references in Original/Purple, plus an annotated campaign revision with clearer wristband, slogan, tracker phrase and company logo. AI-generated scenes remain concept imagery; no size, charging or performance claim follows from them.
+
+Safety Demo buttons now open Product/Livestock tracker/web/demo.html. This interactive fictional app needs no account, API, location or storage. It supports device selection, contact acceptance, practice alert creation, scoped simulated sharing, seen state, closure and reset. Switching Mzansi/Purple appearance preserves in-page practice state. Refresh resets it. The separate local authenticated app remains at index.html, with its existing protections.
+
+Companion App, Cloud and Marketplace retain their practice controls and now share Mzansi/Purple controls, selected-theme navigation and the same canonical product assets. Marketplace remains a support concept, not a real booking service. No real alerts, tracking, notifications or emergency response were added. Supabase and PayPal integration status is unchanged by this visual/demo work.
+
+Validation: actual browser journey from Purple landing button to demo; wristband selection, alert creation, sharing, simulated seen, and theme switch preserving state. Companion emergency walkthrough, Cloud sharing-check explanation and Support service action tested in browser. Agents tested demo source with network/storage/geolocation stubs that throw, plus six companion routes under nested GitHub prefixes. Final links/assets, syntax and mirror hash checks performed. Local restricted-preview suite: five tests passed. No production service claim.
