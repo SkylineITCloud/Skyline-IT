@@ -347,3 +347,20 @@ body:not([data-theme="original"]) .shop-calculator{background:#1b1127;border-col
 body:not([data-theme="original"]) .shop-calculator select{background:#100a18;color:#f5eaff;border-color:#8e69a7}
 body:not([data-theme="original"]) .purple-story{border-color:#593871}
 body:not([data-theme="original"]) .purple-story h3{color:#e4c9ff}
+
+body:not([data-theme="original"]) .hero{position:relative;isolation:isolate;background:radial-gradient(ellipse at 0% 20%,#783bb05c,transparent 55%),radial-gradient(ellipse at 95% 65%,#b04ee52b,transparent 55%),#10091d}
+body:not([data-theme="original"]) .hero::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(circle at 72% 30%,#c692ff24 0,transparent 38%);animation:purple-dawn 9s ease-in-out 2 alternate}
+body:not([data-theme="original"]) .hero-badge{background:#39204e;border-color:#ac77df;color:#f0dcff;box-shadow:0 0 30px #b56aef24}
+body:not([data-theme="original"]) .hero h1 .highlight{background:linear-gradient(110deg,#f6eaff,#d29cff 45%,#a57aff);background-clip:text;-webkit-background-clip:text;color:transparent}
+body:not([data-theme="original"]) .safety-figure{border-color:#ae7de0;box-shadow:0 0 0 8px #be8cf30b,0 24px 90px #8a36cc42;transition:transform .4s,box-shadow .4s}
+body:not([data-theme="original"]) .safety-figure:hover{transform:translateY(-5px);box-shadow:0 0 0 8px #be8cf315,0 30px 100px #8a36cc55}
+body:not([data-theme="original"]) .btn-gold,body:not([data-theme="original"]) .nav-cta{background:linear-gradient(120deg,#e2c4ff,#be8af6)!important;color:#210e33!important;border-color:#ddb6ff!important;box-shadow:0 5px 22px #ac63e72b}
+body:not([data-theme="original"]) .shop-card,body:not([data-theme="original"]) .product-card,body:not([data-theme="original"]) .eco-card{background:linear-gradient(145deg,#30203e,#17101f 75%);border-color:#70508b;transition:transform .25s,border-color .25s,box-shadow .25s}
+body:not([data-theme="original"]) .shop-card:hover,body:not([data-theme="original"]) .product-card:hover,body:not([data-theme="original"]) .eco-card:hover{transform:translateY(-6px);border-color:#cb9afa;box-shadow:0 16px 45px #7f32b52b}
+body:not([data-theme="original"]) .purple-story{position:relative;overflow:hidden;background:radial-gradient(ellipse at 0 0,#7845a359,transparent 65%),#23142f;border:1px solid #a577c5;border-radius:24px;padding:32px;box-shadow:0 16px 50px #7e3db51c}
+body:not([data-theme="original"]) .purple-story h3{font-size:clamp(1.8rem,3vw,2.7rem);line-height:1.12;color:#f1ddff}
+body:not([data-theme="original"]) .purple-story a{color:#e2bcff;text-decoration-thickness:2px}
+body:not([data-theme="original"]) .purple-values{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 0}
+body:not([data-theme="original"]) .purple-values span{padding:6px 12px;border-radius:999px;background:#ffffff0c;border:1px solid #c08be752;color:#eddaff;font-size:.88rem}
+@keyframes purple-dawn{from{opacity:.4;transform:translateY(0)}to{opacity:1;transform:translateY(18px)}}
+@media(prefers-reduced-motion:reduce){body:not([data-theme="original"]) .hero::before{animation:none}body:not([data-theme="original"]) .safety-figure:hover,body:not([data-theme="original"]) .shop-card:hover,body:not([data-theme="original"]) .product-card:hover,body:not([data-theme="original"]) .eco-card:hover{transform:none}}
