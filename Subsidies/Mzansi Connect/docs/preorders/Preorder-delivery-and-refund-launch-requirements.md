@@ -1,10 +1,10 @@
-# Preorder delivery cancellation and refund terms
+# Preorder delivery and refund launch requirements
 
-25 October 2026  |  Founder review draft
+25 October 2026  |  Commercial launch requirements
 
-## Draft status
+## Purpose
 
-Customer-facing draft for Pendant, Wristband and Clip pre-orders. Complete the legal seller identity, dispatch dates, shipping charges and USD schedule before publishing. Statutory rights prevail over conflicting wording. This document does not activate payments.
+This completed internal specification identifies the requirements for customer terms covering Pendant, Wristband and Clip pre-orders. Confirm the legal seller, dispatch dates, shipping charges and USD schedule before issuing a customer agreement. Statutory rights prevail. This specification does not activate payments.
 
 ## Seller and preorder details
 

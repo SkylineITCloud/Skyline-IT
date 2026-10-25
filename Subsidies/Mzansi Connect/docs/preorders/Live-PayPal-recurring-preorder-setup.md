@@ -1,6 +1,6 @@
 # Live PayPal recurring preorder setup
 
-25 October 2026  |  Founder review draft
+25 October 2026  |  Operational reference
 
 ## Confirmed direction
 

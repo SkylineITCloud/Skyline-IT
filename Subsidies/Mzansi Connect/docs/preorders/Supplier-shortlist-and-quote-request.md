@@ -1,6 +1,6 @@
 # Delivery and fulfilment supplier shortlist
 
-25 October 2026  |  Founder review draft
+25 October 2026  |  Operational reference
 
 ## Recommended starting point
 
