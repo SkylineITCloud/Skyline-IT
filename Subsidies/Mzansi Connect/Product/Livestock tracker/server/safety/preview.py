@@ -11,6 +11,7 @@ from app import Service, ApiError, handler, require
 SITE = Path(__file__).resolve().parents[4]
 TRACKER = SITE / 'Product' / 'Livestock tracker'
 PUBLIC_ROUTES = {
+    '/checkout/': SITE / 'checkout',
     '/tracker/': TRACKER / 'web',
     '/livestock/': TRACKER / 'web',
     '/app/': SITE / 'Product' / 'Mzansi Connect App' / 'web',
